@@ -1,3 +1,4 @@
+
 from aws_cdk import (
     core as cdk,
     aws_lambda as _lambda,
@@ -15,8 +16,10 @@ from aws_cdk import (
   #  aws_lambda_event_sources as lambda_events_,
     
 )
-
+#import boto3
 from resources import constants as constants
+from resources import s3bucket_url 
+#from resources import s3bucket_url.URLS as s3urls 
 
 class TalhaProjectStack(cdk.Stack):
 
@@ -45,57 +48,32 @@ class TalhaProjectStack(cdk.Stack):
         ###defining SNS service    
         topic = sns.Topic(self, "TalhaSkipQWebHealthTopic")
         #sns subscription with email
-    #    topic.add_subscription( subscriptions_.EmailSubscription('talha.naeem.s@skipq.org'))
+        topic.add_subscription( subscriptions_.EmailSubscription('talha.naeem.s@skipq.org'))
         #topic = sns.Topic(self, "TalhaSkipQdynamodbTopic") # NO NEED TO define another TOPIC within one stack
         #topic.add_subscription(subscriptions_.LambdaSubscription(fn=))
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
-     
-        dimension=    {   'URL':  constants.URL_TO_MONITOR}
-    #create cloudwatch metric for availability 
-        availability_metric=cloudwatch_.Metric( namespace= constants.URL_MONITOR_NAMESPACE,metric_name=constants.URL_MONITOR_NAME1A,
-            dimensions_map=dimension, period=cdk.Duration.minutes(1), label='Avaiability_metric')
-    #setting an alarm for availability
-        availability_alarm= cloudwatch_.Alarm(self,
-            id='Availability_alarm', metric=availability_metric,
-            comparison_operator= cloudwatch_.ComparisonOperator.LESS_THAN_THRESHOLD, 
-            datapoints_to_alarm=1,
-            evaluation_periods=1, 
-            threshold= 1#constants.THRESHOLD_AVAIL
-            )
-    #create a metric class for latency
-        latency_metric=cloudwatch_.Metric(namespace= constants.URL_MONITOR_NAMESPACE, metric_name=constants.URL_MONITOR_NAME1L, 
-            dimensions_map=dimension, period=cdk.Duration.minutes(1),label='Latency_metric')
-    #create an alarm for latency
-        latency_alarm= cloudwatch_.Alarm(self,
-            id='Latency_alarm', metric=latency_metric,
-            comparison_operator= cloudwatch_.ComparisonOperator.GREATER_THAN_THRESHOLD,
-            datapoints_to_alarm=1,
-            evaluation_periods=1,  
-            threshold=0.49 #constants.THRESHOLD_LATENCY
-            )
-    #link sns and sns subscription to alarm
-        availability_alarm.add_alarm_action(actions_.SnsAction(topic))
-        latency_alarm.add_alarm_action(actions_.SnsAction(topic))
-    #creating s3bucket 
-        bucket_talha= s3_.Bucket(self, "talha_first_bucket")
+        listofurls=s3bucket_url.read_url_list()
+        self.create_alarm(topic,listofurls)
+        
+#net jump
+    #uncomment for creating s3bucket 
+        #bucket_talha= s3_.Bucket(self, "talha_first_bucket")
     #create a queue that will get bucket events
-        queue = sqs_.Queue(self, 'QueueForTalha_bucket',
-        visibility_timeout=cdk.Duration.seconds(300) ) 
+       # queue = sqs_.Queue(self, 'QueueForTalha_bucket',
+      #  visibility_timeout=cdk.Duration.seconds(300) ) 
         # Now, create an event on bucket that will work with sqs queue
-        bucket_talha.add_event_notification( s3_.EventType.OBJECT_CREATED, s3n_.SqsDestination(queue) )
+     #   bucket_talha.add_event_notification( s3_.EventType.OBJECT_CREATED, s3n_.SqsDestination(queue) )
         #event permission
 #        event_put_policy = aws_iam.PolicyStatement(
  #           effect= aws_iam.Effect.ALLOW, resources=['*'], actions=['events:PutEvents'])
   #      task_definition.add_to_task_role_policy(event_put_policy)
             # S3 Object (bucket_name and key are identifiers)
         #GET s3://talhaprojectstack-talhafirstbucket65240409-xd9dx9unwvol/urls_list.txt
-        '''s3 = boto3.client('s3')
-        result = s3.list_objects(Bucket = "talha_first_bucket", Prefix='/something/')
-        for o in result.get('Contents'):
-            data = s3.get_object(Bucket="talha_first_bucket", Key=o.get('Key'))
-            contents = data['Body'].read()
-            print(contents.decode("utf-8"))'''
+    #    urldata= s3url.read_url_list()
+        
+        
+
 ##Define Event for dynamoDB to be called, and the event is when the alarm is up
         #db_lambda_schedule= events_.Schedule.rate(cdk.Duration.minutes(1))
     #Setting target to our New WH lambda for the event##
@@ -131,7 +109,7 @@ class TalhaProjectStack(cdk.Stack):
         code=_lambda.Code.from_asset(asset),
         handler=handler,
         runtime=_lambda.Runtime.PYTHON_3_6,
-        role=role
+        role=role,timeout= cdk.Duration.minutes(5)
         )
         # example resource
         # queue = sqs.Queue(
@@ -141,4 +119,33 @@ class TalhaProjectStack(cdk.Stack):
     def create_table( self):
         return db_.Table(self,id="Table", table_name="TalhaAlarmTable",partition_key=db_.Attribute(name="id", type=db_.AttributeType.STRING), 
             sort_key=db_.Attribute(name="createdDate", type=db_.AttributeType.STRING))
+    def create_alarm(self, topic, URLLS):
+        for web in URLLS:
+            dimension= {'URL':  web}
+    #create cloudwatch metric for availability 
+            availability_metric=(cloudwatch_.Metric( namespace=constants.URL_MONITOR_NAMESPACE,metric_name=web+constants.URL_MONITOR_NAME1A,
+            dimensions_map=dimension, period=cdk.Duration.minutes(1), label=web+'Avaiability_metric'))
+    #setting an alarm for availability
+            availability_alarm=( cloudwatch_.Alarm(self,
+                id=web+'Availability_alarm', metric=availability_metric,
+                comparison_operator= cloudwatch_.ComparisonOperator.LESS_THAN_THRESHOLD, 
+                datapoints_to_alarm=1,
+                evaluation_periods=1, 
+                threshold= constants.THRESHOLD_AVAIL
+                ))
+    #create a metric class for latency
+            latency_metric=(cloudwatch_.Metric(namespace= constants.URL_MONITOR_NAMESPACE, metric_name=web+constants.URL_MONITOR_NAME1L, 
+                dimensions_map=dimension, period=cdk.Duration.minutes(1),label=web+'Latency_metric'))
+    #create an alarm for latency
+            latency_alarm=(cloudwatch_.Alarm(self,
+                id=web+'Latency_alarm', metric=latency_metric,
+                comparison_operator= cloudwatch_.ComparisonOperator.GREATER_THAN_THRESHOLD,
+                datapoints_to_alarm=1,
+                evaluation_periods=1,  
+                threshold=constants.THRESHOLD_LATENCY
+                ))
+    #link sns and sns subscription to alarm
+            availability_alarm.add_alarm_action(actions_.SnsAction(topic))
+            latency_alarm.add_alarm_action(actions_.SnsAction(topic))
+            
         
