@@ -5,7 +5,7 @@
 
 In the sprint1 at skipq, we designed a web health monitoring system, that will periodically monitor the web health metrics like latency and availability and
 then raise an alarm when the metrics breach the specified threshold. The rasied alarms will be stored in a dynamodb  table.
-
+After achieving this milestone, we extended the monitoring system's scope by reading a file having URLS from an S3 bucket and then run our project on the number of urls found in that file. So all the web health metrics will be published for all of the URLs and also it will raise the respective alarms for each URL whenever the metrics breach the minimum threshold.
 ## Services Covered
 
 1. AWS Dynamodb
@@ -25,6 +25,10 @@ Follow these easy steps to set up the environment ro run the project:
 3. make sure that there are 7 python files in resources folder nd  python files in project subfolder
 3. In the project directory, perform cdk synth and then cdk deploy
 3. Make sure that there are 7 python files in resources folder nd  python files in project subfolder.
+
+##Project Status
+
+By this update, the project is fully completed now. 
 
 ## Author
 
