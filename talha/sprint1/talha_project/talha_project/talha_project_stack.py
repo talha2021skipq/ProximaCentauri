@@ -10,8 +10,7 @@ from aws_cdk import (
     aws_sns_subscriptions as subscriptions_,
     aws_cloudwatch_actions as actions_,
     aws_s3 as s3_, 
-    aws_sqs as sqs_,
-    aws_s3_notifications as s3n_,
+    
     aws_dynamodb as db_,
   #  aws_lambda_event_sources as lambda_events_,
     
