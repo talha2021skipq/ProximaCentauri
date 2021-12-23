@@ -1,0 +1,34 @@
+{
+  "version": "15.0.0",
+  "files": {
+    "99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723": {
+      "source": {
+        "path": "../asset.99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "315997497220-us-east-2": {
+          "bucketName": "cdk-hnb659fds-assets-315997497220-us-east-2",
+          "objectKey": "99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723.zip",
+          "region": "us-east-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-hnb659fds-file-publishing-role-315997497220-us-east-2"
+        }
+      }
+    },
+    "ccc112fa0433e81dbfb90e88a6fcc523e01464932418829d4bac321861a91b89": {
+      "source": {
+        "path": "TalhaPipelineStackBetainfraStack007D50E2.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "315997497220-us-east-2": {
+          "bucketName": "cdk-hnb659fds-assets-315997497220-us-east-2",
+          "objectKey": "ccc112fa0433e81dbfb90e88a6fcc523e01464932418829d4bac321861a91b89.json",
+          "region": "us-east-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-hnb659fds-file-publishing-role-315997497220-us-east-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

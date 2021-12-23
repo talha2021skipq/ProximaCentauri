@@ -1,0 +1,20 @@
+{
+  "version": "15.0.0",
+  "files": {
+    "1a5d52ea7b6aa0904fcbe04bfbe5b0f4afe20a348a49843619bb9b7d53f23f77": {
+      "source": {
+        "path": "TalhaPipelineStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "315997497220-us-east-2": {
+          "bucketName": "cdk-hnb659fds-assets-315997497220-us-east-2",
+          "objectKey": "1a5d52ea7b6aa0904fcbe04bfbe5b0f4afe20a348a49843619bb9b7d53f23f77.json",
+          "region": "us-east-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-hnb659fds-file-publishing-role-315997497220-us-east-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

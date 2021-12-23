@@ -257,7 +257,7 @@
                                   "ProjectName": {
                                     "Ref": "PipelineBuildsynthCdkBuildProject9DD10C14"
                                   },
-                                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"1317f04a1b12f180f6294fbf7ef72ffda74cb2bea70e5afa16a81c75e61c1bdf\"}]"
+                                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"a435b801970057f8e9d02f05155a7001f2d60a161a6913659e2c300b09eebbeb\"}]"
                                 },
                                 "runOrder": 1,
                                 "roleArn": {
@@ -540,7 +540,7 @@
                                     },
                                     "source": {
                                       "type": "CODEPIPELINE",
-                                      "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"build\": {\n      \"commands\": [\n        \"cd talha/sprint2/talha_project\",\n        \"pip install -r requirements.txt\",\n        \"npm install -g aws-cdk\",\n        \"cdk synth\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"talha/sprint2/talha_project/cdk.out\",\n    \"files\": \"**/*\"\n  }\n}"
+                                      "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"build\": {\n      \"commands\": [\n        \"cd talha/sprint1/talha_project\",\n        \"pip3 install -r requirements.txt\",\n        \"npm install -g aws-cdk\",\n        \"cdk synth\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"talha/sprint1/talha_project/cdk.out\",\n    \"files\": \"**/*\"\n  }\n}"
                                     },
                                     "encryptionKey": "alias/aws/s3"
                                   }

@@ -1,0 +1,634 @@
+{
+  "Resources": {
+    "lambdaroleDFE21467": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/CloudWatchFullAccess"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/lambda-role/Resource"
+      }
+    },
+    "lambdaroleDefaultPolicyB1623966": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "TableCD117FA1",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Ref": "AWS::NoValue"
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "lambdaroleDefaultPolicyB1623966",
+        "Roles": [
+          {
+            "Ref": "lambdaroleDFE21467"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/lambda-role/DefaultPolicy/Resource"
+      }
+    },
+    "FirstHWlambda2FCC4B7D": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-315997497220-us-east-2",
+          "S3Key": "99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "lambdaroleDFE21467",
+            "Arn"
+          ]
+        },
+        "Handler": "webHealth_talha_lambda.lambda_handler",
+        "Runtime": "python3.6",
+        "Timeout": 300
+      },
+      "DependsOn": [
+        "lambdaroleDefaultPolicyB1623966",
+        "lambdaroleDFE21467"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/FirstHWlambda/Resource",
+        "aws:asset:path": "../asset.99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723",
+        "aws:asset:is-bundled": false,
+        "aws:asset:property": "Code"
+      }
+    },
+    "neTwlambdaB003825D": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-315997497220-us-east-2",
+          "S3Key": "99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "lambdaroleDFE21467",
+            "Arn"
+          ]
+        },
+        "Handler": "talha_dynamoDb_lambda.lambda_handler",
+        "Runtime": "python3.6",
+        "Timeout": 300
+      },
+      "DependsOn": [
+        "lambdaroleDefaultPolicyB1623966",
+        "lambdaroleDFE21467"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/Resource",
+        "aws:asset:path": "../asset.99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723",
+        "aws:asset:is-bundled": false,
+        "aws:asset:property": "Code"
+      }
+    },
+    "neTwlambdaAllowInvokeTalhaPipelineStackBetainfraStackTalhaSkipQWebHealthTopicA3A2B5123796ED3A": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "neTwlambdaB003825D",
+            "Arn"
+          ]
+        },
+        "Principal": "sns.amazonaws.com",
+        "SourceArn": {
+          "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/AllowInvoke:TalhaPipelineStackBetainfraStackTalhaSkipQWebHealthTopicA3A2B512"
+      }
+    },
+    "neTwlambdaTalhaSkipQWebHealthTopicD2B73E13": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "lambda",
+        "TopicArn": {
+          "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
+        },
+        "Endpoint": {
+          "Fn::GetAtt": [
+            "neTwlambdaB003825D",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/TalhaSkipQWebHealthTopic/Resource"
+      }
+    },
+    "WebHealthInvokation871F98AF": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "Periodic Lambda",
+        "ScheduleExpression": "rate(1 minute)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "FirstHWlambda2FCC4B7D",
+                "Arn"
+              ]
+            },
+            "Id": "Target0"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/WebHealth_Invokation/Resource"
+      }
+    },
+    "WebHealthInvokationAllowEventRuleTalhaPipelineStackBetainfraStackFirstHWlambdaB456A244CF984EA7": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "FirstHWlambda2FCC4B7D",
+            "Arn"
+          ]
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "WebHealthInvokation871F98AF",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/WebHealth_Invokation/AllowEventRuleTalhaPipelineStackBetainfraStackFirstHWlambdaB456A244"
+      }
+    },
+    "TableCD117FA1": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "createdDate",
+            "KeyType": "RANGE"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "createdDate",
+            "AttributeType": "S"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "TableName": "TalhaAlarmTable"
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/Table/Resource"
+      }
+    },
+    "TalhaSkipQWebHealthTopic9A32A90C": {
+      "Type": "AWS::SNS::Topic",
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/TalhaSkipQWebHealthTopic/Resource"
+      }
+    },
+    "TalhaSkipQWebHealthTopictalhanaeemsskipqorg66889F3B": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
+        },
+        "Endpoint": "talha.naeem.s@skipq.org"
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/TalhaSkipQWebHealthTopic/talha.naeem.s@skipq.org/Resource"
+      }
+    },
+    "wwwskipqorgAvailabilityalarm58FC6DF3": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
+          }
+        ],
+        "DatapointsToAlarm": 1,
+        "Metrics": [
+          {
+            "Id": "m1",
+            "Label": "www.skipq.orgAvaiability_metric",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "URL",
+                    "Value": "www.skipq.org"
+                  }
+                ],
+                "MetricName": "www.skipq.orgulr_availability",
+                "Namespace": "NEWTALHA_WH"
+              },
+              "Period": 60,
+              "Stat": "Average"
+            },
+            "ReturnData": true
+          }
+        ],
+        "Threshold": 1
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/www.skipq.orgAvailability_alarm/Resource"
+      }
+    },
+    "wwwskipqorgLatencyalarm1DB038B2": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
+          }
+        ],
+        "DatapointsToAlarm": 1,
+        "Metrics": [
+          {
+            "Id": "m1",
+            "Label": "www.skipq.orgLatency_metric",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "URL",
+                    "Value": "www.skipq.org"
+                  }
+                ],
+                "MetricName": "www.skipq.orgulr_latency",
+                "Namespace": "NEWTALHA_WH"
+              },
+              "Period": 60,
+              "Stat": "Average"
+            },
+            "ReturnData": true
+          }
+        ],
+        "Threshold": 0.25
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/www.skipq.orgLatency_alarm/Resource"
+      }
+    },
+    "httpswwwdawncomAvailabilityalarmF5B16D8C": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
+          }
+        ],
+        "DatapointsToAlarm": 1,
+        "Metrics": [
+          {
+            "Id": "m1",
+            "Label": "https://www.dawn.com/Avaiability_metric",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "URL",
+                    "Value": "https://www.dawn.com/"
+                  }
+                ],
+                "MetricName": "https://www.dawn.com/ulr_availability",
+                "Namespace": "NEWTALHA_WH"
+              },
+              "Period": 60,
+              "Stat": "Average"
+            },
+            "ReturnData": true
+          }
+        ],
+        "Threshold": 1
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/https:----www.dawn.com--Availability_alarm/Resource"
+      }
+    },
+    "httpswwwdawncomLatencyalarm7FC08942": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
+          }
+        ],
+        "DatapointsToAlarm": 1,
+        "Metrics": [
+          {
+            "Id": "m1",
+            "Label": "https://www.dawn.com/Latency_metric",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "URL",
+                    "Value": "https://www.dawn.com/"
+                  }
+                ],
+                "MetricName": "https://www.dawn.com/ulr_latency",
+                "Namespace": "NEWTALHA_WH"
+              },
+              "Period": 60,
+              "Stat": "Average"
+            },
+            "ReturnData": true
+          }
+        ],
+        "Threshold": 0.25
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/https:----www.dawn.com--Latency_alarm/Resource"
+      }
+    },
+    "wwwamazoncomAvailabilityalarmD25FD583": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
+          }
+        ],
+        "DatapointsToAlarm": 1,
+        "Metrics": [
+          {
+            "Id": "m1",
+            "Label": "www.amazon.comAvaiability_metric",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "URL",
+                    "Value": "www.amazon.com"
+                  }
+                ],
+                "MetricName": "www.amazon.comulr_availability",
+                "Namespace": "NEWTALHA_WH"
+              },
+              "Period": 60,
+              "Stat": "Average"
+            },
+            "ReturnData": true
+          }
+        ],
+        "Threshold": 1
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/www.amazon.comAvailability_alarm/Resource"
+      }
+    },
+    "wwwamazoncomLatencyalarm4CA389EE": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
+          }
+        ],
+        "DatapointsToAlarm": 1,
+        "Metrics": [
+          {
+            "Id": "m1",
+            "Label": "www.amazon.comLatency_metric",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "URL",
+                    "Value": "www.amazon.com"
+                  }
+                ],
+                "MetricName": "www.amazon.comulr_latency",
+                "Namespace": "NEWTALHA_WH"
+              },
+              "Period": 60,
+              "Stat": "Average"
+            },
+            "ReturnData": true
+          }
+        ],
+        "Threshold": 0.25
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/www.amazon.comLatency_alarm/Resource"
+      }
+    },
+    "httpswwwyoutubecomAvailabilityalarm8AC080D9": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "LessThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
+          }
+        ],
+        "DatapointsToAlarm": 1,
+        "Metrics": [
+          {
+            "Id": "m1",
+            "Label": "https://www.youtube.com/Avaiability_metric",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "URL",
+                    "Value": "https://www.youtube.com/"
+                  }
+                ],
+                "MetricName": "https://www.youtube.com/ulr_availability",
+                "Namespace": "NEWTALHA_WH"
+              },
+              "Period": 60,
+              "Stat": "Average"
+            },
+            "ReturnData": true
+          }
+        ],
+        "Threshold": 1
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/https:----www.youtube.com--Availability_alarm/Resource"
+      }
+    },
+    "httpswwwyoutubecomLatencyalarm2CF95B9A": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 1,
+        "AlarmActions": [
+          {
+            "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
+          }
+        ],
+        "DatapointsToAlarm": 1,
+        "Metrics": [
+          {
+            "Id": "m1",
+            "Label": "https://www.youtube.com/Latency_metric",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "URL",
+                    "Value": "https://www.youtube.com/"
+                  }
+                ],
+                "MetricName": "https://www.youtube.com/ulr_latency",
+                "Namespace": "NEWTALHA_WH"
+              },
+              "Period": 60,
+              "Stat": "Average"
+            },
+            "ReturnData": true
+          }
+        ],
+        "Threshold": 0.25
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/https:----www.youtube.com--Latency_alarm/Resource"
+      }
+    },
+    "CDKMetadata": {
+      "Type": "AWS::CDK::Metadata",
+      "Properties": {
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WOwWrDMBBEvyX39abBtNBbk0DPxs0PrNdqosaSglZqMEL/XsluoD3Nmx12mB3u2md82rzRXRoer9vEzitMH4H4CnsRFQqetT3D0VkJPnKAXomLnhUcP+2DM9SGpMlg6t20ZlU7N2meq10pw0RmGAnTe7QctLM1+8ud8kaLFJdB2obqCMFlS/F4iHxV4UCiQKyUqXEQ9vr2eP/nT+6muV4XyKC+lS1lqY+/E4tmGGdLxo0DphMNa7BABp5cHO8U+IJpP5E3NVsg5wzdHC7Oblt8wdfNl2jd+GiDNgr7VX8AUv5iqF8BAAA="
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/CDKMetadata/Default"
+      }
+    }
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+    }
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                  ],
+                  {
+                    "Ref": "BootstrapVersion"
+                  }
+                ]
+              }
+            ]
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+        }
+      ]
+    }
+  }
+}

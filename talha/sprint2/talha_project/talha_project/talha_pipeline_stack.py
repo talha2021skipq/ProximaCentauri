@@ -15,7 +15,7 @@ class TalhaPipelineStack(cdk.Stack):
         synth = pipelines.ShellStep("synth", 
             input=source,
             commands=["cd talha/sprint2/talha_project",
-                    "pip install -r requirements.txt", 
+                    "pip3 install -r requirements.txt", 
                     "npm install -g aws-cdk", "cdk synth"
                     #,"npm ci", "npm run build", "npx cdk synth"
                    ],
