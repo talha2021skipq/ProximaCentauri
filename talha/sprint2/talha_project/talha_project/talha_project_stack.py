@@ -10,8 +10,6 @@ from aws_cdk import (
     aws_sns_subscriptions as subscriptions_,
     aws_cloudwatch_actions as actions_,
     aws_s3 as s3_, 
-
-    
     aws_dynamodb as db_,
   #  aws_lambda_event_sources as lambda_events_,
     
@@ -60,17 +58,10 @@ class TalhaProjectStack(cdk.Stack):
     #uncomment for creating s3bucket 
         #bucket_talha= s3_.Bucket(self, "talha_first_bucket")
     #create a queue that will get bucket events
-#<<<<<<< HEAD
-        #queue = sqs_.Queue(self, 'QueueForTalha_bucket',
-    #    visibility_timeout=cdk.Duration.seconds(300) ) 
-        # Now, create an event on bucket that will work with sqs queue
-#        bucket_talha.add_event_notification( s3_.EventType.OBJECT_CREATED, s3n_.SqsDestination(queue) )
-##=======
        # queue = sqs_.Queue(self, 'QueueForTalha_bucket',
       #  visibility_timeout=cdk.Duration.seconds(300) ) 
         # Now, create an event on bucket that will work with sqs queue
      #   bucket_talha.add_event_notification( s3_.EventType.OBJECT_CREATED, s3n_.SqsDestination(queue) )
-#>>>>>>> a7d2f51142108841a1ffaf439e3d5307fffedb4a
         #event permission
 #        event_put_policy = aws_iam.PolicyStatement(
  #           effect= aws_iam.Effect.ALLOW, resources=['*'], actions=['events:PutEvents'])

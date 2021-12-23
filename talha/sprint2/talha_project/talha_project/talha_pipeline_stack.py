@@ -14,12 +14,12 @@ class TalhaPipelineStack(cdk.Stack):
         
         synth = pipelines.ShellStep("synth", 
             input=source,
-            commands=["cd talha/sprint1/talha_project",
+            commands=["cd talha/sprint2/talha_project",
                     "pip install -r requirements.txt", 
                     "npm install -g aws-cdk", "cdk synth"
                     #,"npm ci", "npm run build", "npx cdk synth"
                    ],
-            primary_output_directory="talha/sprint1/talha_project/cdk.out")
+            primary_output_directory="talha/sprint2/talha_project/cdk.out")
     #creating a pipeline for Codes, mainly to deploy CDK apps
         pipeline=pipelines.CodePipeline(self, "Pipeline", pipeline_name="Talhas_pipeline", synth=synth)
         beta= TalhaInfraStage(self, "Beta", 
