@@ -15,7 +15,7 @@ class TalhaPipelineStack(cdk.Stack):
         synth = pipelines.ShellStep("synth", 
             input=source,
             commands=["cd talha/sprint2/talha_project",
-                    "pip3 install -r requirements.txt", 
+                    "pip install -r requirements.txt", 
                     "npm install -g aws-cdk", "cdk synth"
                     #,"npm ci", "npm run build", "npx cdk synth"
                    ],
@@ -30,7 +30,7 @@ class TalhaPipelineStack(cdk.Stack):
             'region': 'us-east-2'} )
         unit_test=pipelines.ShellStep('unit_test',
         commands=[ "cd talha/sprint2/talha_project",
-                    "pip3 install -r requirements.txt", 
+                    "pip install -r requirements.txt", 
                     "pytest unittests",  "pytest integtests"]
         )
        # pipeline.add_stage(beta)#,pre=[unit_test])
