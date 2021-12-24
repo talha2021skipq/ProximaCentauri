@@ -7,7 +7,7 @@ def test_lambda():
     stack=TalhaProjectStack(app, 'infStack')
     #template = assertions.Template.from_stack(stack)
     template=app.synth().get_stack_by_name('infStack').template
-    functions= [resource for resource in template['Resources'].values() if resource['Type']=='AWS::Lambda::Role']
-    assert len(functions==2)
+    functions= [resource for resource in template['Resources'].values() if resource['Type']=='AWS::Lambda::Function']
+    assert len(functions)==2
 
     
