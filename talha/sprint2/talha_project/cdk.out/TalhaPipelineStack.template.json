@@ -177,6 +177,16 @@
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineBetaunittestCodePipelineActionRole49C177FA",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
                 "Fn::Join": [
                   "",
                   [
@@ -344,6 +354,32 @@
             "Actions": [
               {
                 "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineBetaunittestA4B9ADF1"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "talha2021skipq_ProximaCentauri_Source"
+                  }
+                ],
+                "Name": "unit_test",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineBetaunittestCodePipelineActionRole49C177FA",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
                   "Category": "Deploy",
                   "Owner": "AWS",
                   "Provider": "CloudFormation",
@@ -373,34 +409,7 @@
                     "Name": "synth_Output"
                   }
                 ],
-                "Name": "Prepare",
-                "RoleArn": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
-                    ]
-                  ]
-                },
-                "RunOrder": 1
-              },
-              {
-                "ActionTypeId": {
-                  "Category": "Deploy",
-                  "Owner": "AWS",
-                  "Provider": "CloudFormation",
-                  "Version": "1"
-                },
-                "Configuration": {
-                  "StackName": "Beta-infraStack",
-                  "ActionMode": "CHANGE_SET_EXECUTE",
-                  "ChangeSetName": "PipelineChange"
-                },
-                "Name": "Deploy",
+                "Name": "infraStack.Prepare",
                 "RoleArn": {
                   "Fn::Join": [
                     "",
@@ -414,6 +423,33 @@
                   ]
                 },
                 "RunOrder": 2
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "CloudFormation",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "StackName": "Beta-infraStack",
+                  "ActionMode": "CHANGE_SET_EXECUTE",
+                  "ChangeSetName": "PipelineChange"
+                },
+                "Name": "infraStack.Deploy",
+                "RoleArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
+                    ]
+                  ]
+                },
+                "RunOrder": 3
               }
             ],
             "Name": "Beta"
@@ -795,6 +831,235 @@
         "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
+    "PipelineBetaunittestRoleC797D05D": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/unit_test/Role/Resource"
+      }
+    },
+    "PipelineBetaunittestRoleDefaultPolicyB28BCE5B": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelineBetaunittestA4B9ADF1"
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
+                      {
+                        "Ref": "PipelineBetaunittestA4B9ADF1"
+                      },
+                      ":*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codebuild:us-east-2:315997497220:report-group/",
+                    {
+                      "Ref": "PipelineBetaunittestA4B9ADF1"
+                    },
+                    "-*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineBetaunittestRoleDefaultPolicyB28BCE5B",
+        "Roles": [
+          {
+            "Ref": "PipelineBetaunittestRoleC797D05D"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/unit_test/Role/DefaultPolicy/Resource"
+      }
+    },
+    "PipelineBetaunittestA4B9ADF1": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "CODEPIPELINE"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "PipelineBetaunittestRoleC797D05D",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"build\": {\n      \"commands\": [\n        \"cd talha/sprint2/talha_project\",\n        \"pip install -r requirements.txt\",\n        \"pytest unittests\",\n        \"pytest integtests\"\n      ]\n    }\n  }\n}",
+          "Type": "CODEPIPELINE"
+        },
+        "EncryptionKey": "alias/aws/s3"
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/unit_test/Resource"
+      }
+    },
+    "PipelineBetaunittestCodePipelineActionRole49C177FA": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelineBetaunittestCodePipelineActionRoleDefaultPolicyF4FCF802": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineBetaunittestA4B9ADF1",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelineBetaunittestCodePipelineActionRoleDefaultPolicyF4FCF802",
+        "Roles": [
+          {
+            "Ref": "PipelineBetaunittestCodePipelineActionRole49C177FA"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
     "PipelineUpdatePipelineSelfMutationRole57E559E8": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -1145,7 +1410,7 @@
           ]
         },
         "Source": {
-          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-TalhaPipelineStack-Beta/TalhaPipelineStackBetainfraStack007D50E2.assets.json\\\" --verbose publish \\\"e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115:315997497220-us-east-2\\\"\"\n      ]\n    }\n  }\n}",
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-TalhaPipelineStack-Beta/TalhaPipelineStackBetainfraStack007D50E2.assets.json\\\" --verbose publish \\\"8687bb7c323755a003b8498ee80fb76a2458844ec3c528a8c5e4771688866615:315997497220-us-east-2\\\"\"\n      ]\n    }\n  }\n}",
           "Type": "CODEPIPELINE"
         },
         "EncryptionKey": "alias/aws/s3"
