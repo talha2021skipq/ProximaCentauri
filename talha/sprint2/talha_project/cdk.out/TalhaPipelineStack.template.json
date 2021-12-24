@@ -108,7 +108,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "PipelinebetaPrepareCodePipelineActionRoleD79740EA",
+                  "PipelineBetaPrepareCodePipelineActionRoleB746DA86",
                   "Arn"
                 ]
               }
@@ -118,7 +118,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "PipelinebetaDeployCodePipelineActionRoleA93EE42E",
+                  "PipelineBetaDeployCodePipelineActionRole2B286DC9",
                   "Arn"
                 ]
               }
@@ -253,17 +253,17 @@
                   "Version": "1"
                 },
                 "Configuration": {
-                  "StackName": "beta-infraStack",
+                  "StackName": "Beta-infraStack",
                   "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
                   "RoleArn": {
                     "Fn::GetAtt": [
-                      "PipelinebetaPrepareRole8F6ADD1F",
+                      "PipelineBetaPrepareRoleD66446CC",
                       "Arn"
                     ]
                   },
                   "ActionMode": "CHANGE_SET_REPLACE",
                   "ChangeSetName": "PipelineChange",
-                  "TemplatePath": "synth_Output::assembly-TalhaPipelineStack-beta/beta-infraStack.template.json"
+                  "TemplatePath": "synth_Output::assembly-TalhaPipelineStack-Beta/Beta-infraStack.template.json"
                 },
                 "InputArtifacts": [
                   {
@@ -273,7 +273,7 @@
                 "Name": "Prepare",
                 "RoleArn": {
                   "Fn::GetAtt": [
-                    "PipelinebetaPrepareCodePipelineActionRoleD79740EA",
+                    "PipelineBetaPrepareCodePipelineActionRoleB746DA86",
                     "Arn"
                   ]
                 },
@@ -287,21 +287,21 @@
                   "Version": "1"
                 },
                 "Configuration": {
-                  "StackName": "beta-infraStack",
+                  "StackName": "Beta-infraStack",
                   "ActionMode": "CHANGE_SET_EXECUTE",
                   "ChangeSetName": "PipelineChange"
                 },
                 "Name": "Deploy",
                 "RoleArn": {
                   "Fn::GetAtt": [
-                    "PipelinebetaDeployCodePipelineActionRoleA93EE42E",
+                    "PipelineBetaDeployCodePipelineActionRole2B286DC9",
                     "Arn"
                   ]
                 },
                 "RunOrder": 2
               }
             ],
-            "Name": "beta"
+            "Name": "Beta"
           }
         ],
         "ArtifactStore": {
@@ -310,7 +310,6 @@
           },
           "Type": "S3"
         },
-        "Name": "Talhas_pipeline",
         "RestartExecutionOnUpdate": true
       },
       "DependsOn": [
@@ -617,7 +616,7 @@
         "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
-    "PipelinebetaPrepareCodePipelineActionRoleD79740EA": {
+    "PipelineBetaPrepareCodePipelineActionRoleB746DA86": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -645,10 +644,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Prepare/CodePipelineActionRole/Resource"
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/CodePipelineActionRole/Resource"
       }
     },
-    "PipelinebetaPrepareCodePipelineActionRoleDefaultPolicy54587BC5": {
+    "PipelineBetaPrepareCodePipelineActionRoleDefaultPolicy30879019": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -658,7 +657,7 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
-                  "PipelinebetaPrepareRole8F6ADD1F",
+                  "PipelineBetaPrepareRoleD66446CC",
                   "Arn"
                 ]
               }
@@ -714,7 +713,7 @@
                     {
                       "Ref": "AWS::Partition"
                     },
-                    ":cloudformation:us-east-2:315997497220:stack/beta-infraStack/*"
+                    ":cloudformation:us-east-2:315997497220:stack/Beta-infraStack/*"
                   ]
                 ]
               }
@@ -722,18 +721,18 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "PipelinebetaPrepareCodePipelineActionRoleDefaultPolicy54587BC5",
+        "PolicyName": "PipelineBetaPrepareCodePipelineActionRoleDefaultPolicy30879019",
         "Roles": [
           {
-            "Ref": "PipelinebetaPrepareCodePipelineActionRoleD79740EA"
+            "Ref": "PipelineBetaPrepareCodePipelineActionRoleB746DA86"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Prepare/CodePipelineActionRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
-    "PipelinebetaPrepareRole8F6ADD1F": {
+    "PipelineBetaPrepareRoleD66446CC": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -750,10 +749,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Prepare/Role/Resource"
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/Role/Resource"
       }
     },
-    "PipelinebetaPrepareRoleDefaultPolicy13F40650": {
+    "PipelineBetaPrepareRoleDefaultPolicy74006BE8": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -796,18 +795,18 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "PipelinebetaPrepareRoleDefaultPolicy13F40650",
+        "PolicyName": "PipelineBetaPrepareRoleDefaultPolicy74006BE8",
         "Roles": [
           {
-            "Ref": "PipelinebetaPrepareRole8F6ADD1F"
+            "Ref": "PipelineBetaPrepareRoleD66446CC"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Prepare/Role/DefaultPolicy/Resource"
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/Role/DefaultPolicy/Resource"
       }
     },
-    "PipelinebetaDeployCodePipelineActionRoleA93EE42E": {
+    "PipelineBetaDeployCodePipelineActionRole2B286DC9": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -835,10 +834,10 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Deploy/CodePipelineActionRole/Resource"
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Deploy/CodePipelineActionRole/Resource"
       }
     },
-    "PipelinebetaDeployCodePipelineActionRoleDefaultPolicyAA802312": {
+    "PipelineBetaDeployCodePipelineActionRoleDefaultPolicy540F1C35": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "PolicyDocument": {
@@ -863,7 +862,7 @@
                     {
                       "Ref": "AWS::Partition"
                     },
-                    ":cloudformation:us-east-2:315997497220:stack/beta-infraStack/*"
+                    ":cloudformation:us-east-2:315997497220:stack/Beta-infraStack/*"
                   ]
                 ]
               }
@@ -871,15 +870,15 @@
           ],
           "Version": "2012-10-17"
         },
-        "PolicyName": "PipelinebetaDeployCodePipelineActionRoleDefaultPolicyAA802312",
+        "PolicyName": "PipelineBetaDeployCodePipelineActionRoleDefaultPolicy540F1C35",
         "Roles": [
           {
-            "Ref": "PipelinebetaDeployCodePipelineActionRoleA93EE42E"
+            "Ref": "PipelineBetaDeployCodePipelineActionRole2B286DC9"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Deploy/CodePipelineActionRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Deploy/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
     "PipelineUpdatePipelineSelfMutationRole57E559E8": {
@@ -1065,8 +1064,7 @@
           "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g aws-cdk\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk -a . deploy TalhaPipelineStack --require-approval=never --verbose\"\n      ]\n    }\n  }\n}",
           "Type": "CODEPIPELINE"
         },
-        "EncryptionKey": "alias/aws/s3",
-        "Name": "Talhas_pipeline-selfupdate"
+        "EncryptionKey": "alias/aws/s3"
       },
       "Metadata": {
         "aws:cdk:path": "TalhaPipelineStack/Pipeline/UpdatePipeline/SelfMutation/Resource"
