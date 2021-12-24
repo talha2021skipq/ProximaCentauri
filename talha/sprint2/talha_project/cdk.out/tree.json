@@ -1855,6 +1855,67 @@
                           "fqn": "@aws-cdk/aws-iam.CfnRole",
                           "version": "1.135.0"
                         }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "TalhaPipelineStack/Beta/infraStack/lambda-role-db/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "TalhaPipelineStack/Beta/infraStack/lambda-role-db/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "dynamodb:BatchGetItem",
+                                        "dynamodb:GetRecords",
+                                        "dynamodb:GetShardIterator",
+                                        "dynamodb:Query",
+                                        "dynamodb:GetItem",
+                                        "dynamodb:Scan",
+                                        "dynamodb:ConditionCheckItem",
+                                        "dynamodb:BatchWriteItem",
+                                        "dynamodb:PutItem",
+                                        "dynamodb:UpdateItem",
+                                        "dynamodb:DeleteItem"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "TableCD117FA1",
+                                            "Arn"
+                                          ]
+                                        },
+                                        {
+                                          "Ref": "AWS::NoValue"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "lambdaroledbDefaultPolicyAF35499B",
+                                "roles": [
+                                  {
+                                    "Ref": "lambdaroledb8F96FA37"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                              "version": "1.135.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Policy",
+                          "version": "1.135.0"
+                        }
                       }
                     },
                     "constructInfo": {
@@ -2052,6 +2113,62 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-events.Rule",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "Table": {
+                    "id": "Table",
+                    "path": "TalhaPipelineStack/Beta/infraStack/Table",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TalhaPipelineStack/Beta/infraStack/Table/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                          "aws:cdk:cloudformation:props": {
+                            "keySchema": [
+                              {
+                                "attributeName": "id",
+                                "keyType": "HASH"
+                              },
+                              {
+                                "attributeName": "createdDate",
+                                "keyType": "RANGE"
+                              }
+                            ],
+                            "attributeDefinitions": [
+                              {
+                                "attributeName": "id",
+                                "attributeType": "S"
+                              },
+                              {
+                                "attributeName": "createdDate",
+                                "attributeType": "S"
+                              }
+                            ],
+                            "provisionedThroughput": {
+                              "readCapacityUnits": 5,
+                              "writeCapacityUnits": 5
+                            },
+                            "tableName": "TalhaAlarmTable"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-dynamodb.CfnTable",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "ScalingRole": {
+                        "id": "ScalingRole",
+                        "path": "TalhaPipelineStack/Beta/infraStack/Table/ScalingRole",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Resource",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-dynamodb.Table",
                       "version": "1.135.0"
                     }
                   },

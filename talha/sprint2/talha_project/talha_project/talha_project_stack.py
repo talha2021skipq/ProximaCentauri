@@ -40,11 +40,11 @@ class TalhaProjectStack(cdk.Stack):
             schedule= lambda_schedule,
             targets=[lambda_target])
         #create table in dynamo db
-        try:
-            dynamo_table= self.create_table()
-        except: pass
+        #try:
+         #   dynamo_table= self.create_table()
+        #except: pass
         #give read write permissions to our lambda
-        dynamo_table.grant_read_write_data(Talha_db_lambda)
+        #dynamo_table.grant_read_write_data(Talha_db_lambda)
         ###defining SNS service    
         topic = sns.Topic(self, "TalhaSkipQWebHealthTopic")
         #sns subscription with email

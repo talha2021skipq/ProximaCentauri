@@ -131,6 +131,52 @@
         "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/lambda-role-db/Resource"
       }
     },
+    "lambdaroledbDefaultPolicyAF35499B": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "TableCD117FA1",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Ref": "AWS::NoValue"
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "lambdaroledbDefaultPolicyAF35499B",
+        "Roles": [
+          {
+            "Ref": "lambdaroledb8F96FA37"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/lambda-role-db/DefaultPolicy/Resource"
+      }
+    },
     "neTwlambdaB003825D": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -149,6 +195,7 @@
         "Timeout": 300
       },
       "DependsOn": [
+        "lambdaroledbDefaultPolicyAF35499B",
         "lambdaroledb8F96FA37"
       ],
       "Metadata": {
@@ -237,6 +284,41 @@
       },
       "Metadata": {
         "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/WebHealth_Invokation/AllowEventRuleTalhaPipelineStackBetainfraStackFirstHWlambdaB456A244"
+      }
+    },
+    "TableCD117FA1": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "createdDate",
+            "KeyType": "RANGE"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "createdDate",
+            "AttributeType": "S"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "TableName": "TalhaAlarmTable"
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/Table/Resource"
       }
     },
     "TalhaSkipQWebHealthTopic9A32A90C": {
@@ -565,7 +647,7 @@
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1VOQU4DMQx8S+9el2oFEjfaSpyrpR9IvaY1u0mqOKGqovydZAEJTjPj0Xhmg5v+ER9WL+amHY3TOpMPjPktGppgq8qx0rO4M+y90xgSRdi/u4HVp0BcoAWzGIt58DMvXsUCs7Gn0WB+TY6ieNecv/zAwYpqVQW070yrUlwaq8ZdoonjziiDOq2D0kkpyPU3/k8f/VWoXRdSgD/Z1Wd5SD+LUltEs0/jzUS6YN7OJthmLaSUAod7vHi37vEJn1cfKtKF5KJYxuEbvwB9UgMdKwEAAA=="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WOwWrDMBBEvyX39abBtNBbk0DPxs0PrNdqosaSglZqMEL/XsluoD3Nmx12mB3u2md82rzRXRoer9vEzitMH4H4CnsRFQqetT3D0VkJPnKAXomLnhUcP+2DM9SGpMlg6t20ZlU7N2meq10pw0RmGAnTe7QctLM1+8ud8kaLFJdB2obqCMFlS/F4iHxV4UCiQKyUqXEQ9vr2eP/nT+6muV4XyKC+lS1lqY+/E4tmGGdLxo0DphMNa7BABp5cHO8U+IJpP5E3NVsg5wzdHC7Oblt8wdfNl2jd+GiDNgr7VX8AUv5iqF8BAAA="
       },
       "Metadata": {
         "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/CDKMetadata/Default"
