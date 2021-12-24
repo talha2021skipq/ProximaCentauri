@@ -40,61 +40,23 @@ class TalhaProjectStack(cdk.Stack):
             schedule= lambda_schedule,
             targets=[lambda_target])
         #create table in dynamo db
-        try:
+'''        try:
             dynamo_table= self.create_table()
-        except: pass
+        except: pass'''
         #give read write permissions to our lambda
-        dynamo_table.grant_read_write_data(Talha_db_lambda)
+        #dynamo_table.grant_read_write_data(Talha_db_lambda)
         ###defining SNS service    
         topic = sns.Topic(self, "TalhaSkipQWebHealthTopic")
         #sns subscription with email
         topic.add_subscription( subscriptions_.EmailSubscription('talha.naeem.s@skipq.org'))
-        #topic = sns.Topic(self, "TalhaSkipQdynamodbTopic") # NO NEED TO define another TOPIC within one stack
-        #topic.add_subscription(subscriptions_.LambdaSubscription(fn=))
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
+#When alarm is published on sns topic, it will invoke the db_lmbda with the alarm message as payload
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
         self.create_alarm(topic,listofurls)
         
-#net jump
-    #uncomment for creating s3bucket 
-        #bucket_talha= s3_.Bucket(self, "talha_first_bucket")
-    #create a queue that will get bucket events
-       # queue = sqs_.Queue(self, 'QueueForTalha_bucket',
-      #  visibility_timeout=cdk.Duration.seconds(300) ) 
-        # Now, create an event on bucket that will work with sqs queue
-     #   bucket_talha.add_event_notification( s3_.EventType.OBJECT_CREATED, s3n_.SqsDestination(queue) )
-        #event permission
-#        event_put_policy = aws_iam.PolicyStatement(
- #           effect= aws_iam.Effect.ALLOW, resources=['*'], actions=['events:PutEvents'])
-  #      task_definition.add_to_task_role_policy(event_put_policy)
-            # S3 Object (bucket_name and key are identifiers)
-        #GET s3://talhaprojectstack-talhafirstbucket65240409-xd9dx9unwvol/urls_list.txt
-    #    urldata= s3url.read_url_list()
-        
-        
 
-##Define Event for dynamoDB to be called, and the event is when the alarm is up
-        #db_lambda_schedule= events_.Schedule.rate(cdk.Duration.minutes(1))
-    #Setting target to our New WH lambda for the event##
-        #db_lambda_target= targets_.LambdaFunction(handler=db_lambda)
-    #defining rule for lambda function invokation event
-        #db_rule=events_.Rule(self, "Alarm_to_db", description="Add alarms to dynamoTable",enabled=True,
-        #    schedule= db_lambda_schedule,
-         #   targets=[db_lambda_target])
-            
-#When alarm is published on sns topic, it will invoke the db_lmbda with the alarm message as payload
-        #dead_letter_queue = sqs_.Queue(self, "deadLetterQueue")
-     # #  Talha_db_lambda.add_event_source(lambda_events_.SnsEventSource(topic))
-            #filter_policy={},
-            #dead_letter_queue=dead_letter_queue)) 
-        #dblambda_target= targets_.LambdaFunction(handler=Talha_db_lambda)
-    #defining rule for lambda function invokation event
-        #rule=events_.Rule(self, "db_Invokation",
-         #   description="Db writerLambda",enabled=True,
-          #  schedule= lambda_schedule,
-           # targets=[dblambda_target]) 
-            
+ 
     def create_lambda_role(self):
         lambdaRole=aws_iam.Role(self,"lambda-role",
         assumed_by=aws_iam.ServicePrincipal('lambda.amazonaws.com'),
