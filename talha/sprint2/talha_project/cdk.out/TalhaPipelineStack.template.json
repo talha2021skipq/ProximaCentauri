@@ -102,6 +102,26 @@
                   "Arn"
                 ]
               }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelinebetaPrepareCodePipelineActionRoleD79740EA",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelinebetaDeployCodePipelineActionRoleA93EE42E",
+                  "Arn"
+                ]
+              }
             }
           ],
           "Version": "2012-10-17"
@@ -222,6 +242,66 @@
               }
             ],
             "Name": "UpdatePipeline"
+          },
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "CloudFormation",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "StackName": "beta-infraStack",
+                  "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
+                  "RoleArn": {
+                    "Fn::GetAtt": [
+                      "PipelinebetaPrepareRole8F6ADD1F",
+                      "Arn"
+                    ]
+                  },
+                  "ActionMode": "CHANGE_SET_REPLACE",
+                  "ChangeSetName": "PipelineChange",
+                  "TemplatePath": "synth_Output::assembly-TalhaPipelineStack-beta/beta-infraStack.template.json"
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "synth_Output"
+                  }
+                ],
+                "Name": "Prepare",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelinebetaPrepareCodePipelineActionRoleD79740EA",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
+                  "Category": "Deploy",
+                  "Owner": "AWS",
+                  "Provider": "CloudFormation",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "StackName": "beta-infraStack",
+                  "ActionMode": "CHANGE_SET_EXECUTE",
+                  "ChangeSetName": "PipelineChange"
+                },
+                "Name": "Deploy",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelinebetaDeployCodePipelineActionRoleA93EE42E",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 2
+              }
+            ],
+            "Name": "beta"
           }
         ],
         "ArtifactStore": {
@@ -535,6 +615,271 @@
       },
       "Metadata": {
         "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelinebetaPrepareCodePipelineActionRoleD79740EA": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Prepare/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelinebetaPrepareCodePipelineActionRoleDefaultPolicy54587BC5": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PipelinebetaPrepareRole8F6ADD1F",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "cloudformation:CreateChangeSet",
+                "cloudformation:DeleteChangeSet",
+                "cloudformation:DescribeChangeSet",
+                "cloudformation:DescribeStacks"
+              ],
+              "Condition": {
+                "StringEqualsIfExists": {
+                  "cloudformation:ChangeSetName": "PipelineChange"
+                }
+              },
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":cloudformation:us-east-2:315997497220:stack/beta-infraStack/*"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelinebetaPrepareCodePipelineActionRoleDefaultPolicy54587BC5",
+        "Roles": [
+          {
+            "Ref": "PipelinebetaPrepareCodePipelineActionRoleD79740EA"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Prepare/CodePipelineActionRole/DefaultPolicy/Resource"
+      }
+    },
+    "PipelinebetaPrepareRole8F6ADD1F": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudformation.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Prepare/Role/Resource"
+      }
+    },
+    "PipelinebetaPrepareRoleDefaultPolicy13F40650": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "PipelineArtifactsBucketAEA9A052",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "PipelineArtifactsBucketAEA9A052",
+                          "Arn"
+                        ]
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": "*",
+              "Effect": "Allow",
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelinebetaPrepareRoleDefaultPolicy13F40650",
+        "Roles": [
+          {
+            "Ref": "PipelinebetaPrepareRole8F6ADD1F"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Prepare/Role/DefaultPolicy/Resource"
+      }
+    },
+    "PipelinebetaDeployCodePipelineActionRoleA93EE42E": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::315997497220:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Deploy/CodePipelineActionRole/Resource"
+      }
+    },
+    "PipelinebetaDeployCodePipelineActionRoleDefaultPolicyAA802312": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "cloudformation:DescribeChangeSet",
+                "cloudformation:DescribeStacks",
+                "cloudformation:ExecuteChangeSet"
+              ],
+              "Condition": {
+                "StringEqualsIfExists": {
+                  "cloudformation:ChangeSetName": "PipelineChange"
+                }
+              },
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":cloudformation:us-east-2:315997497220:stack/beta-infraStack/*"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PipelinebetaDeployCodePipelineActionRoleDefaultPolicyAA802312",
+        "Roles": [
+          {
+            "Ref": "PipelinebetaDeployCodePipelineActionRoleA93EE42E"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Pipeline/Pipeline/beta/Deploy/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
     "PipelineUpdatePipelineSelfMutationRole57E559E8": {

@@ -1,15 +1,15 @@
 {
   "version": "15.0.0",
   "artifacts": {
-    "Prod-infraStack": {
+    "beta-infraStack": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://315997497220/us-east-2",
       "properties": {
-        "templateFile": "Prod-infraStack.template.json",
-        "validateOnSynth": false
+        "templateFile": "beta-infraStack.template.json",
+        "validateOnSynth": true
       },
       "metadata": {
-        "/TalhaPipelineStack/Prod/infraStack": [
+        "/TalhaPipelineStack/beta/infraStack": [
           {
             "type": "aws:cdk:asset",
             "data": {
@@ -40,7 +40,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/lambda-role/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/lambda-role/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "lambdaroleDFE21467",
@@ -57,7 +57,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/lambda-role/DefaultPolicy/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/lambda-role/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "lambdaroleDefaultPolicyB1623966",
@@ -79,7 +79,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/FirstHWlambda/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/FirstHWlambda/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "FirstHWlambda2FCC4B7D",
@@ -96,7 +96,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/S3Bucket": [
+        "/TalhaPipelineStack/beta/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/S3Bucket": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3Bucket3809729A",
@@ -119,7 +119,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/S3VersionKey": [
+        "/TalhaPipelineStack/beta/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/S3VersionKey": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58",
@@ -142,7 +142,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/ArtifactHash": [
+        "/TalhaPipelineStack/beta/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/ArtifactHash": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723ArtifactHash382E69E4",
@@ -165,7 +165,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/neTwlambda/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/neTwlambda/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "neTwlambdaB003825D",
@@ -182,10 +182,10 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/neTwlambda/AllowInvoke:TalhaPipelineStackProdinfraStackTalhaSkipQWebHealthTopicE0FCAABF": [
+        "/TalhaPipelineStack/beta/infraStack/neTwlambda/AllowInvoke:TalhaPipelineStackbetainfraStackTalhaSkipQWebHealthTopic1585E91E": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "neTwlambdaAllowInvokeTalhaPipelineStackProdinfraStackTalhaSkipQWebHealthTopicE0FCAABFF00C9911",
+            "data": "neTwlambdaAllowInvokeTalhaPipelineStackbetainfraStackTalhaSkipQWebHealthTopic1585E91EF52BA04D",
             "trace": [
               "Function.addPermission (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/aws-lambda/lib/function-base.js:44:9)",
               "LambdaSubscription.bind (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/aws-sns-subscriptions/lib/lambda.js:38:17)",
@@ -202,7 +202,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/neTwlambda/TalhaSkipQWebHealthTopic/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/neTwlambda/TalhaSkipQWebHealthTopic/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "neTwlambdaTalhaSkipQWebHealthTopicD2B73E13",
@@ -221,7 +221,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/WebHealth_Invokation/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/WebHealth_Invokation/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "WebHealthInvokation871F98AF",
@@ -238,10 +238,10 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/WebHealth_Invokation/AllowEventRuleTalhaPipelineStackProdinfraStackFirstHWlambdaC3D57E54": [
+        "/TalhaPipelineStack/beta/infraStack/WebHealth_Invokation/AllowEventRuleTalhaPipelineStackbetainfraStackFirstHWlambda7186D085": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "WebHealthInvokationAllowEventRuleTalhaPipelineStackProdinfraStackFirstHWlambdaC3D57E54E98E774A",
+            "data": "WebHealthInvokationAllowEventRuleTalhaPipelineStackbetainfraStackFirstHWlambda7186D08550D1E959",
             "trace": [
               "Function.addPermission (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/aws-lambda/lib/function-base.js:44:9)",
               "Object.addLambdaPermission (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/aws-events-targets/lib/util.js:63:17)",
@@ -259,7 +259,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/Table": [
+        "/TalhaPipelineStack/beta/infraStack/Table": [
           {
             "type": "aws:cdk:hasPhysicalName",
             "data": {
@@ -279,7 +279,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/Table/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/Table/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "TableCD117FA1",
@@ -296,7 +296,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/TalhaSkipQWebHealthTopic/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/TalhaSkipQWebHealthTopic/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "TalhaSkipQWebHealthTopic9A32A90C",
@@ -313,7 +313,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/TalhaSkipQWebHealthTopic/talha.naeem.s@skipq.org/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/TalhaSkipQWebHealthTopic/talha.naeem.s@skipq.org/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "TalhaSkipQWebHealthTopictalhanaeemsskipqorg66889F3B",
@@ -332,7 +332,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/www.skipq.orgAvailability_alarm/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/www.skipq.orgAvailability_alarm/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "wwwskipqorgAvailabilityalarm58FC6DF3",
@@ -349,7 +349,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/www.skipq.orgLatency_alarm/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/www.skipq.orgLatency_alarm/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "wwwskipqorgLatencyalarm1DB038B2",
@@ -366,7 +366,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/https:----www.dawn.com--Availability_alarm/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/https:----www.dawn.com--Availability_alarm/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "httpswwwdawncomAvailabilityalarmF5B16D8C",
@@ -383,7 +383,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/https:----www.dawn.com--Latency_alarm/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/https:----www.dawn.com--Latency_alarm/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "httpswwwdawncomLatencyalarm7FC08942",
@@ -400,7 +400,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/www.amazon.comAvailability_alarm/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/www.amazon.comAvailability_alarm/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "wwwamazoncomAvailabilityalarmD25FD583",
@@ -417,7 +417,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/www.amazon.comLatency_alarm/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/www.amazon.comLatency_alarm/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "wwwamazoncomLatencyalarm4CA389EE",
@@ -434,7 +434,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/https:----www.youtube.com--Availability_alarm/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/https:----www.youtube.com--Availability_alarm/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "httpswwwyoutubecomAvailabilityalarm8AC080D9",
@@ -451,7 +451,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/https:----www.youtube.com--Latency_alarm/Resource": [
+        "/TalhaPipelineStack/beta/infraStack/https:----www.youtube.com--Latency_alarm/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "httpswwwyoutubecomLatencyalarm2CF95B9A",
@@ -468,7 +468,7 @@
             ]
           }
         ],
-        "/TalhaPipelineStack/Prod/infraStack/CDKMetadata/Default": [
+        "/TalhaPipelineStack/beta/infraStack/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadata",
@@ -480,10 +480,10 @@
               "injectMetadataResources (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/core/lib/private/synthesis.js:128:5)",
               "Object.synthesize (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/core/lib/private/synthesis.js:17:5)",
               "Stage.synth (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/core/lib/stage.js:103:41)",
-              "synthNestedAssemblies (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/core/lib/private/synthesis.js:56:19)",
-              "synthNestedAssemblies (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/core/lib/private/synthesis.js:59:13)",
-              "Object.synthesize (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/core/lib/private/synthesis.js:15:5)",
-              "App.synth (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/core/lib/stage.js:103:41)",
+              "Object.pipelineSynth (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/pipelines/lib/private/construct-internals.js:25:18)",
+              "Function.fromStage (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/pipelines/lib/blueprint/stage-deployment.js:40:48)",
+              "Wave.addStage (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/pipelines/lib/blueprint/wave.js:43:56)",
+              "CodePipeline.addStage (/tmp/jsii-kernel-NtDIt7/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.js:60:46)",
               "/tmp/tmpm3hyznb6/lib/program.js:8248:134",
               "Kernel._wrapSandboxCode (/tmp/tmpm3hyznb6/lib/program.js:8860:24)",
               "/tmp/tmpm3hyznb6/lib/program.js:8248:107",
@@ -497,7 +497,7 @@
           }
         ]
       },
-      "displayName": "TalhaPipelineStack/Prod/infraStack"
+      "displayName": "TalhaPipelineStack/beta/infraStack"
     }
   }
 }

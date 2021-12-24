@@ -26,6 +26,7 @@ class TalhaProjectStack(cdk.Stack):
         lambda_role=self.create_lambda_role()
     # The code that defines your stack goes here
         HWlambda=self.create_lambda('FirstHWlambda', './resources','webHealth_talha_lambda.lambda_handler' ,lambda_role)
+
         Talha_db_lambda=self.create_lambda('neTwlambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,lambda_role)
  
     #Creating an event after every one minute
@@ -37,7 +38,7 @@ class TalhaProjectStack(cdk.Stack):
             description="Periodic Lambda",enabled=True,
             schedule= lambda_schedule,
             targets=[lambda_target])
-        #create table in dynamo db
+'''        #create table in dynamo db
         try:
             dynamo_table= self.create_table()
         except: pass
@@ -52,6 +53,9 @@ class TalhaProjectStack(cdk.Stack):
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
+        
+        ##*uncomment'''
+        
         self.create_alarm(topic,listofurls)
         
 #net jump
