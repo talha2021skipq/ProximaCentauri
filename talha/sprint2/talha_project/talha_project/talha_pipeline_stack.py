@@ -22,9 +22,10 @@ class TalhaPipelineStack(cdk.Stack):
             primary_output_directory="talha/sprint2/talha_project/cdk.out")
     #creating a pipeline for Codes, mainly to deploy CDK apps
         pipeline=pipelines.CodePipeline(self, "Pipeline", pipeline_name="Talhas_pipeline", synth=synth)
-        beta= TalhaInfraStage(self, "Beta", 
+        beta= TalhaInfraStage(self, "beta", 
         env={'account':'315997497220',
-            'region': 'us-east-2'} ) 
+            'region': 'us-east-2'} )
+            
         prod= TalhaInfraStage(self, "Prod", 
         env={'account':'315997497220',
             'region': 'us-east-2'} )
@@ -33,6 +34,11 @@ class TalhaPipelineStack(cdk.Stack):
                     "pip install -r requirements.txt", 
                     "pytest unittests",  "pytest integtests"]
         )
-       # pipeline.add_stage(beta)#,pre=[unit_test])
+        pipeline.add_stage(beta)#,pre=[unit_test])
         #pipeline.add_stage(prod, pre=[
         #pipelines.ManualApprovalStep("PromoteToProd")   ])
+        '''pipeline.add_stage(prod,
+    pre=[
+        pipelines.ManualApprovalStep("PromoteToProd")
+    ]
+)'''

@@ -117,6 +117,9 @@ class TalhaProjectStack(cdk.Stack):
     def create_table( self):
         return db_.Table(self,id="Table", table_name="TalhaAlarmTable",partition_key=db_.Attribute(name="id", type=db_.AttributeType.STRING), 
             sort_key=db_.Attribute(name="createdDate", type=db_.AttributeType.STRING))
+####################################################################################################################
+###      Generating Metrics and then raising alarms on them.                                                    ####
+####################################################################################################################
     def create_alarm(self, topic, URLLS):
         for web in URLLS:
             dimension= {'URL':  web}
