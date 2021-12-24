@@ -177,6 +177,16 @@
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Resource": {
+                "Fn::GetAtt": [
+                  "PipelineBetaunittestCodePipelineActionRole49C177FA",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
                 "Fn::Join": [
                   "",
                   [
@@ -186,16 +196,6 @@
                     },
                     ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
                   ]
-                ]
-              }
-            },
-            {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Resource": {
-                "Fn::GetAtt": [
-                  "PipelineBetaunittestCodePipelineActionRole49C177FA",
-                  "Arn"
                 ]
               }
             }
@@ -354,6 +354,32 @@
             "Actions": [
               {
                 "ActionTypeId": {
+                  "Category": "Build",
+                  "Owner": "AWS",
+                  "Provider": "CodeBuild",
+                  "Version": "1"
+                },
+                "Configuration": {
+                  "ProjectName": {
+                    "Ref": "PipelineBetaunittestA4B9ADF1"
+                  }
+                },
+                "InputArtifacts": [
+                  {
+                    "Name": "talha2021skipq_ProximaCentauri_Source"
+                  }
+                ],
+                "Name": "unit_test",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineBetaunittestCodePipelineActionRole49C177FA",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 1
+              },
+              {
+                "ActionTypeId": {
                   "Category": "Deploy",
                   "Owner": "AWS",
                   "Provider": "CloudFormation",
@@ -396,7 +422,7 @@
                     ]
                   ]
                 },
-                "RunOrder": 1
+                "RunOrder": 2
               },
               {
                 "ActionTypeId": {
@@ -421,32 +447,6 @@
                       },
                       ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
                     ]
-                  ]
-                },
-                "RunOrder": 2
-              },
-              {
-                "ActionTypeId": {
-                  "Category": "Build",
-                  "Owner": "AWS",
-                  "Provider": "CodeBuild",
-                  "Version": "1"
-                },
-                "Configuration": {
-                  "ProjectName": {
-                    "Ref": "PipelineBetaunittestA4B9ADF1"
-                  }
-                },
-                "InputArtifacts": [
-                  {
-                    "Name": "talha2021skipq_ProximaCentauri_Source"
-                  }
-                ],
-                "Name": "unit_test",
-                "RoleArn": {
-                  "Fn::GetAtt": [
-                    "PipelineBetaunittestCodePipelineActionRole49C177FA",
-                    "Arn"
                   ]
                 },
                 "RunOrder": 3

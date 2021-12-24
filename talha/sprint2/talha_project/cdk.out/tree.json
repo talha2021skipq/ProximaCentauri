@@ -253,6 +253,16 @@
                                       "Action": "sts:AssumeRole",
                                       "Effect": "Allow",
                                       "Resource": {
+                                        "Fn::GetAtt": [
+                                          "PipelineBetaunittestCodePipelineActionRole49C177FA",
+                                          "Arn"
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Resource": {
                                         "Fn::Join": [
                                           "",
                                           [
@@ -262,16 +272,6 @@
                                             },
                                             ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
                                           ]
-                                        ]
-                                      }
-                                    },
-                                    {
-                                      "Action": "sts:AssumeRole",
-                                      "Effect": "Allow",
-                                      "Resource": {
-                                        "Fn::GetAtt": [
-                                          "PipelineBetaunittestCodePipelineActionRole49C177FA",
-                                          "Arn"
                                         ]
                                       }
                                     }
@@ -447,6 +447,32 @@
                             "name": "Beta",
                             "actions": [
                               {
+                                "name": "unit_test",
+                                "inputArtifacts": [
+                                  {
+                                    "name": "talha2021skipq_ProximaCentauri_Source"
+                                  }
+                                ],
+                                "actionTypeId": {
+                                  "category": "Build",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "CodeBuild"
+                                },
+                                "configuration": {
+                                  "ProjectName": {
+                                    "Ref": "PipelineBetaunittestA4B9ADF1"
+                                  }
+                                },
+                                "runOrder": 1,
+                                "roleArn": {
+                                  "Fn::GetAtt": [
+                                    "PipelineBetaunittestCodePipelineActionRole49C177FA",
+                                    "Arn"
+                                  ]
+                                }
+                              },
+                              {
                                 "name": "infraStack.Prepare",
                                 "inputArtifacts": [
                                   {
@@ -478,7 +504,7 @@
                                   "ChangeSetName": "PipelineChange",
                                   "TemplatePath": "synth_Output::assembly-TalhaPipelineStack-Beta/TalhaPipelineStackBetainfraStack007D50E2.template.json"
                                 },
-                                "runOrder": 1,
+                                "runOrder": 2,
                                 "roleArn": {
                                   "Fn::Join": [
                                     "",
@@ -505,7 +531,7 @@
                                   "ActionMode": "CHANGE_SET_EXECUTE",
                                   "ChangeSetName": "PipelineChange"
                                 },
-                                "runOrder": 2,
+                                "runOrder": 3,
                                 "roleArn": {
                                   "Fn::Join": [
                                     "",
@@ -516,32 +542,6 @@
                                       },
                                       ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
                                     ]
-                                  ]
-                                }
-                              },
-                              {
-                                "name": "unit_test",
-                                "inputArtifacts": [
-                                  {
-                                    "name": "talha2021skipq_ProximaCentauri_Source"
-                                  }
-                                ],
-                                "actionTypeId": {
-                                  "category": "Build",
-                                  "version": "1",
-                                  "owner": "AWS",
-                                  "provider": "CodeBuild"
-                                },
-                                "configuration": {
-                                  "ProjectName": {
-                                    "Ref": "PipelineBetaunittestA4B9ADF1"
-                                  }
-                                },
-                                "runOrder": 3,
-                                "roleArn": {
-                                  "Fn::GetAtt": [
-                                    "PipelineBetaunittestCodePipelineActionRole49C177FA",
-                                    "Arn"
                                   ]
                                 }
                               }
@@ -1139,22 +1139,6 @@
                     "id": "Beta",
                     "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta",
                     "children": {
-                      "infraStack.Prepare": {
-                        "id": "infraStack.Prepare",
-                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/infraStack.Prepare",
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/core.Construct",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "infraStack.Deploy": {
-                        "id": "infraStack.Deploy",
-                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/infraStack.Deploy",
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/core.Construct",
-                          "version": "1.135.0"
-                        }
-                      },
                       "unit_test": {
                         "id": "unit_test",
                         "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test",
@@ -1464,6 +1448,22 @@
                             }
                           }
                         },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Construct",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "infraStack.Prepare": {
+                        "id": "infraStack.Prepare",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/infraStack.Prepare",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Construct",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "infraStack.Deploy": {
+                        "id": "infraStack.Deploy",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/infraStack.Deploy",
                         "constructInfo": {
                           "fqn": "@aws-cdk/core.Construct",
                           "version": "1.135.0"
