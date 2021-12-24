@@ -4,4 +4,4 @@ URL_MONITOR_NAME1A="ulr_availability"
 URL_MONITOR_NAME1L="ulr_latency"
 THRESHOLD_AVAIL=1
 THRESHOLD_LATENCY=0.25
-TABLE_NAME="TalhasDynDbTable"
+TABLE_NAME="betaTalhasDynDbTable"

@@ -40,11 +40,11 @@ class TalhaProjectStack(cdk.Stack):
             schedule= lambda_schedule,
             targets=[lambda_target])
         #create table in dynamo db
-        #try:
-         #   dynamo_table= self.create_table()
-        #except: pass
+        try:
+            dynamo_table= self.create_table()
+        except: pass
         #give read write permissions to our lambda
-        #dynamo_table.grant_read_write_data(Talha_db_lambda)
+        dynamo_table.grant_read_write_data(Talha_db_lambda)
         ###defining SNS service    
         topic = sns.Topic(self, "TalhaSkipQWebHealthTopic")
         #sns subscription with email
@@ -89,7 +89,7 @@ class TalhaProjectStack(cdk.Stack):
         #     visibility_timeout=cdk.Duration.seconds(300),
         # )
     def create_table( self):
-        return db_.Table(self,id="Table", table_name="TalhaAlarmTable",partition_key=db_.Attribute(name="id", type=db_.AttributeType.STRING), 
+        return db_.Table(self,id="Table", table_name=constants.TABLE_NAME ,partition_key=db_.Attribute(name="id", type=db_.AttributeType.STRING), 
             sort_key=db_.Attribute(name="createdDate", type=db_.AttributeType.STRING))
 ####################################################################################################################
 ##      Generating Metrics and then raising alarms on them.                                                    ####
