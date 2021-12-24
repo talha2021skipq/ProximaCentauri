@@ -253,16 +253,6 @@
                                       "Action": "sts:AssumeRole",
                                       "Effect": "Allow",
                                       "Resource": {
-                                        "Fn::GetAtt": [
-                                          "PipelineBetaunittestCodePipelineActionRole49C177FA",
-                                          "Arn"
-                                        ]
-                                      }
-                                    },
-                                    {
-                                      "Action": "sts:AssumeRole",
-                                      "Effect": "Allow",
-                                      "Resource": {
                                         "Fn::Join": [
                                           "",
                                           [
@@ -447,33 +437,7 @@
                             "name": "Beta",
                             "actions": [
                               {
-                                "name": "unit_test",
-                                "inputArtifacts": [
-                                  {
-                                    "name": "talha2021skipq_ProximaCentauri_Source"
-                                  }
-                                ],
-                                "actionTypeId": {
-                                  "category": "Build",
-                                  "version": "1",
-                                  "owner": "AWS",
-                                  "provider": "CodeBuild"
-                                },
-                                "configuration": {
-                                  "ProjectName": {
-                                    "Ref": "PipelineBetaunittestA4B9ADF1"
-                                  }
-                                },
-                                "runOrder": 1,
-                                "roleArn": {
-                                  "Fn::GetAtt": [
-                                    "PipelineBetaunittestCodePipelineActionRole49C177FA",
-                                    "Arn"
-                                  ]
-                                }
-                              },
-                              {
-                                "name": "infraStack.Prepare",
+                                "name": "Prepare",
                                 "inputArtifacts": [
                                   {
                                     "name": "synth_Output"
@@ -504,7 +468,7 @@
                                   "ChangeSetName": "PipelineChange",
                                   "TemplatePath": "synth_Output::assembly-TalhaPipelineStack-Beta/TalhaPipelineStackBetainfraStack007D50E2.template.json"
                                 },
-                                "runOrder": 2,
+                                "runOrder": 1,
                                 "roleArn": {
                                   "Fn::Join": [
                                     "",
@@ -519,7 +483,7 @@
                                 }
                               },
                               {
-                                "name": "infraStack.Deploy",
+                                "name": "Deploy",
                                 "actionTypeId": {
                                   "category": "Deploy",
                                   "version": "1",
@@ -531,7 +495,7 @@
                                   "ActionMode": "CHANGE_SET_EXECUTE",
                                   "ChangeSetName": "PipelineChange"
                                 },
-                                "runOrder": 3,
+                                "runOrder": 2,
                                 "roleArn": {
                                   "Fn::Join": [
                                     "",
@@ -1139,331 +1103,17 @@
                     "id": "Beta",
                     "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta",
                     "children": {
-                      "unit_test": {
-                        "id": "unit_test",
-                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test",
-                        "children": {
-                          "unit_test": {
-                            "id": "unit_test",
-                            "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/unit_test",
-                            "children": {
-                              "Role": {
-                                "id": "Role",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/unit_test/Role",
-                                "children": {
-                                  "Resource": {
-                                    "id": "Resource",
-                                    "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/unit_test/Role/Resource",
-                                    "attributes": {
-                                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                                      "aws:cdk:cloudformation:props": {
-                                        "assumeRolePolicyDocument": {
-                                          "Statement": [
-                                            {
-                                              "Action": "sts:AssumeRole",
-                                              "Effect": "Allow",
-                                              "Principal": {
-                                                "Service": "codebuild.amazonaws.com"
-                                              }
-                                            }
-                                          ],
-                                          "Version": "2012-10-17"
-                                        }
-                                      }
-                                    },
-                                    "constructInfo": {
-                                      "fqn": "@aws-cdk/aws-iam.CfnRole",
-                                      "version": "1.135.0"
-                                    }
-                                  },
-                                  "DefaultPolicy": {
-                                    "id": "DefaultPolicy",
-                                    "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/unit_test/Role/DefaultPolicy",
-                                    "children": {
-                                      "Resource": {
-                                        "id": "Resource",
-                                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/unit_test/Role/DefaultPolicy/Resource",
-                                        "attributes": {
-                                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                                          "aws:cdk:cloudformation:props": {
-                                            "policyDocument": {
-                                              "Statement": [
-                                                {
-                                                  "Action": [
-                                                    "logs:CreateLogGroup",
-                                                    "logs:CreateLogStream",
-                                                    "logs:PutLogEvents"
-                                                  ],
-                                                  "Effect": "Allow",
-                                                  "Resource": [
-                                                    {
-                                                      "Fn::Join": [
-                                                        "",
-                                                        [
-                                                          "arn:",
-                                                          {
-                                                            "Ref": "AWS::Partition"
-                                                          },
-                                                          ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
-                                                          {
-                                                            "Ref": "PipelineBetaunittestA4B9ADF1"
-                                                          }
-                                                        ]
-                                                      ]
-                                                    },
-                                                    {
-                                                      "Fn::Join": [
-                                                        "",
-                                                        [
-                                                          "arn:",
-                                                          {
-                                                            "Ref": "AWS::Partition"
-                                                          },
-                                                          ":logs:us-east-2:315997497220:log-group:/aws/codebuild/",
-                                                          {
-                                                            "Ref": "PipelineBetaunittestA4B9ADF1"
-                                                          },
-                                                          ":*"
-                                                        ]
-                                                      ]
-                                                    }
-                                                  ]
-                                                },
-                                                {
-                                                  "Action": [
-                                                    "codebuild:CreateReportGroup",
-                                                    "codebuild:CreateReport",
-                                                    "codebuild:UpdateReport",
-                                                    "codebuild:BatchPutTestCases",
-                                                    "codebuild:BatchPutCodeCoverages"
-                                                  ],
-                                                  "Effect": "Allow",
-                                                  "Resource": {
-                                                    "Fn::Join": [
-                                                      "",
-                                                      [
-                                                        "arn:",
-                                                        {
-                                                          "Ref": "AWS::Partition"
-                                                        },
-                                                        ":codebuild:us-east-2:315997497220:report-group/",
-                                                        {
-                                                          "Ref": "PipelineBetaunittestA4B9ADF1"
-                                                        },
-                                                        "-*"
-                                                      ]
-                                                    ]
-                                                  }
-                                                },
-                                                {
-                                                  "Action": [
-                                                    "s3:GetObject*",
-                                                    "s3:GetBucket*",
-                                                    "s3:List*"
-                                                  ],
-                                                  "Effect": "Allow",
-                                                  "Resource": [
-                                                    {
-                                                      "Fn::GetAtt": [
-                                                        "PipelineArtifactsBucketAEA9A052",
-                                                        "Arn"
-                                                      ]
-                                                    },
-                                                    {
-                                                      "Fn::Join": [
-                                                        "",
-                                                        [
-                                                          {
-                                                            "Fn::GetAtt": [
-                                                              "PipelineArtifactsBucketAEA9A052",
-                                                              "Arn"
-                                                            ]
-                                                          },
-                                                          "/*"
-                                                        ]
-                                                      ]
-                                                    }
-                                                  ]
-                                                }
-                                              ],
-                                              "Version": "2012-10-17"
-                                            },
-                                            "policyName": "PipelineBetaunittestRoleDefaultPolicyB28BCE5B",
-                                            "roles": [
-                                              {
-                                                "Ref": "PipelineBetaunittestRoleC797D05D"
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        "constructInfo": {
-                                          "fqn": "@aws-cdk/aws-iam.CfnPolicy",
-                                          "version": "1.135.0"
-                                        }
-                                      }
-                                    },
-                                    "constructInfo": {
-                                      "fqn": "@aws-cdk/aws-iam.Policy",
-                                      "version": "1.135.0"
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/aws-iam.Role",
-                                  "version": "1.135.0"
-                                }
-                              },
-                              "Resource": {
-                                "id": "Resource",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/unit_test/Resource",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::CodeBuild::Project",
-                                  "aws:cdk:cloudformation:props": {
-                                    "artifacts": {
-                                      "type": "CODEPIPELINE"
-                                    },
-                                    "environment": {
-                                      "type": "LINUX_CONTAINER",
-                                      "image": "aws/codebuild/standard:5.0",
-                                      "imagePullCredentialsType": "CODEBUILD",
-                                      "privilegedMode": false,
-                                      "computeType": "BUILD_GENERAL1_SMALL"
-                                    },
-                                    "serviceRole": {
-                                      "Fn::GetAtt": [
-                                        "PipelineBetaunittestRoleC797D05D",
-                                        "Arn"
-                                      ]
-                                    },
-                                    "source": {
-                                      "type": "CODEPIPELINE",
-                                      "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"build\": {\n      \"commands\": [\n        \"cd talha/sprint2/talha_project\",\n        \"pip install -r requirements.txt\",\n        \"pytest unittests\",\n        \"pytest integtests\"\n      ]\n    }\n  }\n}"
-                                    },
-                                    "encryptionKey": "alias/aws/s3"
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/aws-codebuild.CfnProject",
-                                  "version": "1.135.0"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-codebuild.PipelineProject",
-                              "version": "1.135.0"
-                            }
-                          },
-                          "CodePipelineActionRole": {
-                            "id": "CodePipelineActionRole",
-                            "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/CodePipelineActionRole",
-                            "children": {
-                              "Resource": {
-                                "id": "Resource",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/CodePipelineActionRole/Resource",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                                  "aws:cdk:cloudformation:props": {
-                                    "assumeRolePolicyDocument": {
-                                      "Statement": [
-                                        {
-                                          "Action": "sts:AssumeRole",
-                                          "Effect": "Allow",
-                                          "Principal": {
-                                            "AWS": {
-                                              "Fn::Join": [
-                                                "",
-                                                [
-                                                  "arn:",
-                                                  {
-                                                    "Ref": "AWS::Partition"
-                                                  },
-                                                  ":iam::315997497220:root"
-                                                ]
-                                              ]
-                                            }
-                                          }
-                                        }
-                                      ],
-                                      "Version": "2012-10-17"
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/aws-iam.CfnRole",
-                                  "version": "1.135.0"
-                                }
-                              },
-                              "DefaultPolicy": {
-                                "id": "DefaultPolicy",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/CodePipelineActionRole/DefaultPolicy",
-                                "children": {
-                                  "Resource": {
-                                    "id": "Resource",
-                                    "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/unit_test/CodePipelineActionRole/DefaultPolicy/Resource",
-                                    "attributes": {
-                                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                                      "aws:cdk:cloudformation:props": {
-                                        "policyDocument": {
-                                          "Statement": [
-                                            {
-                                              "Action": [
-                                                "codebuild:BatchGetBuilds",
-                                                "codebuild:StartBuild",
-                                                "codebuild:StopBuild"
-                                              ],
-                                              "Effect": "Allow",
-                                              "Resource": {
-                                                "Fn::GetAtt": [
-                                                  "PipelineBetaunittestA4B9ADF1",
-                                                  "Arn"
-                                                ]
-                                              }
-                                            }
-                                          ],
-                                          "Version": "2012-10-17"
-                                        },
-                                        "policyName": "PipelineBetaunittestCodePipelineActionRoleDefaultPolicyF4FCF802",
-                                        "roles": [
-                                          {
-                                            "Ref": "PipelineBetaunittestCodePipelineActionRole49C177FA"
-                                          }
-                                        ]
-                                      }
-                                    },
-                                    "constructInfo": {
-                                      "fqn": "@aws-cdk/aws-iam.CfnPolicy",
-                                      "version": "1.135.0"
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/aws-iam.Policy",
-                                  "version": "1.135.0"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-iam.Role",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
+                      "Prepare": {
+                        "id": "Prepare",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare",
                         "constructInfo": {
                           "fqn": "@aws-cdk/core.Construct",
                           "version": "1.135.0"
                         }
                       },
-                      "infraStack.Prepare": {
-                        "id": "infraStack.Prepare",
-                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/infraStack.Prepare",
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/core.Construct",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "infraStack.Deploy": {
-                        "id": "infraStack.Deploy",
-                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/infraStack.Deploy",
+                      "Deploy": {
+                        "id": "Deploy",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Deploy",
                         "constructInfo": {
                           "fqn": "@aws-cdk/core.Construct",
                           "version": "1.135.0"

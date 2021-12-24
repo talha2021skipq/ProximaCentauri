@@ -39,7 +39,7 @@ class TalhaPipelineStack(cdk.Stack):
                     "pip install -r requirements.txt", 
                     "pytest unittests",  "pytest integtests"]    )
         ############ Adding beta stage to pipeline with pre test #####################
-        pipeline.add_stage(beta)
+        pipeline.add_stage(beta,post=[unit_test])
         #pipeline.add_stage(prod, 
          #   pre=[  pipelines.ManualApprovalStep("PromoteToProd")   ])
         #pipeline.add_stage(prod, pre=[ pipelines.ManualApprovalStep("PromoteToProd")])
