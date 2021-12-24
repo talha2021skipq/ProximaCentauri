@@ -46,7 +46,7 @@ class TalhaProjectStack(cdk.Stack):
         #give read write permissions to our lambda
         dynamo_table.grant_read_write_data(Talha_db_lambda)
         ###defining SNS service    
-        topic = sns.Topic(self)#, "TalhaSkipQWebHealthTopic")
+        topic = sns.Topic(self, "TalhaSkipQWebHealthTopic")
         #sns subscription with email
         topic.add_subscription( subscriptions_.EmailSubscription('talha.naeem.s@skipq.org'))
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
