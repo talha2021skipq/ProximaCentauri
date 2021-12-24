@@ -40,9 +40,9 @@ class TalhaPipelineStack(cdk.Stack):
         prod= TalhaInfraStage(self, "Prod", 
             env={'account':'315997497220',
                 'region': 'us-east-2'} )
-        #pipeline.add_stage(prod, 
-         #   pre=[  pipelines.ManualApprovalStep("PromoteToProd")   ])
-        #pipeline.add_stage(prod, pre=[ pipelines.ManualApprovalStep("PromoteToProd")])
+        pipeline.add_stage(prod, 
+           pre=[  pipelines.ManualApprovalStep("PromoteToProd")   ])
+        pipeline.add_stage(prod, pre=[ pipelines.ManualApprovalStep("PromoteToProd")])
 
         
  
