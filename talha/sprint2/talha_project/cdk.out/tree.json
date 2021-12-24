@@ -63,6 +63,81 @@
                           "fqn": "@aws-cdk/aws-s3.CfnBucket",
                           "version": "1.135.0"
                         }
+                      },
+                      "Policy": {
+                        "id": "Policy",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/ArtifactsBucket/Policy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "TalhaPipelineStack/Pipeline/Pipeline/ArtifactsBucket/Policy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                              "aws:cdk:cloudformation:props": {
+                                "bucket": {
+                                  "Ref": "PipelineArtifactsBucketAEA9A052"
+                                },
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "s3:GetObject*",
+                                        "s3:GetBucket*",
+                                        "s3:List*"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "AWS": {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              "arn:",
+                                              {
+                                                "Ref": "AWS::Partition"
+                                              },
+                                              ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
+                                            ]
+                                          ]
+                                        }
+                                      },
+                                      "Resource": [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "PipelineArtifactsBucketAEA9A052",
+                                            "Arn"
+                                          ]
+                                        },
+                                        {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              {
+                                                "Fn::GetAtt": [
+                                                  "PipelineArtifactsBucketAEA9A052",
+                                                  "Arn"
+                                                ]
+                                              },
+                                              "/*"
+                                            ]
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-s3.CfnBucketPolicy",
+                              "version": "1.135.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3.BucketPolicy",
+                          "version": "1.135.0"
+                        }
                       }
                     },
                     "constructInfo": {
@@ -169,7 +244,7 @@
                                       "Effect": "Allow",
                                       "Resource": {
                                         "Fn::GetAtt": [
-                                          "PipelineBetaPrepareCodePipelineActionRoleB746DA86",
+                                          "PipelineAssetsFileAsset1CodePipelineActionRoleC0EC649A",
                                           "Arn"
                                         ]
                                       }
@@ -178,9 +253,15 @@
                                       "Action": "sts:AssumeRole",
                                       "Effect": "Allow",
                                       "Resource": {
-                                        "Fn::GetAtt": [
-                                          "PipelineBetaDeployCodePipelineActionRole2B286DC9",
-                                          "Arn"
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:",
+                                            {
+                                              "Ref": "AWS::Partition"
+                                            },
+                                            ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
+                                          ]
                                         ]
                                       }
                                     }
@@ -322,6 +403,37 @@
                             ]
                           },
                           {
+                            "name": "Assets",
+                            "actions": [
+                              {
+                                "name": "FileAsset1",
+                                "inputArtifacts": [
+                                  {
+                                    "name": "synth_Output"
+                                  }
+                                ],
+                                "actionTypeId": {
+                                  "category": "Build",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "CodeBuild"
+                                },
+                                "configuration": {
+                                  "ProjectName": {
+                                    "Ref": "PipelineAssetsFileAsset185A67CB4"
+                                  }
+                                },
+                                "runOrder": 1,
+                                "roleArn": {
+                                  "Fn::GetAtt": [
+                                    "PipelineAssetsFileAsset1CodePipelineActionRoleC0EC649A",
+                                    "Arn"
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
                             "name": "Beta",
                             "actions": [
                               {
@@ -341,20 +453,32 @@
                                   "StackName": "Beta-infraStack",
                                   "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
                                   "RoleArn": {
-                                    "Fn::GetAtt": [
-                                      "PipelineBetaPrepareRoleD66446CC",
-                                      "Arn"
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::315997497220:role/cdk-talha-cfn-exec-role-315997497220-us-east-2"
+                                      ]
                                     ]
                                   },
                                   "ActionMode": "CHANGE_SET_REPLACE",
                                   "ChangeSetName": "PipelineChange",
-                                  "TemplatePath": "synth_Output::assembly-TalhaPipelineStack-Beta/Beta-infraStack.template.json"
+                                  "TemplatePath": "synth_Output::assembly-TalhaPipelineStack-Beta/TalhaPipelineStackBetainfraStack007D50E2.template.json"
                                 },
                                 "runOrder": 1,
                                 "roleArn": {
-                                  "Fn::GetAtt": [
-                                    "PipelineBetaPrepareCodePipelineActionRoleB746DA86",
-                                    "Arn"
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
+                                    ]
                                   ]
                                 }
                               },
@@ -373,9 +497,15 @@
                                 },
                                 "runOrder": 2,
                                 "roleArn": {
-                                  "Fn::GetAtt": [
-                                    "PipelineBetaDeployCodePipelineActionRole2B286DC9",
-                                    "Arn"
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
+                                    ]
                                   ]
                                 }
                               }
@@ -855,21 +985,21 @@
                       "version": "1.135.0"
                     }
                   },
-                  "Beta": {
-                    "id": "Beta",
-                    "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta",
+                  "Assets": {
+                    "id": "Assets",
+                    "path": "TalhaPipelineStack/Pipeline/Pipeline/Assets",
                     "children": {
-                      "Prepare": {
-                        "id": "Prepare",
-                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare",
+                      "FileAsset1": {
+                        "id": "FileAsset1",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Assets/FileAsset1",
                         "children": {
                           "CodePipelineActionRole": {
                             "id": "CodePipelineActionRole",
-                            "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/CodePipelineActionRole",
+                            "path": "TalhaPipelineStack/Pipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole",
                             "children": {
                               "Resource": {
                                 "id": "Resource",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/CodePipelineActionRole/Resource",
+                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/Resource",
                                 "attributes": {
                                   "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                                   "aws:cdk:cloudformation:props": {
@@ -903,326 +1033,39 @@
                                   "version": "1.135.0"
                                 }
                               },
-                              "8389e75f-0810-4838-bf64-d6f85a95cf83": {
-                                "id": "8389e75f-0810-4838-bf64-d6f85a95cf83",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/CodePipelineActionRole/8389e75f-0810-4838-bf64-d6f85a95cf83",
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/core.Construct",
-                                  "version": "1.135.0"
-                                }
-                              },
                               "DefaultPolicy": {
                                 "id": "DefaultPolicy",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/CodePipelineActionRole/DefaultPolicy",
+                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/DefaultPolicy",
                                 "children": {
                                   "Resource": {
                                     "id": "Resource",
-                                    "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/CodePipelineActionRole/DefaultPolicy/Resource",
+                                    "path": "TalhaPipelineStack/Pipeline/Pipeline/Assets/FileAsset1/CodePipelineActionRole/DefaultPolicy/Resource",
                                     "attributes": {
                                       "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                                       "aws:cdk:cloudformation:props": {
                                         "policyDocument": {
                                           "Statement": [
                                             {
-                                              "Action": "iam:PassRole",
+                                              "Action": [
+                                                "codebuild:BatchGetBuilds",
+                                                "codebuild:StartBuild",
+                                                "codebuild:StopBuild"
+                                              ],
                                               "Effect": "Allow",
                                               "Resource": {
                                                 "Fn::GetAtt": [
-                                                  "PipelineBetaPrepareRoleD66446CC",
+                                                  "PipelineAssetsFileAsset185A67CB4",
                                                   "Arn"
                                                 ]
                                               }
-                                            },
-                                            {
-                                              "Action": [
-                                                "s3:GetObject*",
-                                                "s3:GetBucket*",
-                                                "s3:List*"
-                                              ],
-                                              "Effect": "Allow",
-                                              "Resource": [
-                                                {
-                                                  "Fn::GetAtt": [
-                                                    "PipelineArtifactsBucketAEA9A052",
-                                                    "Arn"
-                                                  ]
-                                                },
-                                                {
-                                                  "Fn::Join": [
-                                                    "",
-                                                    [
-                                                      {
-                                                        "Fn::GetAtt": [
-                                                          "PipelineArtifactsBucketAEA9A052",
-                                                          "Arn"
-                                                        ]
-                                                      },
-                                                      "/*"
-                                                    ]
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "Action": [
-                                                "cloudformation:CreateChangeSet",
-                                                "cloudformation:DeleteChangeSet",
-                                                "cloudformation:DescribeChangeSet",
-                                                "cloudformation:DescribeStacks"
-                                              ],
-                                              "Condition": {
-                                                "StringEqualsIfExists": {
-                                                  "cloudformation:ChangeSetName": "PipelineChange"
-                                                }
-                                              },
-                                              "Effect": "Allow",
-                                              "Resource": {
-                                                "Fn::Join": [
-                                                  "",
-                                                  [
-                                                    "arn:",
-                                                    {
-                                                      "Ref": "AWS::Partition"
-                                                    },
-                                                    ":cloudformation:us-east-2:315997497220:stack/Beta-infraStack/*"
-                                                  ]
-                                                ]
-                                              }
                                             }
                                           ],
                                           "Version": "2012-10-17"
                                         },
-                                        "policyName": "PipelineBetaPrepareCodePipelineActionRoleDefaultPolicy30879019",
+                                        "policyName": "PipelineAssetsFileAsset1CodePipelineActionRoleDefaultPolicy5F0BE7E8",
                                         "roles": [
                                           {
-                                            "Ref": "PipelineBetaPrepareCodePipelineActionRoleB746DA86"
-                                          }
-                                        ]
-                                      }
-                                    },
-                                    "constructInfo": {
-                                      "fqn": "@aws-cdk/aws-iam.CfnPolicy",
-                                      "version": "1.135.0"
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/aws-iam.Policy",
-                                  "version": "1.135.0"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-iam.Role",
-                              "version": "1.135.0"
-                            }
-                          },
-                          "Role": {
-                            "id": "Role",
-                            "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/Role",
-                            "children": {
-                              "Resource": {
-                                "id": "Resource",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/Role/Resource",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                                  "aws:cdk:cloudformation:props": {
-                                    "assumeRolePolicyDocument": {
-                                      "Statement": [
-                                        {
-                                          "Action": "sts:AssumeRole",
-                                          "Effect": "Allow",
-                                          "Principal": {
-                                            "Service": "cloudformation.amazonaws.com"
-                                          }
-                                        }
-                                      ],
-                                      "Version": "2012-10-17"
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/aws-iam.CfnRole",
-                                  "version": "1.135.0"
-                                }
-                              },
-                              "DefaultPolicy": {
-                                "id": "DefaultPolicy",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/Role/DefaultPolicy",
-                                "children": {
-                                  "Resource": {
-                                    "id": "Resource",
-                                    "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare/Role/DefaultPolicy/Resource",
-                                    "attributes": {
-                                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                                      "aws:cdk:cloudformation:props": {
-                                        "policyDocument": {
-                                          "Statement": [
-                                            {
-                                              "Action": [
-                                                "s3:GetObject*",
-                                                "s3:GetBucket*",
-                                                "s3:List*"
-                                              ],
-                                              "Effect": "Allow",
-                                              "Resource": [
-                                                {
-                                                  "Fn::GetAtt": [
-                                                    "PipelineArtifactsBucketAEA9A052",
-                                                    "Arn"
-                                                  ]
-                                                },
-                                                {
-                                                  "Fn::Join": [
-                                                    "",
-                                                    [
-                                                      {
-                                                        "Fn::GetAtt": [
-                                                          "PipelineArtifactsBucketAEA9A052",
-                                                          "Arn"
-                                                        ]
-                                                      },
-                                                      "/*"
-                                                    ]
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "Action": "*",
-                                              "Effect": "Allow",
-                                              "Resource": "*"
-                                            }
-                                          ],
-                                          "Version": "2012-10-17"
-                                        },
-                                        "policyName": "PipelineBetaPrepareRoleDefaultPolicy74006BE8",
-                                        "roles": [
-                                          {
-                                            "Ref": "PipelineBetaPrepareRoleD66446CC"
-                                          }
-                                        ]
-                                      }
-                                    },
-                                    "constructInfo": {
-                                      "fqn": "@aws-cdk/aws-iam.CfnPolicy",
-                                      "version": "1.135.0"
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/aws-iam.Policy",
-                                  "version": "1.135.0"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-iam.Role",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/core.Construct",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "Deploy": {
-                        "id": "Deploy",
-                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Deploy",
-                        "children": {
-                          "CodePipelineActionRole": {
-                            "id": "CodePipelineActionRole",
-                            "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Deploy/CodePipelineActionRole",
-                            "children": {
-                              "Resource": {
-                                "id": "Resource",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Deploy/CodePipelineActionRole/Resource",
-                                "attributes": {
-                                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                                  "aws:cdk:cloudformation:props": {
-                                    "assumeRolePolicyDocument": {
-                                      "Statement": [
-                                        {
-                                          "Action": "sts:AssumeRole",
-                                          "Effect": "Allow",
-                                          "Principal": {
-                                            "AWS": {
-                                              "Fn::Join": [
-                                                "",
-                                                [
-                                                  "arn:",
-                                                  {
-                                                    "Ref": "AWS::Partition"
-                                                  },
-                                                  ":iam::315997497220:root"
-                                                ]
-                                              ]
-                                            }
-                                          }
-                                        }
-                                      ],
-                                      "Version": "2012-10-17"
-                                    }
-                                  }
-                                },
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/aws-iam.CfnRole",
-                                  "version": "1.135.0"
-                                }
-                              },
-                              "8389e75f-0810-4838-bf64-d6f85a95cf83": {
-                                "id": "8389e75f-0810-4838-bf64-d6f85a95cf83",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Deploy/CodePipelineActionRole/8389e75f-0810-4838-bf64-d6f85a95cf83",
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/core.Construct",
-                                  "version": "1.135.0"
-                                }
-                              },
-                              "DefaultPolicy": {
-                                "id": "DefaultPolicy",
-                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Deploy/CodePipelineActionRole/DefaultPolicy",
-                                "children": {
-                                  "Resource": {
-                                    "id": "Resource",
-                                    "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Deploy/CodePipelineActionRole/DefaultPolicy/Resource",
-                                    "attributes": {
-                                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                                      "aws:cdk:cloudformation:props": {
-                                        "policyDocument": {
-                                          "Statement": [
-                                            {
-                                              "Action": [
-                                                "cloudformation:DescribeChangeSet",
-                                                "cloudformation:DescribeStacks",
-                                                "cloudformation:ExecuteChangeSet"
-                                              ],
-                                              "Condition": {
-                                                "StringEqualsIfExists": {
-                                                  "cloudformation:ChangeSetName": "PipelineChange"
-                                                }
-                                              },
-                                              "Effect": "Allow",
-                                              "Resource": {
-                                                "Fn::Join": [
-                                                  "",
-                                                  [
-                                                    "arn:",
-                                                    {
-                                                      "Ref": "AWS::Partition"
-                                                    },
-                                                    ":cloudformation:us-east-2:315997497220:stack/Beta-infraStack/*"
-                                                  ]
-                                                ]
-                                              }
-                                            }
-                                          ],
-                                          "Version": "2012-10-17"
-                                        },
-                                        "policyName": "PipelineBetaDeployCodePipelineActionRoleDefaultPolicy540F1C35",
-                                        "roles": [
-                                          {
-                                            "Ref": "PipelineBetaDeployCodePipelineActionRole2B286DC9"
+                                            "Ref": "PipelineAssetsFileAsset1CodePipelineActionRoleC0EC649A"
                                           }
                                         ]
                                       }
@@ -1253,6 +1096,74 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/core.Construct",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "Beta": {
+                    "id": "Beta",
+                    "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta",
+                    "children": {
+                      "Prepare": {
+                        "id": "Prepare",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Prepare",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Construct",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "Deploy": {
+                        "id": "Deploy",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Beta/Deploy",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Construct",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Construct",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "arn:${AWS::Partition}:iam::315997497220:role--cdk-talha-deploy-role-315997497220-us-east-2": {
+                    "id": "arn:${AWS::Partition}:iam::315997497220:role--cdk-talha-deploy-role-315997497220-us-east-2",
+                    "path": "TalhaPipelineStack/Pipeline/Pipeline/arn:${AWS::Partition}:iam::315997497220:role--cdk-talha-deploy-role-315997497220-us-east-2",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Resource",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "ImmutableRolearn:${AWS::Partition}:iam::315997497220:role--cdk-talha-deploy-role-315997497220-us-east-2": {
+                    "id": "ImmutableRolearn:${AWS::Partition}:iam::315997497220:role--cdk-talha-deploy-role-315997497220-us-east-2",
+                    "path": "TalhaPipelineStack/Pipeline/Pipeline/ImmutableRolearn:${AWS::Partition}:iam::315997497220:role--cdk-talha-deploy-role-315997497220-us-east-2",
+                    "children": {
+                      "8389e75f-0810-4838-bf64-d6f85a95cf83": {
+                        "id": "8389e75f-0810-4838-bf64-d6f85a95cf83",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/ImmutableRolearn:${AWS::Partition}:iam::315997497220:role--cdk-talha-deploy-role-315997497220-us-east-2/8389e75f-0810-4838-bf64-d6f85a95cf83",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Construct",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Resource",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "arn:${AWS::Partition}:iam::315997497220:role--cdk-talha-cfn-exec-role-315997497220-us-east-2": {
+                    "id": "arn:${AWS::Partition}:iam::315997497220:role--cdk-talha-cfn-exec-role-315997497220-us-east-2",
+                    "path": "TalhaPipelineStack/Pipeline/Pipeline/arn:${AWS::Partition}:iam::315997497220:role--cdk-talha-cfn-exec-role-315997497220-us-east-2",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Resource",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "ImmutableRolearn:${AWS::Partition}:iam::315997497220:role--cdk-talha-cfn-exec-role-315997497220-us-east-2": {
+                    "id": "ImmutableRolearn:${AWS::Partition}:iam::315997497220:role--cdk-talha-cfn-exec-role-315997497220-us-east-2",
+                    "path": "TalhaPipelineStack/Pipeline/Pipeline/ImmutableRolearn:${AWS::Partition}:iam::315997497220:role--cdk-talha-cfn-exec-role-315997497220-us-east-2",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Resource",
                       "version": "1.135.0"
                     }
                   }
@@ -1505,6 +1416,231 @@
                   "fqn": "@aws-cdk/core.Construct",
                   "version": "1.135.0"
                 }
+              },
+              "Assets": {
+                "id": "Assets",
+                "path": "TalhaPipelineStack/Pipeline/Assets",
+                "children": {
+                  "FileRole": {
+                    "id": "FileRole",
+                    "path": "TalhaPipelineStack/Pipeline/Assets/FileRole",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TalhaPipelineStack/Pipeline/Assets/FileRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "codebuild.amazonaws.com",
+                                    "AWS": {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":iam::315997497220:root"
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnRole",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "TalhaPipelineStack/Pipeline/Assets/FileRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "TalhaPipelineStack/Pipeline/Assets/FileRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "logs:CreateLogGroup",
+                                        "logs:CreateLogStream",
+                                        "logs:PutLogEvents"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:",
+                                            {
+                                              "Ref": "AWS::Partition"
+                                            },
+                                            ":logs:us-east-2:315997497220:log-group:/aws/codebuild/*"
+                                          ]
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "Action": [
+                                        "codebuild:CreateReportGroup",
+                                        "codebuild:CreateReport",
+                                        "codebuild:UpdateReport",
+                                        "codebuild:BatchPutTestCases",
+                                        "codebuild:BatchPutCodeCoverages"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:",
+                                            {
+                                              "Ref": "AWS::Partition"
+                                            },
+                                            ":codebuild:us-east-2:315997497220:report-group/*"
+                                          ]
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "Action": [
+                                        "codebuild:BatchGetBuilds",
+                                        "codebuild:StartBuild",
+                                        "codebuild:StopBuild"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": "*"
+                                    },
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::Sub": "arn:${AWS::Partition}:iam::315997497220:role/cdk-talha-file-publishing-role-315997497220-us-east-2"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Action": [
+                                        "s3:GetObject*",
+                                        "s3:GetBucket*",
+                                        "s3:List*"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "PipelineArtifactsBucketAEA9A052",
+                                            "Arn"
+                                          ]
+                                        },
+                                        {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              {
+                                                "Fn::GetAtt": [
+                                                  "PipelineArtifactsBucketAEA9A052",
+                                                  "Arn"
+                                                ]
+                                              },
+                                              "/*"
+                                            ]
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "PipelineAssetsFileRoleDefaultPolicy14DB8755",
+                                "roles": [
+                                  {
+                                    "Ref": "PipelineAssetsFileRole59943A77"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                              "version": "1.135.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Policy",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Role",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "FileAsset1": {
+                    "id": "FileAsset1",
+                    "path": "TalhaPipelineStack/Pipeline/Assets/FileAsset1",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TalhaPipelineStack/Pipeline/Assets/FileAsset1/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::CodeBuild::Project",
+                          "aws:cdk:cloudformation:props": {
+                            "artifacts": {
+                              "type": "CODEPIPELINE"
+                            },
+                            "environment": {
+                              "type": "LINUX_CONTAINER",
+                              "image": "aws/codebuild/standard:5.0",
+                              "imagePullCredentialsType": "CODEBUILD",
+                              "privilegedMode": false,
+                              "computeType": "BUILD_GENERAL1_SMALL"
+                            },
+                            "serviceRole": {
+                              "Fn::GetAtt": [
+                                "PipelineAssetsFileRole59943A77",
+                                "Arn"
+                              ]
+                            },
+                            "source": {
+                              "type": "CODEPIPELINE",
+                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-TalhaPipelineStack-Beta/TalhaPipelineStackBetainfraStack007D50E2.assets.json\\\" --verbose publish \\\"e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115:315997497220-us-east-2\\\"\"\n      ]\n    }\n  }\n}"
+                            },
+                            "encryptionKey": "alias/aws/s3"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-codebuild.CfnProject",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-codebuild.PipelineProject",
+                      "version": "1.135.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.135.0"
+                }
               }
             },
             "constructInfo": {
@@ -1628,42 +1764,8 @@
                           "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                           "aws:cdk:cloudformation:props": {
                             "code": {
-                              "s3Bucket": {
-                                "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3Bucket8149A6AD"
-                              },
-                              "s3Key": {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    {
-                                      "Fn::Select": [
-                                        0,
-                                        {
-                                          "Fn::Split": [
-                                            "||",
-                                            {
-                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "Fn::Select": [
-                                        1,
-                                        {
-                                          "Fn::Split": [
-                                            "||",
-                                            {
-                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                ]
-                              }
+                              "s3Bucket": "cdk-talha-assets-315997497220-us-east-2",
+                              "s3Key": "e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115.zip"
                             },
                             "role": {
                               "Fn::GetAtt": [
@@ -1678,347 +1780,6 @@
                         },
                         "constructInfo": {
                           "fqn": "@aws-cdk/aws-lambda.CfnFunction",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-lambda.Function",
-                      "version": "1.135.0"
-                    }
-                  },
-                  "AssetParameters": {
-                    "id": "AssetParameters",
-                    "path": "TalhaPipelineStack/Beta/infraStack/AssetParameters",
-                    "children": {
-                      "e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115": {
-                        "id": "e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115",
-                        "path": "TalhaPipelineStack/Beta/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115",
-                        "children": {
-                          "S3Bucket": {
-                            "id": "S3Bucket",
-                            "path": "TalhaPipelineStack/Beta/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115/S3Bucket",
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/core.CfnParameter",
-                              "version": "1.135.0"
-                            }
-                          },
-                          "S3VersionKey": {
-                            "id": "S3VersionKey",
-                            "path": "TalhaPipelineStack/Beta/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115/S3VersionKey",
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/core.CfnParameter",
-                              "version": "1.135.0"
-                            }
-                          },
-                          "ArtifactHash": {
-                            "id": "ArtifactHash",
-                            "path": "TalhaPipelineStack/Beta/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115/ArtifactHash",
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/core.CfnParameter",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/core.Construct",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/core.Construct",
-                      "version": "1.135.0"
-                    }
-                  },
-                  "lambda-role-db": {
-                    "id": "lambda-role-db",
-                    "path": "TalhaPipelineStack/Beta/infraStack/lambda-role-db",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/Beta/infraStack/lambda-role-db/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                          "aws:cdk:cloudformation:props": {
-                            "assumeRolePolicyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "sts:AssumeRole",
-                                  "Effect": "Allow",
-                                  "Principal": {
-                                    "Service": "lambda.amazonaws.com"
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            },
-                            "managedPolicyArns": [
-                              {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    "arn:",
-                                    {
-                                      "Ref": "AWS::Partition"
-                                    },
-                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-                                  ]
-                                ]
-                              },
-                              {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    "arn:",
-                                    {
-                                      "Ref": "AWS::Partition"
-                                    },
-                                    ":iam::aws:policy/AmazonDynamoDBFullAccess"
-                                  ]
-                                ]
-                              },
-                              {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    "arn:",
-                                    {
-                                      "Ref": "AWS::Partition"
-                                    },
-                                    ":iam::aws:policy/AmazonSNSFullAccess"
-                                  ]
-                                ]
-                              }
-                            ]
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-iam.CfnRole",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "DefaultPolicy": {
-                        "id": "DefaultPolicy",
-                        "path": "TalhaPipelineStack/Beta/infraStack/lambda-role-db/DefaultPolicy",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "TalhaPipelineStack/Beta/infraStack/lambda-role-db/DefaultPolicy/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                              "aws:cdk:cloudformation:props": {
-                                "policyDocument": {
-                                  "Statement": [
-                                    {
-                                      "Action": [
-                                        "dynamodb:BatchGetItem",
-                                        "dynamodb:GetRecords",
-                                        "dynamodb:GetShardIterator",
-                                        "dynamodb:Query",
-                                        "dynamodb:GetItem",
-                                        "dynamodb:Scan",
-                                        "dynamodb:ConditionCheckItem",
-                                        "dynamodb:BatchWriteItem",
-                                        "dynamodb:PutItem",
-                                        "dynamodb:UpdateItem",
-                                        "dynamodb:DeleteItem"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": [
-                                        {
-                                          "Fn::GetAtt": [
-                                            "TableCD117FA1",
-                                            "Arn"
-                                          ]
-                                        },
-                                        {
-                                          "Ref": "AWS::NoValue"
-                                        }
-                                      ]
-                                    }
-                                  ],
-                                  "Version": "2012-10-17"
-                                },
-                                "policyName": "lambdaroledbDefaultPolicyAF35499B",
-                                "roles": [
-                                  {
-                                    "Ref": "lambdaroledb8F96FA37"
-                                  }
-                                ]
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-iam.CfnPolicy",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-iam.Policy",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-iam.Role",
-                      "version": "1.135.0"
-                    }
-                  },
-                  "neTwlambda": {
-                    "id": "neTwlambda",
-                    "path": "TalhaPipelineStack/Beta/infraStack/neTwlambda",
-                    "children": {
-                      "Code": {
-                        "id": "Code",
-                        "path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/Code",
-                        "children": {
-                          "Stage": {
-                            "id": "Stage",
-                            "path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/Code/Stage",
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/core.AssetStaging",
-                              "version": "1.135.0"
-                            }
-                          },
-                          "AssetBucket": {
-                            "id": "AssetBucket",
-                            "path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/Code/AssetBucket",
-                            "children": {
-                              "Notifications": {
-                                "id": "Notifications",
-                                "path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/Code/AssetBucket/Notifications",
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/core.Construct",
-                                  "version": "1.135.0"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-s3.BucketBase",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-s3-assets.Asset",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
-                          "aws:cdk:cloudformation:props": {
-                            "code": {
-                              "s3Bucket": {
-                                "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3Bucket8149A6AD"
-                              },
-                              "s3Key": {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    {
-                                      "Fn::Select": [
-                                        0,
-                                        {
-                                          "Fn::Split": [
-                                            "||",
-                                            {
-                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "Fn::Select": [
-                                        1,
-                                        {
-                                          "Fn::Split": [
-                                            "||",
-                                            {
-                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                ]
-                              }
-                            },
-                            "role": {
-                              "Fn::GetAtt": [
-                                "lambdaroledb8F96FA37",
-                                "Arn"
-                              ]
-                            },
-                            "handler": "talha_dynamoDb_lambda.lambda_handler",
-                            "runtime": "python3.6",
-                            "timeout": 300
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-lambda.CfnFunction",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "AllowInvoke:TalhaPipelineStackBetainfraStackTalhaSkipQWebHealthTopicA3A2B512": {
-                        "id": "AllowInvoke:TalhaPipelineStackBetainfraStackTalhaSkipQWebHealthTopicA3A2B512",
-                        "path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/AllowInvoke:TalhaPipelineStackBetainfraStackTalhaSkipQWebHealthTopicA3A2B512",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                          "aws:cdk:cloudformation:props": {
-                            "action": "lambda:InvokeFunction",
-                            "functionName": {
-                              "Fn::GetAtt": [
-                                "neTwlambdaB003825D",
-                                "Arn"
-                              ]
-                            },
-                            "principal": "sns.amazonaws.com",
-                            "sourceArn": {
-                              "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-lambda.CfnPermission",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "TalhaSkipQWebHealthTopic": {
-                        "id": "TalhaSkipQWebHealthTopic",
-                        "path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/TalhaSkipQWebHealthTopic",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/TalhaSkipQWebHealthTopic/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
-                              "aws:cdk:cloudformation:props": {
-                                "protocol": "lambda",
-                                "topicArn": {
-                                  "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                                },
-                                "endpoint": {
-                                  "Fn::GetAtt": [
-                                    "neTwlambdaB003825D",
-                                    "Arn"
-                                  ]
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-sns.CfnSubscription",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-sns.Subscription",
                           "version": "1.135.0"
                         }
                       }
@@ -2089,62 +1850,6 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-events.Rule",
-                      "version": "1.135.0"
-                    }
-                  },
-                  "Table": {
-                    "id": "Table",
-                    "path": "TalhaPipelineStack/Beta/infraStack/Table",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/Beta/infraStack/Table/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
-                          "aws:cdk:cloudformation:props": {
-                            "keySchema": [
-                              {
-                                "attributeName": "id",
-                                "keyType": "HASH"
-                              },
-                              {
-                                "attributeName": "createdDate",
-                                "keyType": "RANGE"
-                              }
-                            ],
-                            "attributeDefinitions": [
-                              {
-                                "attributeName": "id",
-                                "attributeType": "S"
-                              },
-                              {
-                                "attributeName": "createdDate",
-                                "attributeType": "S"
-                              }
-                            ],
-                            "provisionedThroughput": {
-                              "readCapacityUnits": 5,
-                              "writeCapacityUnits": 5
-                            },
-                            "tableName": "TalhaAlarmTable"
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-dynamodb.CfnTable",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "ScalingRole": {
-                        "id": "ScalingRole",
-                        "path": "TalhaPipelineStack/Beta/infraStack/Table/ScalingRole",
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/core.Resource",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-dynamodb.Table",
                       "version": "1.135.0"
                     }
                   },
@@ -2637,6 +2342,22 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/core.Construct",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "BootstrapVersion": {
+                    "id": "BootstrapVersion",
+                    "path": "TalhaPipelineStack/Beta/infraStack/BootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "CheckBootstrapVersion": {
+                    "id": "CheckBootstrapVersion",
+                    "path": "TalhaPipelineStack/Beta/infraStack/CheckBootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnRule",
                       "version": "1.135.0"
                     }
                   }

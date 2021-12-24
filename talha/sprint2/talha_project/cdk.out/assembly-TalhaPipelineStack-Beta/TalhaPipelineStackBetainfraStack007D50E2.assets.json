@@ -1,31 +1,31 @@
 {
   "version": "15.0.0",
   "files": {
-    "99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723": {
+    "e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115": {
       "source": {
-        "path": "../asset.99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723",
+        "path": "../asset.e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115",
         "packaging": "zip"
       },
       "destinations": {
         "315997497220-us-east-2": {
-          "bucketName": "cdk-hnb659fds-assets-315997497220-us-east-2",
-          "objectKey": "99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723.zip",
+          "bucketName": "cdk-talha-assets-315997497220-us-east-2",
+          "objectKey": "e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115.zip",
           "region": "us-east-2",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-hnb659fds-file-publishing-role-315997497220-us-east-2"
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-talha-file-publishing-role-315997497220-us-east-2"
         }
       }
     },
-    "ccc112fa0433e81dbfb90e88a6fcc523e01464932418829d4bac321861a91b89": {
+    "b60bf378ba052bda42d2dcc4481bb2f5800be19dd7ebff94d590c3891926e28d": {
       "source": {
         "path": "TalhaPipelineStackBetainfraStack007D50E2.template.json",
         "packaging": "file"
       },
       "destinations": {
         "315997497220-us-east-2": {
-          "bucketName": "cdk-hnb659fds-assets-315997497220-us-east-2",
-          "objectKey": "ccc112fa0433e81dbfb90e88a6fcc523e01464932418829d4bac321861a91b89.json",
+          "bucketName": "cdk-talha-assets-315997497220-us-east-2",
+          "objectKey": "b60bf378ba052bda42d2dcc4481bb2f5800be19dd7ebff94d590c3891926e28d.json",
           "region": "us-east-2",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-hnb659fds-file-publishing-role-315997497220-us-east-2"
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-talha-file-publishing-role-315997497220-us-east-2"
         }
       }
     }

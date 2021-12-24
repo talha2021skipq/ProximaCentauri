@@ -27,8 +27,8 @@ class TalhaProjectStack(cdk.Stack):
     # The code that defines your stack goes here
         HWlambda=self.create_lambda('FirstHWlambda', './resources','webHealth_talha_lambda.lambda_handler' ,lambda_role)
         
-        db_lambda_role = self.create_db_lambda_role()
-        Talha_db_lambda=self.create_lambda('neTwlambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role)
+#        db_lambda_role = self.create_db_lambda_role()
+ #       Talha_db_lambda=self.create_lambda('neTwlambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role)
  
     #Creating an event after every one minute
         lambda_schedule= events_.Schedule.rate(cdk.Duration.minutes(1))
@@ -40,11 +40,11 @@ class TalhaProjectStack(cdk.Stack):
             schedule= lambda_schedule,
             targets=[lambda_target])
         #create table in dynamo db
-        try:
-            dynamo_table= self.create_table()
-        except: pass
+  #      try:
+   #         dynamo_table= self.create_table()
+    #    except: pass
         #give read write permissions to our lambda
-        dynamo_table.grant_read_write_data(Talha_db_lambda)
+     #   dynamo_table.grant_read_write_data(Talha_db_lambda)
         ###defining SNS service    
         topic = sns.Topic(self, "TalhaSkipQWebHealthTopic")
         #sns subscription with email
@@ -52,7 +52,7 @@ class TalhaProjectStack(cdk.Stack):
         #topic = sns.Topic(self, "TalhaSkipQdynamodbTopic") # NO NEED TO define another TOPIC within one stack
         #topic.add_subscription(subscriptions_.LambdaSubscription(fn=))
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
-        topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
+    #    topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
         self.create_alarm(topic,listofurls)
         
