@@ -15,7 +15,7 @@
         }
       }
     },
-    "b60bf378ba052bda42d2dcc4481bb2f5800be19dd7ebff94d590c3891926e28d": {
+    "4170911cce160c9d8648c72dd13d875d5eebd6d85734fa73eee61fd68ab82b9a": {
       "source": {
         "path": "TalhaPipelineStackBetainfraStack007D50E2.template.json",
         "packaging": "file"
@@ -23,7 +23,7 @@
       "destinations": {
         "315997497220-us-east-2": {
           "bucketName": "cdk-talha-assets-315997497220-us-east-2",
-          "objectKey": "b60bf378ba052bda42d2dcc4481bb2f5800be19dd7ebff94d590c3891926e28d.json",
+          "objectKey": "4170911cce160c9d8648c72dd13d875d5eebd6d85734fa73eee61fd68ab82b9a.json",
           "region": "us-east-2",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-talha-file-publishing-role-315997497220-us-east-2"
         }

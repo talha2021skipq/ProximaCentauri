@@ -40,17 +40,16 @@ class TalhaProjectStack(cdk.Stack):
             schedule= lambda_schedule,
             targets=[lambda_target])
         #create table in dynamo db
-'''        try:
+        try:
             dynamo_table= self.create_table()
-        except: pass'''
+        except: pass
         #give read write permissions to our lambda
-        #dynamo_table.grant_read_write_data(Talha_db_lambda)
+        dynamo_table.grant_read_write_data(Talha_db_lambda)
         ###defining SNS service    
         topic = sns.Topic(self, "TalhaSkipQWebHealthTopic")
         #sns subscription with email
         topic.add_subscription( subscriptions_.EmailSubscription('talha.naeem.s@skipq.org'))
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
-#When alarm is published on sns topic, it will invoke the db_lmbda with the alarm message as payload
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
         self.create_alarm(topic,listofurls)
