@@ -38,7 +38,7 @@ class TalhaProjectStack(cdk.Stack):
             description="Periodic Lambda",enabled=True,
             schedule= lambda_schedule,
             targets=[lambda_target])
-'''        #create table in dynamo db
+        #create table in dynamo db
         try:
             dynamo_table= self.create_table()
         except: pass
@@ -53,10 +53,8 @@ class TalhaProjectStack(cdk.Stack):
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
+        self.create_alarm(topic,listofurls)
         
-        ##*uncomment
-        
-        self.create_alarm(topic,listofurls)'''        
 #net jump
     #uncomment for creating s3bucket 
         #bucket_talha= s3_.Bucket(self, "talha_first_bucket")
