@@ -53,7 +53,7 @@ class TalhaProjectStack(cdk.Stack):
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
   #      topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
-        self.create_alarm(topic,listofurls)
+#        self.create_alarm(topic,listofurls)
         
 #net jump
     #uncomment for creating s3bucket 

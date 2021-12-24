@@ -1576,67 +1576,6 @@
                           "fqn": "@aws-cdk/aws-iam.CfnRole",
                           "version": "1.135.0"
                         }
-                      },
-                      "DefaultPolicy": {
-                        "id": "DefaultPolicy",
-                        "path": "TalhaPipelineStack/beta/infraStack/lambda-role/DefaultPolicy",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "TalhaPipelineStack/beta/infraStack/lambda-role/DefaultPolicy/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                              "aws:cdk:cloudformation:props": {
-                                "policyDocument": {
-                                  "Statement": [
-                                    {
-                                      "Action": [
-                                        "dynamodb:BatchGetItem",
-                                        "dynamodb:GetRecords",
-                                        "dynamodb:GetShardIterator",
-                                        "dynamodb:Query",
-                                        "dynamodb:GetItem",
-                                        "dynamodb:Scan",
-                                        "dynamodb:ConditionCheckItem",
-                                        "dynamodb:BatchWriteItem",
-                                        "dynamodb:PutItem",
-                                        "dynamodb:UpdateItem",
-                                        "dynamodb:DeleteItem"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": [
-                                        {
-                                          "Fn::GetAtt": [
-                                            "TableCD117FA1",
-                                            "Arn"
-                                          ]
-                                        },
-                                        {
-                                          "Ref": "AWS::NoValue"
-                                        }
-                                      ]
-                                    }
-                                  ],
-                                  "Version": "2012-10-17"
-                                },
-                                "policyName": "lambdaroleDefaultPolicyB1623966",
-                                "roles": [
-                                  {
-                                    "Ref": "lambdaroleDFE21467"
-                                  }
-                                ]
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-iam.CfnPolicy",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-iam.Policy",
-                          "version": "1.135.0"
-                        }
                       }
                     },
                     "constructInfo": {
@@ -1794,169 +1733,6 @@
                       "version": "1.135.0"
                     }
                   },
-                  "neTwlambda": {
-                    "id": "neTwlambda",
-                    "path": "TalhaPipelineStack/beta/infraStack/neTwlambda",
-                    "children": {
-                      "Code": {
-                        "id": "Code",
-                        "path": "TalhaPipelineStack/beta/infraStack/neTwlambda/Code",
-                        "children": {
-                          "Stage": {
-                            "id": "Stage",
-                            "path": "TalhaPipelineStack/beta/infraStack/neTwlambda/Code/Stage",
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/core.AssetStaging",
-                              "version": "1.135.0"
-                            }
-                          },
-                          "AssetBucket": {
-                            "id": "AssetBucket",
-                            "path": "TalhaPipelineStack/beta/infraStack/neTwlambda/Code/AssetBucket",
-                            "children": {
-                              "Notifications": {
-                                "id": "Notifications",
-                                "path": "TalhaPipelineStack/beta/infraStack/neTwlambda/Code/AssetBucket/Notifications",
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/core.Construct",
-                                  "version": "1.135.0"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-s3.BucketBase",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-s3-assets.Asset",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/beta/infraStack/neTwlambda/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
-                          "aws:cdk:cloudformation:props": {
-                            "code": {
-                              "s3Bucket": {
-                                "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3Bucket8149A6AD"
-                              },
-                              "s3Key": {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    {
-                                      "Fn::Select": [
-                                        0,
-                                        {
-                                          "Fn::Split": [
-                                            "||",
-                                            {
-                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "Fn::Select": [
-                                        1,
-                                        {
-                                          "Fn::Split": [
-                                            "||",
-                                            {
-                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                ]
-                              }
-                            },
-                            "role": {
-                              "Fn::GetAtt": [
-                                "lambdaroleDFE21467",
-                                "Arn"
-                              ]
-                            },
-                            "handler": "talha_dynamoDb_lambda.lambda_handler",
-                            "runtime": "python3.6",
-                            "timeout": 300
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-lambda.CfnFunction",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "AllowInvoke:TalhaPipelineStackbetainfraStackTalhaSkipQWebHealthTopic1585E91E": {
-                        "id": "AllowInvoke:TalhaPipelineStackbetainfraStackTalhaSkipQWebHealthTopic1585E91E",
-                        "path": "TalhaPipelineStack/beta/infraStack/neTwlambda/AllowInvoke:TalhaPipelineStackbetainfraStackTalhaSkipQWebHealthTopic1585E91E",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                          "aws:cdk:cloudformation:props": {
-                            "action": "lambda:InvokeFunction",
-                            "functionName": {
-                              "Fn::GetAtt": [
-                                "neTwlambdaB003825D",
-                                "Arn"
-                              ]
-                            },
-                            "principal": "sns.amazonaws.com",
-                            "sourceArn": {
-                              "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-lambda.CfnPermission",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "TalhaSkipQWebHealthTopic": {
-                        "id": "TalhaSkipQWebHealthTopic",
-                        "path": "TalhaPipelineStack/beta/infraStack/neTwlambda/TalhaSkipQWebHealthTopic",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "TalhaPipelineStack/beta/infraStack/neTwlambda/TalhaSkipQWebHealthTopic/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
-                              "aws:cdk:cloudformation:props": {
-                                "protocol": "lambda",
-                                "topicArn": {
-                                  "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                                },
-                                "endpoint": {
-                                  "Fn::GetAtt": [
-                                    "neTwlambdaB003825D",
-                                    "Arn"
-                                  ]
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-sns.CfnSubscription",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-sns.Subscription",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-lambda.Function",
-                      "version": "1.135.0"
-                    }
-                  },
                   "WebHealth_Invokation": {
                     "id": "WebHealth_Invokation",
                     "path": "TalhaPipelineStack/beta/infraStack/WebHealth_Invokation",
@@ -2021,62 +1797,6 @@
                       "version": "1.135.0"
                     }
                   },
-                  "Table": {
-                    "id": "Table",
-                    "path": "TalhaPipelineStack/beta/infraStack/Table",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/beta/infraStack/Table/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
-                          "aws:cdk:cloudformation:props": {
-                            "keySchema": [
-                              {
-                                "attributeName": "id",
-                                "keyType": "HASH"
-                              },
-                              {
-                                "attributeName": "createdDate",
-                                "keyType": "RANGE"
-                              }
-                            ],
-                            "attributeDefinitions": [
-                              {
-                                "attributeName": "id",
-                                "attributeType": "S"
-                              },
-                              {
-                                "attributeName": "createdDate",
-                                "attributeType": "S"
-                              }
-                            ],
-                            "provisionedThroughput": {
-                              "readCapacityUnits": 5,
-                              "writeCapacityUnits": 5
-                            },
-                            "tableName": "TalhaAlarmTable"
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-dynamodb.CfnTable",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "ScalingRole": {
-                        "id": "ScalingRole",
-                        "path": "TalhaPipelineStack/beta/infraStack/Table/ScalingRole",
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/core.Resource",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-dynamodb.Table",
-                      "version": "1.135.0"
-                    }
-                  },
                   "TalhaSkipQWebHealthTopic": {
                     "id": "TalhaSkipQWebHealthTopic",
                     "path": "TalhaPipelineStack/beta/infraStack/TalhaSkipQWebHealthTopic",
@@ -2090,34 +1810,6 @@
                         },
                         "constructInfo": {
                           "fqn": "@aws-cdk/aws-sns.CfnTopic",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "talha.naeem.s@skipq.org": {
-                        "id": "talha.naeem.s@skipq.org",
-                        "path": "TalhaPipelineStack/beta/infraStack/TalhaSkipQWebHealthTopic/talha.naeem.s@skipq.org",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "TalhaPipelineStack/beta/infraStack/TalhaSkipQWebHealthTopic/talha.naeem.s@skipq.org/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
-                              "aws:cdk:cloudformation:props": {
-                                "protocol": "email",
-                                "topicArn": {
-                                  "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                                },
-                                "endpoint": "talha.naeem.s@skipq.org"
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-sns.CfnSubscription",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-sns.Subscription",
                           "version": "1.135.0"
                         }
                       }
@@ -2139,11 +1831,6 @@
                           "aws:cdk:cloudformation:props": {
                             "comparisonOperator": "LessThanThreshold",
                             "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
                             "datapointsToAlarm": 1,
                             "metrics": [
                               {
@@ -2180,59 +1867,6 @@
                       "version": "1.135.0"
                     }
                   },
-                  "www.skipq.orgLatency_alarm": {
-                    "id": "www.skipq.orgLatency_alarm",
-                    "path": "TalhaPipelineStack/beta/infraStack/www.skipq.orgLatency_alarm",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/beta/infraStack/www.skipq.orgLatency_alarm/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
-                          "aws:cdk:cloudformation:props": {
-                            "comparisonOperator": "GreaterThanThreshold",
-                            "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
-                            "datapointsToAlarm": 1,
-                            "metrics": [
-                              {
-                                "metricStat": {
-                                  "metric": {
-                                    "metricName": "www.skipq.orgulr_latency",
-                                    "namespace": "S2NEWTALHA_WH",
-                                    "dimensions": [
-                                      {
-                                        "name": "URL",
-                                        "value": "www.skipq.org"
-                                      }
-                                    ]
-                                  },
-                                  "period": 60,
-                                  "stat": "Average"
-                                },
-                                "id": "m1",
-                                "label": "www.skipq.orgLatency_metric",
-                                "returnData": true
-                              }
-                            ],
-                            "threshold": 0.25
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-cloudwatch.CfnAlarm",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-cloudwatch.Alarm",
-                      "version": "1.135.0"
-                    }
-                  },
                   "https:----www.dawn.com--Availability_alarm": {
                     "id": "https:----www.dawn.com--Availability_alarm",
                     "path": "TalhaPipelineStack/beta/infraStack/https:----www.dawn.com--Availability_alarm",
@@ -2245,11 +1879,6 @@
                           "aws:cdk:cloudformation:props": {
                             "comparisonOperator": "LessThanThreshold",
                             "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
                             "datapointsToAlarm": 1,
                             "metrics": [
                               {
@@ -2286,59 +1915,6 @@
                       "version": "1.135.0"
                     }
                   },
-                  "https:----www.dawn.com--Latency_alarm": {
-                    "id": "https:----www.dawn.com--Latency_alarm",
-                    "path": "TalhaPipelineStack/beta/infraStack/https:----www.dawn.com--Latency_alarm",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/beta/infraStack/https:----www.dawn.com--Latency_alarm/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
-                          "aws:cdk:cloudformation:props": {
-                            "comparisonOperator": "GreaterThanThreshold",
-                            "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
-                            "datapointsToAlarm": 1,
-                            "metrics": [
-                              {
-                                "metricStat": {
-                                  "metric": {
-                                    "metricName": "https://www.dawn.com/ulr_latency",
-                                    "namespace": "S2NEWTALHA_WH",
-                                    "dimensions": [
-                                      {
-                                        "name": "URL",
-                                        "value": "https://www.dawn.com/"
-                                      }
-                                    ]
-                                  },
-                                  "period": 60,
-                                  "stat": "Average"
-                                },
-                                "id": "m1",
-                                "label": "https://www.dawn.com/Latency_metric",
-                                "returnData": true
-                              }
-                            ],
-                            "threshold": 0.25
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-cloudwatch.CfnAlarm",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-cloudwatch.Alarm",
-                      "version": "1.135.0"
-                    }
-                  },
                   "www.amazon.comAvailability_alarm": {
                     "id": "www.amazon.comAvailability_alarm",
                     "path": "TalhaPipelineStack/beta/infraStack/www.amazon.comAvailability_alarm",
@@ -2351,11 +1927,6 @@
                           "aws:cdk:cloudformation:props": {
                             "comparisonOperator": "LessThanThreshold",
                             "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
                             "datapointsToAlarm": 1,
                             "metrics": [
                               {
@@ -2392,59 +1963,6 @@
                       "version": "1.135.0"
                     }
                   },
-                  "www.amazon.comLatency_alarm": {
-                    "id": "www.amazon.comLatency_alarm",
-                    "path": "TalhaPipelineStack/beta/infraStack/www.amazon.comLatency_alarm",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/beta/infraStack/www.amazon.comLatency_alarm/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
-                          "aws:cdk:cloudformation:props": {
-                            "comparisonOperator": "GreaterThanThreshold",
-                            "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
-                            "datapointsToAlarm": 1,
-                            "metrics": [
-                              {
-                                "metricStat": {
-                                  "metric": {
-                                    "metricName": "www.amazon.comulr_latency",
-                                    "namespace": "S2NEWTALHA_WH",
-                                    "dimensions": [
-                                      {
-                                        "name": "URL",
-                                        "value": "www.amazon.com"
-                                      }
-                                    ]
-                                  },
-                                  "period": 60,
-                                  "stat": "Average"
-                                },
-                                "id": "m1",
-                                "label": "www.amazon.comLatency_metric",
-                                "returnData": true
-                              }
-                            ],
-                            "threshold": 0.25
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-cloudwatch.CfnAlarm",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-cloudwatch.Alarm",
-                      "version": "1.135.0"
-                    }
-                  },
                   "https:----www.youtube.com--Availability_alarm": {
                     "id": "https:----www.youtube.com--Availability_alarm",
                     "path": "TalhaPipelineStack/beta/infraStack/https:----www.youtube.com--Availability_alarm",
@@ -2457,11 +1975,6 @@
                           "aws:cdk:cloudformation:props": {
                             "comparisonOperator": "LessThanThreshold",
                             "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
                             "datapointsToAlarm": 1,
                             "metrics": [
                               {
@@ -2485,59 +1998,6 @@
                               }
                             ],
                             "threshold": 1
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-cloudwatch.CfnAlarm",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-cloudwatch.Alarm",
-                      "version": "1.135.0"
-                    }
-                  },
-                  "https:----www.youtube.com--Latency_alarm": {
-                    "id": "https:----www.youtube.com--Latency_alarm",
-                    "path": "TalhaPipelineStack/beta/infraStack/https:----www.youtube.com--Latency_alarm",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/beta/infraStack/https:----www.youtube.com--Latency_alarm/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
-                          "aws:cdk:cloudformation:props": {
-                            "comparisonOperator": "GreaterThanThreshold",
-                            "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
-                            "datapointsToAlarm": 1,
-                            "metrics": [
-                              {
-                                "metricStat": {
-                                  "metric": {
-                                    "metricName": "https://www.youtube.com/ulr_latency",
-                                    "namespace": "S2NEWTALHA_WH",
-                                    "dimensions": [
-                                      {
-                                        "name": "URL",
-                                        "value": "https://www.youtube.com/"
-                                      }
-                                    ]
-                                  },
-                                  "period": 60,
-                                  "stat": "Average"
-                                },
-                                "id": "m1",
-                                "label": "https://www.youtube.com/Latency_metric",
-                                "returnData": true
-                              }
-                            ],
-                            "threshold": 0.25
                           }
                         },
                         "constructInfo": {
@@ -2641,67 +2101,6 @@
                         },
                         "constructInfo": {
                           "fqn": "@aws-cdk/aws-iam.CfnRole",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "DefaultPolicy": {
-                        "id": "DefaultPolicy",
-                        "path": "TalhaPipelineStack/Prod/infraStack/lambda-role/DefaultPolicy",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "TalhaPipelineStack/Prod/infraStack/lambda-role/DefaultPolicy/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                              "aws:cdk:cloudformation:props": {
-                                "policyDocument": {
-                                  "Statement": [
-                                    {
-                                      "Action": [
-                                        "dynamodb:BatchGetItem",
-                                        "dynamodb:GetRecords",
-                                        "dynamodb:GetShardIterator",
-                                        "dynamodb:Query",
-                                        "dynamodb:GetItem",
-                                        "dynamodb:Scan",
-                                        "dynamodb:ConditionCheckItem",
-                                        "dynamodb:BatchWriteItem",
-                                        "dynamodb:PutItem",
-                                        "dynamodb:UpdateItem",
-                                        "dynamodb:DeleteItem"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": [
-                                        {
-                                          "Fn::GetAtt": [
-                                            "TableCD117FA1",
-                                            "Arn"
-                                          ]
-                                        },
-                                        {
-                                          "Ref": "AWS::NoValue"
-                                        }
-                                      ]
-                                    }
-                                  ],
-                                  "Version": "2012-10-17"
-                                },
-                                "policyName": "lambdaroleDefaultPolicyB1623966",
-                                "roles": [
-                                  {
-                                    "Ref": "lambdaroleDFE21467"
-                                  }
-                                ]
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-iam.CfnPolicy",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-iam.Policy",
                           "version": "1.135.0"
                         }
                       }
@@ -2861,169 +2260,6 @@
                       "version": "1.135.0"
                     }
                   },
-                  "neTwlambda": {
-                    "id": "neTwlambda",
-                    "path": "TalhaPipelineStack/Prod/infraStack/neTwlambda",
-                    "children": {
-                      "Code": {
-                        "id": "Code",
-                        "path": "TalhaPipelineStack/Prod/infraStack/neTwlambda/Code",
-                        "children": {
-                          "Stage": {
-                            "id": "Stage",
-                            "path": "TalhaPipelineStack/Prod/infraStack/neTwlambda/Code/Stage",
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/core.AssetStaging",
-                              "version": "1.135.0"
-                            }
-                          },
-                          "AssetBucket": {
-                            "id": "AssetBucket",
-                            "path": "TalhaPipelineStack/Prod/infraStack/neTwlambda/Code/AssetBucket",
-                            "children": {
-                              "Notifications": {
-                                "id": "Notifications",
-                                "path": "TalhaPipelineStack/Prod/infraStack/neTwlambda/Code/AssetBucket/Notifications",
-                                "constructInfo": {
-                                  "fqn": "@aws-cdk/core.Construct",
-                                  "version": "1.135.0"
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-s3.BucketBase",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-s3-assets.Asset",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/Prod/infraStack/neTwlambda/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
-                          "aws:cdk:cloudformation:props": {
-                            "code": {
-                              "s3Bucket": {
-                                "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3Bucket8149A6AD"
-                              },
-                              "s3Key": {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    {
-                                      "Fn::Select": [
-                                        0,
-                                        {
-                                          "Fn::Split": [
-                                            "||",
-                                            {
-                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "Fn::Select": [
-                                        1,
-                                        {
-                                          "Fn::Split": [
-                                            "||",
-                                            {
-                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                ]
-                              }
-                            },
-                            "role": {
-                              "Fn::GetAtt": [
-                                "lambdaroleDFE21467",
-                                "Arn"
-                              ]
-                            },
-                            "handler": "talha_dynamoDb_lambda.lambda_handler",
-                            "runtime": "python3.6",
-                            "timeout": 300
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-lambda.CfnFunction",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "AllowInvoke:TalhaPipelineStackProdinfraStackTalhaSkipQWebHealthTopicE0FCAABF": {
-                        "id": "AllowInvoke:TalhaPipelineStackProdinfraStackTalhaSkipQWebHealthTopicE0FCAABF",
-                        "path": "TalhaPipelineStack/Prod/infraStack/neTwlambda/AllowInvoke:TalhaPipelineStackProdinfraStackTalhaSkipQWebHealthTopicE0FCAABF",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                          "aws:cdk:cloudformation:props": {
-                            "action": "lambda:InvokeFunction",
-                            "functionName": {
-                              "Fn::GetAtt": [
-                                "neTwlambdaB003825D",
-                                "Arn"
-                              ]
-                            },
-                            "principal": "sns.amazonaws.com",
-                            "sourceArn": {
-                              "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-lambda.CfnPermission",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "TalhaSkipQWebHealthTopic": {
-                        "id": "TalhaSkipQWebHealthTopic",
-                        "path": "TalhaPipelineStack/Prod/infraStack/neTwlambda/TalhaSkipQWebHealthTopic",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "TalhaPipelineStack/Prod/infraStack/neTwlambda/TalhaSkipQWebHealthTopic/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
-                              "aws:cdk:cloudformation:props": {
-                                "protocol": "lambda",
-                                "topicArn": {
-                                  "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                                },
-                                "endpoint": {
-                                  "Fn::GetAtt": [
-                                    "neTwlambdaB003825D",
-                                    "Arn"
-                                  ]
-                                }
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-sns.CfnSubscription",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-sns.Subscription",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-lambda.Function",
-                      "version": "1.135.0"
-                    }
-                  },
                   "WebHealth_Invokation": {
                     "id": "WebHealth_Invokation",
                     "path": "TalhaPipelineStack/Prod/infraStack/WebHealth_Invokation",
@@ -3088,62 +2324,6 @@
                       "version": "1.135.0"
                     }
                   },
-                  "Table": {
-                    "id": "Table",
-                    "path": "TalhaPipelineStack/Prod/infraStack/Table",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/Prod/infraStack/Table/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
-                          "aws:cdk:cloudformation:props": {
-                            "keySchema": [
-                              {
-                                "attributeName": "id",
-                                "keyType": "HASH"
-                              },
-                              {
-                                "attributeName": "createdDate",
-                                "keyType": "RANGE"
-                              }
-                            ],
-                            "attributeDefinitions": [
-                              {
-                                "attributeName": "id",
-                                "attributeType": "S"
-                              },
-                              {
-                                "attributeName": "createdDate",
-                                "attributeType": "S"
-                              }
-                            ],
-                            "provisionedThroughput": {
-                              "readCapacityUnits": 5,
-                              "writeCapacityUnits": 5
-                            },
-                            "tableName": "TalhaAlarmTable"
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-dynamodb.CfnTable",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "ScalingRole": {
-                        "id": "ScalingRole",
-                        "path": "TalhaPipelineStack/Prod/infraStack/Table/ScalingRole",
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/core.Resource",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-dynamodb.Table",
-                      "version": "1.135.0"
-                    }
-                  },
                   "TalhaSkipQWebHealthTopic": {
                     "id": "TalhaSkipQWebHealthTopic",
                     "path": "TalhaPipelineStack/Prod/infraStack/TalhaSkipQWebHealthTopic",
@@ -3157,34 +2337,6 @@
                         },
                         "constructInfo": {
                           "fqn": "@aws-cdk/aws-sns.CfnTopic",
-                          "version": "1.135.0"
-                        }
-                      },
-                      "talha.naeem.s@skipq.org": {
-                        "id": "talha.naeem.s@skipq.org",
-                        "path": "TalhaPipelineStack/Prod/infraStack/TalhaSkipQWebHealthTopic/talha.naeem.s@skipq.org",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "TalhaPipelineStack/Prod/infraStack/TalhaSkipQWebHealthTopic/talha.naeem.s@skipq.org/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
-                              "aws:cdk:cloudformation:props": {
-                                "protocol": "email",
-                                "topicArn": {
-                                  "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                                },
-                                "endpoint": "talha.naeem.s@skipq.org"
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "@aws-cdk/aws-sns.CfnSubscription",
-                              "version": "1.135.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-sns.Subscription",
                           "version": "1.135.0"
                         }
                       }
@@ -3206,11 +2358,6 @@
                           "aws:cdk:cloudformation:props": {
                             "comparisonOperator": "LessThanThreshold",
                             "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
                             "datapointsToAlarm": 1,
                             "metrics": [
                               {
@@ -3247,59 +2394,6 @@
                       "version": "1.135.0"
                     }
                   },
-                  "www.skipq.orgLatency_alarm": {
-                    "id": "www.skipq.orgLatency_alarm",
-                    "path": "TalhaPipelineStack/Prod/infraStack/www.skipq.orgLatency_alarm",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/Prod/infraStack/www.skipq.orgLatency_alarm/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
-                          "aws:cdk:cloudformation:props": {
-                            "comparisonOperator": "GreaterThanThreshold",
-                            "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
-                            "datapointsToAlarm": 1,
-                            "metrics": [
-                              {
-                                "metricStat": {
-                                  "metric": {
-                                    "metricName": "www.skipq.orgulr_latency",
-                                    "namespace": "S2NEWTALHA_WH",
-                                    "dimensions": [
-                                      {
-                                        "name": "URL",
-                                        "value": "www.skipq.org"
-                                      }
-                                    ]
-                                  },
-                                  "period": 60,
-                                  "stat": "Average"
-                                },
-                                "id": "m1",
-                                "label": "www.skipq.orgLatency_metric",
-                                "returnData": true
-                              }
-                            ],
-                            "threshold": 0.25
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-cloudwatch.CfnAlarm",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-cloudwatch.Alarm",
-                      "version": "1.135.0"
-                    }
-                  },
                   "https:----www.dawn.com--Availability_alarm": {
                     "id": "https:----www.dawn.com--Availability_alarm",
                     "path": "TalhaPipelineStack/Prod/infraStack/https:----www.dawn.com--Availability_alarm",
@@ -3312,11 +2406,6 @@
                           "aws:cdk:cloudformation:props": {
                             "comparisonOperator": "LessThanThreshold",
                             "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
                             "datapointsToAlarm": 1,
                             "metrics": [
                               {
@@ -3353,59 +2442,6 @@
                       "version": "1.135.0"
                     }
                   },
-                  "https:----www.dawn.com--Latency_alarm": {
-                    "id": "https:----www.dawn.com--Latency_alarm",
-                    "path": "TalhaPipelineStack/Prod/infraStack/https:----www.dawn.com--Latency_alarm",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/Prod/infraStack/https:----www.dawn.com--Latency_alarm/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
-                          "aws:cdk:cloudformation:props": {
-                            "comparisonOperator": "GreaterThanThreshold",
-                            "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
-                            "datapointsToAlarm": 1,
-                            "metrics": [
-                              {
-                                "metricStat": {
-                                  "metric": {
-                                    "metricName": "https://www.dawn.com/ulr_latency",
-                                    "namespace": "S2NEWTALHA_WH",
-                                    "dimensions": [
-                                      {
-                                        "name": "URL",
-                                        "value": "https://www.dawn.com/"
-                                      }
-                                    ]
-                                  },
-                                  "period": 60,
-                                  "stat": "Average"
-                                },
-                                "id": "m1",
-                                "label": "https://www.dawn.com/Latency_metric",
-                                "returnData": true
-                              }
-                            ],
-                            "threshold": 0.25
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-cloudwatch.CfnAlarm",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-cloudwatch.Alarm",
-                      "version": "1.135.0"
-                    }
-                  },
                   "www.amazon.comAvailability_alarm": {
                     "id": "www.amazon.comAvailability_alarm",
                     "path": "TalhaPipelineStack/Prod/infraStack/www.amazon.comAvailability_alarm",
@@ -3418,11 +2454,6 @@
                           "aws:cdk:cloudformation:props": {
                             "comparisonOperator": "LessThanThreshold",
                             "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
                             "datapointsToAlarm": 1,
                             "metrics": [
                               {
@@ -3459,59 +2490,6 @@
                       "version": "1.135.0"
                     }
                   },
-                  "www.amazon.comLatency_alarm": {
-                    "id": "www.amazon.comLatency_alarm",
-                    "path": "TalhaPipelineStack/Prod/infraStack/www.amazon.comLatency_alarm",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/Prod/infraStack/www.amazon.comLatency_alarm/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
-                          "aws:cdk:cloudformation:props": {
-                            "comparisonOperator": "GreaterThanThreshold",
-                            "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
-                            "datapointsToAlarm": 1,
-                            "metrics": [
-                              {
-                                "metricStat": {
-                                  "metric": {
-                                    "metricName": "www.amazon.comulr_latency",
-                                    "namespace": "S2NEWTALHA_WH",
-                                    "dimensions": [
-                                      {
-                                        "name": "URL",
-                                        "value": "www.amazon.com"
-                                      }
-                                    ]
-                                  },
-                                  "period": 60,
-                                  "stat": "Average"
-                                },
-                                "id": "m1",
-                                "label": "www.amazon.comLatency_metric",
-                                "returnData": true
-                              }
-                            ],
-                            "threshold": 0.25
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-cloudwatch.CfnAlarm",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-cloudwatch.Alarm",
-                      "version": "1.135.0"
-                    }
-                  },
                   "https:----www.youtube.com--Availability_alarm": {
                     "id": "https:----www.youtube.com--Availability_alarm",
                     "path": "TalhaPipelineStack/Prod/infraStack/https:----www.youtube.com--Availability_alarm",
@@ -3524,11 +2502,6 @@
                           "aws:cdk:cloudformation:props": {
                             "comparisonOperator": "LessThanThreshold",
                             "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
                             "datapointsToAlarm": 1,
                             "metrics": [
                               {
@@ -3552,59 +2525,6 @@
                               }
                             ],
                             "threshold": 1
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "@aws-cdk/aws-cloudwatch.CfnAlarm",
-                          "version": "1.135.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "@aws-cdk/aws-cloudwatch.Alarm",
-                      "version": "1.135.0"
-                    }
-                  },
-                  "https:----www.youtube.com--Latency_alarm": {
-                    "id": "https:----www.youtube.com--Latency_alarm",
-                    "path": "TalhaPipelineStack/Prod/infraStack/https:----www.youtube.com--Latency_alarm",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "TalhaPipelineStack/Prod/infraStack/https:----www.youtube.com--Latency_alarm/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
-                          "aws:cdk:cloudformation:props": {
-                            "comparisonOperator": "GreaterThanThreshold",
-                            "evaluationPeriods": 1,
-                            "alarmActions": [
-                              {
-                                "Ref": "TalhaSkipQWebHealthTopic9A32A90C"
-                              }
-                            ],
-                            "datapointsToAlarm": 1,
-                            "metrics": [
-                              {
-                                "metricStat": {
-                                  "metric": {
-                                    "metricName": "https://www.youtube.com/ulr_latency",
-                                    "namespace": "S2NEWTALHA_WH",
-                                    "dimensions": [
-                                      {
-                                        "name": "URL",
-                                        "value": "https://www.youtube.com/"
-                                      }
-                                    ]
-                                  },
-                                  "period": 60,
-                                  "stat": "Average"
-                                },
-                                "id": "m1",
-                                "label": "https://www.youtube.com/Latency_metric",
-                                "returnData": true
-                              }
-                            ],
-                            "threshold": 0.25
                           }
                         },
                         "constructInfo": {
