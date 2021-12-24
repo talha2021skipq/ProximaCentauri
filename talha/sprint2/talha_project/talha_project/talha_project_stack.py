@@ -88,8 +88,8 @@ class TalhaProjectStack(cdk.Stack):
         #     self, "TalhaProjectQueue",
         #     visibility_timeout=cdk.Duration.seconds(300),
         # )
-    def create_table( self):
-        return db_.Table(self,id="Table", table_name=constants.TABLE_NAME ,partition_key=db_.Attribute(name="id", type=db_.AttributeType.STRING), 
+    def create_table( self):#, table_name=constants.TABLE_NAME put back
+        return db_.Table(self,id="Table" ,partition_key=db_.Attribute(name="id", type=db_.AttributeType.STRING), 
             sort_key=db_.Attribute(name="createdDate", type=db_.AttributeType.STRING))
 ####################################################################################################################
 ##      Generating Metrics and then raising alarms on them.                                                    ####
