@@ -1692,7 +1692,7 @@
                           "aws:cdk:cloudformation:props": {
                             "code": {
                               "s3Bucket": {
-                                "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3Bucket3809729A"
+                                "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3Bucket8149A6AD"
                               },
                               "s3Key": {
                                 "Fn::Join": [
@@ -1705,7 +1705,7 @@
                                           "Fn::Split": [
                                             "||",
                                             {
-                                              "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                                             }
                                           ]
                                         }
@@ -1718,7 +1718,7 @@
                                           "Fn::Split": [
                                             "||",
                                             {
-                                              "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                                             }
                                           ]
                                         }
@@ -1754,13 +1754,13 @@
                     "id": "AssetParameters",
                     "path": "TalhaPipelineStack/beta/infraStack/AssetParameters",
                     "children": {
-                      "99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723": {
-                        "id": "99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723",
-                        "path": "TalhaPipelineStack/beta/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723",
+                      "e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115": {
+                        "id": "e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115",
+                        "path": "TalhaPipelineStack/beta/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115",
                         "children": {
                           "S3Bucket": {
                             "id": "S3Bucket",
-                            "path": "TalhaPipelineStack/beta/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/S3Bucket",
+                            "path": "TalhaPipelineStack/beta/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115/S3Bucket",
                             "constructInfo": {
                               "fqn": "@aws-cdk/core.CfnParameter",
                               "version": "1.135.0"
@@ -1768,7 +1768,7 @@
                           },
                           "S3VersionKey": {
                             "id": "S3VersionKey",
-                            "path": "TalhaPipelineStack/beta/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/S3VersionKey",
+                            "path": "TalhaPipelineStack/beta/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115/S3VersionKey",
                             "constructInfo": {
                               "fqn": "@aws-cdk/core.CfnParameter",
                               "version": "1.135.0"
@@ -1776,7 +1776,7 @@
                           },
                           "ArtifactHash": {
                             "id": "ArtifactHash",
-                            "path": "TalhaPipelineStack/beta/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/ArtifactHash",
+                            "path": "TalhaPipelineStack/beta/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115/ArtifactHash",
                             "constructInfo": {
                               "fqn": "@aws-cdk/core.CfnParameter",
                               "version": "1.135.0"
@@ -1842,7 +1842,7 @@
                           "aws:cdk:cloudformation:props": {
                             "code": {
                               "s3Bucket": {
-                                "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3Bucket3809729A"
+                                "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3Bucket8149A6AD"
                               },
                               "s3Key": {
                                 "Fn::Join": [
@@ -1855,7 +1855,7 @@
                                           "Fn::Split": [
                                             "||",
                                             {
-                                              "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                                             }
                                           ]
                                         }
@@ -1868,7 +1868,7 @@
                                           "Fn::Split": [
                                             "||",
                                             {
-                                              "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                                             }
                                           ]
                                         }
@@ -2150,7 +2150,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "www.skipq.orgulr_availability",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -2203,7 +2203,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "www.skipq.orgulr_latency",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -2256,7 +2256,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "https://www.dawn.com/ulr_availability",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -2309,7 +2309,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "https://www.dawn.com/ulr_latency",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -2362,7 +2362,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "www.amazon.comulr_availability",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -2415,7 +2415,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "www.amazon.comulr_latency",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -2468,7 +2468,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "https://www.youtube.com/ulr_availability",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -2521,7 +2521,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "https://www.youtube.com/ulr_latency",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -2759,7 +2759,7 @@
                           "aws:cdk:cloudformation:props": {
                             "code": {
                               "s3Bucket": {
-                                "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3Bucket3809729A"
+                                "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3Bucket8149A6AD"
                               },
                               "s3Key": {
                                 "Fn::Join": [
@@ -2772,7 +2772,7 @@
                                           "Fn::Split": [
                                             "||",
                                             {
-                                              "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                                             }
                                           ]
                                         }
@@ -2785,7 +2785,7 @@
                                           "Fn::Split": [
                                             "||",
                                             {
-                                              "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                                             }
                                           ]
                                         }
@@ -2821,13 +2821,13 @@
                     "id": "AssetParameters",
                     "path": "TalhaPipelineStack/Prod/infraStack/AssetParameters",
                     "children": {
-                      "99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723": {
-                        "id": "99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723",
-                        "path": "TalhaPipelineStack/Prod/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723",
+                      "e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115": {
+                        "id": "e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115",
+                        "path": "TalhaPipelineStack/Prod/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115",
                         "children": {
                           "S3Bucket": {
                             "id": "S3Bucket",
-                            "path": "TalhaPipelineStack/Prod/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/S3Bucket",
+                            "path": "TalhaPipelineStack/Prod/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115/S3Bucket",
                             "constructInfo": {
                               "fqn": "@aws-cdk/core.CfnParameter",
                               "version": "1.135.0"
@@ -2835,7 +2835,7 @@
                           },
                           "S3VersionKey": {
                             "id": "S3VersionKey",
-                            "path": "TalhaPipelineStack/Prod/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/S3VersionKey",
+                            "path": "TalhaPipelineStack/Prod/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115/S3VersionKey",
                             "constructInfo": {
                               "fqn": "@aws-cdk/core.CfnParameter",
                               "version": "1.135.0"
@@ -2843,7 +2843,7 @@
                           },
                           "ArtifactHash": {
                             "id": "ArtifactHash",
-                            "path": "TalhaPipelineStack/Prod/infraStack/AssetParameters/99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723/ArtifactHash",
+                            "path": "TalhaPipelineStack/Prod/infraStack/AssetParameters/e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115/ArtifactHash",
                             "constructInfo": {
                               "fqn": "@aws-cdk/core.CfnParameter",
                               "version": "1.135.0"
@@ -2909,7 +2909,7 @@
                           "aws:cdk:cloudformation:props": {
                             "code": {
                               "s3Bucket": {
-                                "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3Bucket3809729A"
+                                "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3Bucket8149A6AD"
                               },
                               "s3Key": {
                                 "Fn::Join": [
@@ -2922,7 +2922,7 @@
                                           "Fn::Split": [
                                             "||",
                                             {
-                                              "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                                             }
                                           ]
                                         }
@@ -2935,7 +2935,7 @@
                                           "Fn::Split": [
                                             "||",
                                             {
-                                              "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                                              "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                                             }
                                           ]
                                         }
@@ -3217,7 +3217,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "www.skipq.orgulr_availability",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -3270,7 +3270,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "www.skipq.orgulr_latency",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -3323,7 +3323,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "https://www.dawn.com/ulr_availability",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -3376,7 +3376,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "https://www.dawn.com/ulr_latency",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -3429,7 +3429,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "www.amazon.comulr_availability",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -3482,7 +3482,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "www.amazon.comulr_latency",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -3535,7 +3535,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "https://www.youtube.com/ulr_availability",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",
@@ -3588,7 +3588,7 @@
                                 "metricStat": {
                                   "metric": {
                                     "metricName": "https://www.youtube.com/ulr_latency",
-                                    "namespace": "NEWTALHA_WH",
+                                    "namespace": "S2NEWTALHA_WH",
                                     "dimensions": [
                                       {
                                         "name": "URL",

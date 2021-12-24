@@ -97,7 +97,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3Bucket3809729A"
+            "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3Bucket8149A6AD"
           },
           "S3Key": {
             "Fn::Join": [
@@ -110,7 +110,7 @@
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                          "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                         }
                       ]
                     }
@@ -123,7 +123,7 @@
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                          "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                         }
                       ]
                     }
@@ -149,7 +149,7 @@
       ],
       "Metadata": {
         "aws:cdk:path": "TalhaPipelineStack/beta/infraStack/FirstHWlambda/Resource",
-        "aws:asset:path": "../asset.99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723",
+        "aws:asset:path": "../asset.e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115",
         "aws:asset:is-bundled": false,
         "aws:asset:property": "Code"
       }
@@ -159,7 +159,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3Bucket3809729A"
+            "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3Bucket8149A6AD"
           },
           "S3Key": {
             "Fn::Join": [
@@ -172,7 +172,7 @@
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                          "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                         }
                       ]
                     }
@@ -185,7 +185,7 @@
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58"
+                          "Ref": "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373"
                         }
                       ]
                     }
@@ -211,7 +211,7 @@
       ],
       "Metadata": {
         "aws:cdk:path": "TalhaPipelineStack/beta/infraStack/neTwlambda/Resource",
-        "aws:asset:path": "../asset.99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723",
+        "aws:asset:path": "../asset.e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115",
         "aws:asset:is-bundled": false,
         "aws:asset:property": "Code"
       }
@@ -375,7 +375,7 @@
                   }
                 ],
                 "MetricName": "www.skipq.orgulr_availability",
-                "Namespace": "NEWTALHA_WH"
+                "Namespace": "S2NEWTALHA_WH"
               },
               "Period": 60,
               "Stat": "Average"
@@ -413,7 +413,7 @@
                   }
                 ],
                 "MetricName": "www.skipq.orgulr_latency",
-                "Namespace": "NEWTALHA_WH"
+                "Namespace": "S2NEWTALHA_WH"
               },
               "Period": 60,
               "Stat": "Average"
@@ -451,7 +451,7 @@
                   }
                 ],
                 "MetricName": "https://www.dawn.com/ulr_availability",
-                "Namespace": "NEWTALHA_WH"
+                "Namespace": "S2NEWTALHA_WH"
               },
               "Period": 60,
               "Stat": "Average"
@@ -489,7 +489,7 @@
                   }
                 ],
                 "MetricName": "https://www.dawn.com/ulr_latency",
-                "Namespace": "NEWTALHA_WH"
+                "Namespace": "S2NEWTALHA_WH"
               },
               "Period": 60,
               "Stat": "Average"
@@ -527,7 +527,7 @@
                   }
                 ],
                 "MetricName": "www.amazon.comulr_availability",
-                "Namespace": "NEWTALHA_WH"
+                "Namespace": "S2NEWTALHA_WH"
               },
               "Period": 60,
               "Stat": "Average"
@@ -565,7 +565,7 @@
                   }
                 ],
                 "MetricName": "www.amazon.comulr_latency",
-                "Namespace": "NEWTALHA_WH"
+                "Namespace": "S2NEWTALHA_WH"
               },
               "Period": 60,
               "Stat": "Average"
@@ -603,7 +603,7 @@
                   }
                 ],
                 "MetricName": "https://www.youtube.com/ulr_availability",
-                "Namespace": "NEWTALHA_WH"
+                "Namespace": "S2NEWTALHA_WH"
               },
               "Period": 60,
               "Stat": "Average"
@@ -641,7 +641,7 @@
                   }
                 ],
                 "MetricName": "https://www.youtube.com/ulr_latency",
-                "Namespace": "NEWTALHA_WH"
+                "Namespace": "S2NEWTALHA_WH"
               },
               "Period": 60,
               "Stat": "Average"
@@ -666,17 +666,17 @@
     }
   },
   "Parameters": {
-    "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3Bucket3809729A": {
+    "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3Bucket8149A6AD": {
       "Type": "String",
-      "Description": "S3 bucket for asset \"99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723\""
+      "Description": "S3 bucket for asset \"e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115\""
     },
-    "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723S3VersionKey9D400A58": {
+    "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115S3VersionKey19140373": {
       "Type": "String",
-      "Description": "S3 key for asset version \"99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723\""
+      "Description": "S3 key for asset version \"e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115\""
     },
-    "AssetParameters99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723ArtifactHash382E69E4": {
+    "AssetParameterse3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115ArtifactHash70BBA38A": {
       "Type": "String",
-      "Description": "Artifact hash for asset \"99ab67f2505f91bef8dab3109466cf6708db6cd2c47435001511738b38fde723\""
+      "Description": "Artifact hash for asset \"e3410ae0a3fedaf3ea9848938a80130e612759168488b9d8c9f5d798b6d85115\""
     }
   }
 }
