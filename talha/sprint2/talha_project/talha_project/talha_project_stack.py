@@ -68,7 +68,7 @@ class TalhaProjectStack(cdk.Stack):
         #### Defining code deployment group to auto roll back, on the basis of
         ####  aws lambda function's Alarm on metrics(Duration).               ########### 
         codedeploy.LambdaDeploymentGroup(self, "id",alias=db_alias,
-           alarm=[failure_alarm])
+           alarms=[failure_alarm])
 #           deployment_config=codedeploy.LambdaDeploymentConfig. .LambdaDeploymentConfig.LINEAR_10PERCENT_EVERY_1MINUTE)
 
 
