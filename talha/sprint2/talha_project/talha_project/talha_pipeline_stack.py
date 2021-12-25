@@ -20,7 +20,7 @@ class TalhaPipelineStack(cdk.Stack):
                     #,"npm ci", "npm run build", "npx cdk synth"
                    ],
             primary_output_directory="talha/sprint2/talha_project/cdk.out")
-    #creating a pipeline for Codes, mainly to deploy CDK apps
+    #Creating a pipeline for Codes, mainly to deploy CDK apps
         pipeline=pipelines.CodePipeline(self, "Pipeline", synth=synth)
         ############################## Defining beta stage to my code pipeline #######################
         beta= TalhaInfraStage(self, "Beta", 

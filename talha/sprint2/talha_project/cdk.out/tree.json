@@ -274,6 +274,16 @@
                                           ]
                                         ]
                                       }
+                                    },
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Resource": {
+                                        "Fn::GetAtt": [
+                                          "PipelineProdPromoteToProdCodePipelineActionRole08AAED6C",
+                                          "Arn"
+                                        ]
+                                      }
                                     }
                                   ],
                                   "Version": "2012-10-17"
@@ -528,6 +538,100 @@
                                 },
                                 "configuration": {
                                   "StackName": "Beta-infraStack",
+                                  "ActionMode": "CHANGE_SET_EXECUTE",
+                                  "ChangeSetName": "PipelineChange"
+                                },
+                                "runOrder": 3,
+                                "roleArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
+                                    ]
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Prod",
+                            "actions": [
+                              {
+                                "name": "PromoteToProd",
+                                "actionTypeId": {
+                                  "category": "Approval",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "Manual"
+                                },
+                                "runOrder": 1,
+                                "roleArn": {
+                                  "Fn::GetAtt": [
+                                    "PipelineProdPromoteToProdCodePipelineActionRole08AAED6C",
+                                    "Arn"
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "infraStack.Prepare",
+                                "inputArtifacts": [
+                                  {
+                                    "name": "synth_Output"
+                                  }
+                                ],
+                                "actionTypeId": {
+                                  "category": "Deploy",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "CloudFormation"
+                                },
+                                "configuration": {
+                                  "StackName": "Prod-infraStack",
+                                  "Capabilities": "CAPABILITY_NAMED_IAM,CAPABILITY_AUTO_EXPAND",
+                                  "RoleArn": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::315997497220:role/cdk-talha-cfn-exec-role-315997497220-us-east-2"
+                                      ]
+                                    ]
+                                  },
+                                  "ActionMode": "CHANGE_SET_REPLACE",
+                                  "ChangeSetName": "PipelineChange",
+                                  "TemplatePath": "synth_Output::assembly-TalhaPipelineStack-Prod/TalhaPipelineStackProdinfraStackD4920B33.template.json"
+                                },
+                                "runOrder": 2,
+                                "roleArn": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":iam::315997497220:role/cdk-talha-deploy-role-315997497220-us-east-2"
+                                    ]
+                                  ]
+                                }
+                              },
+                              {
+                                "name": "infraStack.Deploy",
+                                "actionTypeId": {
+                                  "category": "Deploy",
+                                  "version": "1",
+                                  "owner": "AWS",
+                                  "provider": "CloudFormation"
+                                },
+                                "configuration": {
+                                  "StackName": "Prod-infraStack",
                                   "ActionMode": "CHANGE_SET_EXECUTE",
                                   "ChangeSetName": "PipelineChange"
                                 },
@@ -1516,6 +1620,88 @@
                       "fqn": "@aws-cdk/core.Resource",
                       "version": "1.135.0"
                     }
+                  },
+                  "Prod": {
+                    "id": "Prod",
+                    "path": "TalhaPipelineStack/Pipeline/Pipeline/Prod",
+                    "children": {
+                      "PromoteToProd": {
+                        "id": "PromoteToProd",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Prod/PromoteToProd",
+                        "children": {
+                          "CodePipelineActionRole": {
+                            "id": "CodePipelineActionRole",
+                            "path": "TalhaPipelineStack/Pipeline/Pipeline/Prod/PromoteToProd/CodePipelineActionRole",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "TalhaPipelineStack/Pipeline/Pipeline/Prod/PromoteToProd/CodePipelineActionRole/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                                  "aws:cdk:cloudformation:props": {
+                                    "assumeRolePolicyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "sts:AssumeRole",
+                                          "Effect": "Allow",
+                                          "Principal": {
+                                            "AWS": {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  "arn:",
+                                                  {
+                                                    "Ref": "AWS::Partition"
+                                                  },
+                                                  ":iam::315997497220:root"
+                                                ]
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/aws-iam.CfnRole",
+                                  "version": "1.135.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.Role",
+                              "version": "1.135.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Construct",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "infraStack.Prepare": {
+                        "id": "infraStack.Prepare",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Prod/infraStack.Prepare",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Construct",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "infraStack.Deploy": {
+                        "id": "infraStack.Deploy",
+                        "path": "TalhaPipelineStack/Pipeline/Pipeline/Prod/infraStack.Deploy",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Construct",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Construct",
+                      "version": "1.135.0"
+                    }
                   }
                 },
                 "constructInfo": {
@@ -1970,7 +2156,7 @@
                             },
                             "source": {
                               "type": "CODEPIPELINE",
-                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-TalhaPipelineStack-Beta/TalhaPipelineStackBetainfraStack007D50E2.assets.json\\\" --verbose publish \\\"8687bb7c323755a003b8498ee80fb76a2458844ec3c528a8c5e4771688866615:315997497220-us-east-2\\\"\"\n      ]\n    }\n  }\n}"
+                              "buildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": [\n        \"npm install -g cdk-assets\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk-assets --path \\\"assembly-TalhaPipelineStack-Beta/TalhaPipelineStackBetainfraStack007D50E2.assets.json\\\" --verbose publish \\\"8d7c92cf043735133595d0d0bafdf3525572aae9fa3ac6565acb8378e99a1c62:315997497220-us-east-2\\\"\"\n      ]\n    }\n  }\n}"
                             },
                             "encryptionKey": "alias/aws/s3"
                           }
@@ -2115,7 +2301,7 @@
                           "aws:cdk:cloudformation:props": {
                             "code": {
                               "s3Bucket": "cdk-talha-assets-315997497220-us-east-2",
-                              "s3Key": "8687bb7c323755a003b8498ee80fb76a2458844ec3c528a8c5e4771688866615.zip"
+                              "s3Key": "8d7c92cf043735133595d0d0bafdf3525572aae9fa3ac6565acb8378e99a1c62.zip"
                             },
                             "role": {
                               "Fn::GetAtt": [
@@ -2321,7 +2507,7 @@
                           "aws:cdk:cloudformation:props": {
                             "code": {
                               "s3Bucket": "cdk-talha-assets-315997497220-us-east-2",
-                              "s3Key": "8687bb7c323755a003b8498ee80fb76a2458844ec3c528a8c5e4771688866615.zip"
+                              "s3Key": "8d7c92cf043735133595d0d0bafdf3525572aae9fa3ac6565acb8378e99a1c62.zip"
                             },
                             "role": {
                               "Fn::GetAtt": [
@@ -2393,6 +2579,32 @@
                         },
                         "constructInfo": {
                           "fqn": "@aws-cdk/aws-sns.Subscription",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "CurrentVersion": {
+                        "id": "CurrentVersion",
+                        "path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/CurrentVersion",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/CurrentVersion/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Version",
+                              "aws:cdk:cloudformation:props": {
+                                "functionName": {
+                                  "Ref": "neTwlambdaB003825D"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-lambda.CfnVersion",
+                              "version": "1.135.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-lambda.Version",
                           "version": "1.135.0"
                         }
                       }
@@ -2499,8 +2711,7 @@
                             "provisionedThroughput": {
                               "readCapacityUnits": 5,
                               "writeCapacityUnits": 5
-                            },
-                            "tableName": "betaTalhasDynDbTable"
+                            }
                           }
                         },
                         "constructInfo": {
@@ -2996,6 +3207,212 @@
                       "version": "1.135.0"
                     }
                   },
+                  "FailureAlarm": {
+                    "id": "FailureAlarm",
+                    "path": "TalhaPipelineStack/Beta/infraStack/FailureAlarm",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TalhaPipelineStack/Beta/infraStack/FailureAlarm/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
+                          "aws:cdk:cloudformation:props": {
+                            "comparisonOperator": "GreaterThanThreshold",
+                            "evaluationPeriods": 1,
+                            "dimensions": [
+                              {
+                                "name": "FunctionName",
+                                "value": {
+                                  "Ref": "neTwlambdaB003825D"
+                                }
+                              }
+                            ],
+                            "metricName": "Duration",
+                            "namespace": "AWS/Lambda",
+                            "period": 300,
+                            "statistic": "Average",
+                            "threshold": 350
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-cloudwatch.CfnAlarm",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-cloudwatch.Alarm",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "LambdaAlias": {
+                    "id": "LambdaAlias",
+                    "path": "TalhaPipelineStack/Beta/infraStack/LambdaAlias",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TalhaPipelineStack/Beta/infraStack/LambdaAlias/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Alias",
+                          "aws:cdk:cloudformation:props": {
+                            "functionName": {
+                              "Ref": "neTwlambdaB003825D"
+                            },
+                            "functionVersion": {
+                              "Fn::GetAtt": [
+                                "neTwlambdaCurrentVersionCD6A2087714da82db774b6e58f97b6d5c78b2111",
+                                "Version"
+                              ]
+                            },
+                            "name": "dbalias"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-lambda.CfnAlias",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "ScalingRole": {
+                        "id": "ScalingRole",
+                        "path": "TalhaPipelineStack/Beta/infraStack/LambdaAlias/ScalingRole",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Resource",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.Alias",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "id": {
+                    "id": "id",
+                    "path": "TalhaPipelineStack/Beta/infraStack/id",
+                    "children": {
+                      "Application": {
+                        "id": "Application",
+                        "path": "TalhaPipelineStack/Beta/infraStack/id/Application",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "TalhaPipelineStack/Beta/infraStack/id/Application/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::CodeDeploy::Application",
+                              "aws:cdk:cloudformation:props": {
+                                "computePlatform": "Lambda"
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-codedeploy.CfnApplication",
+                              "version": "1.135.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-codedeploy.LambdaApplication",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "ServiceRole": {
+                        "id": "ServiceRole",
+                        "path": "TalhaPipelineStack/Beta/infraStack/id/ServiceRole",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "TalhaPipelineStack/Beta/infraStack/id/ServiceRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "Service": "codedeploy.us-east-2.amazonaws.com"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "managedPolicyArns": [
+                                  {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::aws:policy/service-role/AWSCodeDeployRoleForLambdaLimited"
+                                      ]
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnRole",
+                              "version": "1.135.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Role",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TalhaPipelineStack/Beta/infraStack/id/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::CodeDeploy::DeploymentGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "applicationName": {
+                              "Ref": "idApplicationEE49D5B5"
+                            },
+                            "serviceRoleArn": {
+                              "Fn::GetAtt": [
+                                "idServiceRoleBB9E4988",
+                                "Arn"
+                              ]
+                            },
+                            "alarmConfiguration": {
+                              "alarms": [
+                                {
+                                  "name": {
+                                    "Ref": "FailureAlarm93B41FAF"
+                                  }
+                                }
+                              ],
+                              "enabled": true
+                            },
+                            "autoRollbackConfiguration": {
+                              "enabled": true,
+                              "events": [
+                                "DEPLOYMENT_FAILURE",
+                                "DEPLOYMENT_STOP_ON_ALARM"
+                              ]
+                            },
+                            "deploymentConfigName": "CodeDeployDefault.LambdaCanary10Percent5Minutes",
+                            "deploymentStyle": {
+                              "deploymentType": "BLUE_GREEN",
+                              "deploymentOption": "WITH_TRAFFIC_CONTROL"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-codedeploy.CfnDeploymentGroup",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-codedeploy.LambdaDeploymentGroup",
+                      "version": "1.135.0"
+                    }
+                  },
                   "CDKMetadata": {
                     "id": "CDKMetadata",
                     "path": "TalhaPipelineStack/Beta/infraStack/CDKMetadata",
@@ -3159,7 +3576,7 @@
                           "aws:cdk:cloudformation:props": {
                             "code": {
                               "s3Bucket": "cdk-talha-assets-315997497220-us-east-2",
-                              "s3Key": "8687bb7c323755a003b8498ee80fb76a2458844ec3c528a8c5e4771688866615.zip"
+                              "s3Key": "8d7c92cf043735133595d0d0bafdf3525572aae9fa3ac6565acb8378e99a1c62.zip"
                             },
                             "role": {
                               "Fn::GetAtt": [
@@ -3365,7 +3782,7 @@
                           "aws:cdk:cloudformation:props": {
                             "code": {
                               "s3Bucket": "cdk-talha-assets-315997497220-us-east-2",
-                              "s3Key": "8687bb7c323755a003b8498ee80fb76a2458844ec3c528a8c5e4771688866615.zip"
+                              "s3Key": "8d7c92cf043735133595d0d0bafdf3525572aae9fa3ac6565acb8378e99a1c62.zip"
                             },
                             "role": {
                               "Fn::GetAtt": [
@@ -3437,6 +3854,32 @@
                         },
                         "constructInfo": {
                           "fqn": "@aws-cdk/aws-sns.Subscription",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "CurrentVersion": {
+                        "id": "CurrentVersion",
+                        "path": "TalhaPipelineStack/Prod/infraStack/neTwlambda/CurrentVersion",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "TalhaPipelineStack/Prod/infraStack/neTwlambda/CurrentVersion/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Version",
+                              "aws:cdk:cloudformation:props": {
+                                "functionName": {
+                                  "Ref": "neTwlambdaB003825D"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-lambda.CfnVersion",
+                              "version": "1.135.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-lambda.Version",
                           "version": "1.135.0"
                         }
                       }
@@ -3543,8 +3986,7 @@
                             "provisionedThroughput": {
                               "readCapacityUnits": 5,
                               "writeCapacityUnits": 5
-                            },
-                            "tableName": "betaTalhasDynDbTable"
+                            }
                           }
                         },
                         "constructInfo": {
@@ -4037,6 +4479,212 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-cloudwatch.Alarm",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "FailureAlarm": {
+                    "id": "FailureAlarm",
+                    "path": "TalhaPipelineStack/Prod/infraStack/FailureAlarm",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TalhaPipelineStack/Prod/infraStack/FailureAlarm/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::CloudWatch::Alarm",
+                          "aws:cdk:cloudformation:props": {
+                            "comparisonOperator": "GreaterThanThreshold",
+                            "evaluationPeriods": 1,
+                            "dimensions": [
+                              {
+                                "name": "FunctionName",
+                                "value": {
+                                  "Ref": "neTwlambdaB003825D"
+                                }
+                              }
+                            ],
+                            "metricName": "Duration",
+                            "namespace": "AWS/Lambda",
+                            "period": 300,
+                            "statistic": "Average",
+                            "threshold": 350
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-cloudwatch.CfnAlarm",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-cloudwatch.Alarm",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "LambdaAlias": {
+                    "id": "LambdaAlias",
+                    "path": "TalhaPipelineStack/Prod/infraStack/LambdaAlias",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TalhaPipelineStack/Prod/infraStack/LambdaAlias/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Alias",
+                          "aws:cdk:cloudformation:props": {
+                            "functionName": {
+                              "Ref": "neTwlambdaB003825D"
+                            },
+                            "functionVersion": {
+                              "Fn::GetAtt": [
+                                "neTwlambdaCurrentVersionCD6A2087714da82db774b6e58f97b6d5c78b2111",
+                                "Version"
+                              ]
+                            },
+                            "name": "dbalias"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-lambda.CfnAlias",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "ScalingRole": {
+                        "id": "ScalingRole",
+                        "path": "TalhaPipelineStack/Prod/infraStack/LambdaAlias/ScalingRole",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Resource",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.Alias",
+                      "version": "1.135.0"
+                    }
+                  },
+                  "id": {
+                    "id": "id",
+                    "path": "TalhaPipelineStack/Prod/infraStack/id",
+                    "children": {
+                      "Application": {
+                        "id": "Application",
+                        "path": "TalhaPipelineStack/Prod/infraStack/id/Application",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "TalhaPipelineStack/Prod/infraStack/id/Application/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::CodeDeploy::Application",
+                              "aws:cdk:cloudformation:props": {
+                                "computePlatform": "Lambda"
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-codedeploy.CfnApplication",
+                              "version": "1.135.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-codedeploy.LambdaApplication",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "ServiceRole": {
+                        "id": "ServiceRole",
+                        "path": "TalhaPipelineStack/Prod/infraStack/id/ServiceRole",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "TalhaPipelineStack/Prod/infraStack/id/ServiceRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "Service": "codedeploy.us-east-2.amazonaws.com"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "managedPolicyArns": [
+                                  {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::aws:policy/service-role/AWSCodeDeployRoleForLambdaLimited"
+                                      ]
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnRole",
+                              "version": "1.135.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Role",
+                          "version": "1.135.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "TalhaPipelineStack/Prod/infraStack/id/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::CodeDeploy::DeploymentGroup",
+                          "aws:cdk:cloudformation:props": {
+                            "applicationName": {
+                              "Ref": "idApplicationEE49D5B5"
+                            },
+                            "serviceRoleArn": {
+                              "Fn::GetAtt": [
+                                "idServiceRoleBB9E4988",
+                                "Arn"
+                              ]
+                            },
+                            "alarmConfiguration": {
+                              "alarms": [
+                                {
+                                  "name": {
+                                    "Ref": "FailureAlarm93B41FAF"
+                                  }
+                                }
+                              ],
+                              "enabled": true
+                            },
+                            "autoRollbackConfiguration": {
+                              "enabled": true,
+                              "events": [
+                                "DEPLOYMENT_FAILURE",
+                                "DEPLOYMENT_STOP_ON_ALARM"
+                              ]
+                            },
+                            "deploymentConfigName": "CodeDeployDefault.LambdaCanary10Percent5Minutes",
+                            "deploymentStyle": {
+                              "deploymentType": "BLUE_GREEN",
+                              "deploymentOption": "WITH_TRAFFIC_CONTROL"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-codedeploy.CfnDeploymentGroup",
+                          "version": "1.135.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-codedeploy.LambdaDeploymentGroup",
                       "version": "1.135.0"
                     }
                   },

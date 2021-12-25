@@ -51,7 +51,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-talha-assets-315997497220-us-east-2",
-          "S3Key": "8687bb7c323755a003b8498ee80fb76a2458844ec3c528a8c5e4771688866615.zip"
+          "S3Key": "8d7c92cf043735133595d0d0bafdf3525572aae9fa3ac6565acb8378e99a1c62.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -68,7 +68,7 @@
       ],
       "Metadata": {
         "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/FirstHWlambda/Resource",
-        "aws:asset:path": "../asset.8687bb7c323755a003b8498ee80fb76a2458844ec3c528a8c5e4771688866615",
+        "aws:asset:path": "../asset.8d7c92cf043735133595d0d0bafdf3525572aae9fa3ac6565acb8378e99a1c62",
         "aws:asset:is-bundled": false,
         "aws:asset:property": "Code"
       }
@@ -182,7 +182,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-talha-assets-315997497220-us-east-2",
-          "S3Key": "8687bb7c323755a003b8498ee80fb76a2458844ec3c528a8c5e4771688866615.zip"
+          "S3Key": "8d7c92cf043735133595d0d0bafdf3525572aae9fa3ac6565acb8378e99a1c62.zip"
         },
         "Role": {
           "Fn::GetAtt": [
@@ -200,7 +200,7 @@
       ],
       "Metadata": {
         "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/Resource",
-        "aws:asset:path": "../asset.8687bb7c323755a003b8498ee80fb76a2458844ec3c528a8c5e4771688866615",
+        "aws:asset:path": "../asset.8d7c92cf043735133595d0d0bafdf3525572aae9fa3ac6565acb8378e99a1c62",
         "aws:asset:is-bundled": false,
         "aws:asset:property": "Code"
       }
@@ -240,6 +240,17 @@
       },
       "Metadata": {
         "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/TalhaSkipQWebHealthTopic/Resource"
+      }
+    },
+    "neTwlambdaCurrentVersionCD6A2087714da82db774b6e58f97b6d5c78b2111": {
+      "Type": "AWS::Lambda::Version",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "neTwlambdaB003825D"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/neTwlambda/CurrentVersion/Resource"
       }
     },
     "WebHealthInvokation871F98AF": {
@@ -312,8 +323,7 @@
         "ProvisionedThroughput": {
           "ReadCapacityUnits": 5,
           "WriteCapacityUnits": 5
-        },
-        "TableName": "betaTalhasDynDbTable"
+        }
       },
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain",
@@ -644,10 +654,143 @@
         "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/https:----www.youtube.com--Latency_alarm/Resource"
       }
     },
+    "FailureAlarm93B41FAF": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 1,
+        "Dimensions": [
+          {
+            "Name": "FunctionName",
+            "Value": {
+              "Ref": "neTwlambdaB003825D"
+            }
+          }
+        ],
+        "MetricName": "Duration",
+        "Namespace": "AWS/Lambda",
+        "Period": 300,
+        "Statistic": "Average",
+        "Threshold": 350
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/FailureAlarm/Resource"
+      }
+    },
+    "LambdaAlias9C15A666": {
+      "Type": "AWS::Lambda::Alias",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "neTwlambdaB003825D"
+        },
+        "FunctionVersion": {
+          "Fn::GetAtt": [
+            "neTwlambdaCurrentVersionCD6A2087714da82db774b6e58f97b6d5c78b2111",
+            "Version"
+          ]
+        },
+        "Name": "dbalias"
+      },
+      "UpdatePolicy": {
+        "CodeDeployLambdaAliasUpdate": {
+          "ApplicationName": {
+            "Ref": "idApplicationEE49D5B5"
+          },
+          "DeploymentGroupName": {
+            "Ref": "id4D1900E5"
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/LambdaAlias/Resource"
+      }
+    },
+    "idApplicationEE49D5B5": {
+      "Type": "AWS::CodeDeploy::Application",
+      "Properties": {
+        "ComputePlatform": "Lambda"
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/id/Application/Resource"
+      }
+    },
+    "idServiceRoleBB9E4988": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codedeploy.us-east-2.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSCodeDeployRoleForLambdaLimited"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/id/ServiceRole/Resource"
+      }
+    },
+    "id4D1900E5": {
+      "Type": "AWS::CodeDeploy::DeploymentGroup",
+      "Properties": {
+        "ApplicationName": {
+          "Ref": "idApplicationEE49D5B5"
+        },
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "idServiceRoleBB9E4988",
+            "Arn"
+          ]
+        },
+        "AlarmConfiguration": {
+          "Alarms": [
+            {
+              "Name": {
+                "Ref": "FailureAlarm93B41FAF"
+              }
+            }
+          ],
+          "Enabled": true
+        },
+        "AutoRollbackConfiguration": {
+          "Enabled": true,
+          "Events": [
+            "DEPLOYMENT_FAILURE",
+            "DEPLOYMENT_STOP_ON_ALARM"
+          ]
+        },
+        "DeploymentConfigName": "CodeDeployDefault.LambdaCanary10Percent5Minutes",
+        "DeploymentStyle": {
+          "DeploymentOption": "WITH_TRAFFIC_CONTROL",
+          "DeploymentType": "BLUE_GREEN"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/id/Resource"
+      }
+    },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WOwWrDMBBEvyX39abBtNBbk0DPxs0PrNdqosaSglZqMEL/XsluoD3Nmx12mB3u2md82rzRXRoer9vEzitMH4H4CnsRFQqetT3D0VkJPnKAXomLnhUcP+2DM9SGpMlg6t20ZlU7N2meq10pw0RmGAnTe7QctLM1+8ud8kaLFJdB2obqCMFlS/F4iHxV4UCiQKyUqXEQ9vr2eP/nT+6muV4XyKC+lS1lqY+/E4tmGGdLxo0DphMNa7BABp5cHO8U+IJpP5E3NVsg5wzdHC7Oblt8wdfNl2jd+GiDNgr7VX8AUv5iqF8BAAA="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/12Qy27CMBBFv4X9MBShVuquAdRuukAp6t6xXXDxI/LYRZHlf6+dEKllNefeK8/Da1xvHvFh8cKutOTiskrceYnpIzB+gYZIhoInZU+wc5aCjzxAK8lFzyXsvuzMGWqHpJjB1Do9ZbUenFZ8qHKiDJqZTjBMr9HyoJyt2V8+SG8UUVWf0tPNnbHRilE1RshAmyWraxKO2xaN28gvMmwZSSBL5ZjYEfeqnwf800fXK17dETLIH2lLs9TG2xGlZhCDZcaJDtORdVMwQgauXRRXFvgZU6OZN9NuBUrmhBSy127A9D5evR+VKSPevIs9TG7T9+Vr2Lzfnbx7k3OGwxDOzq42+ITPi29SaumjDcpIbKf6CxVheJfYAQAA"
       },
       "Metadata": {
         "aws:cdk:path": "TalhaPipelineStack/Beta/infraStack/CDKMetadata/Default"

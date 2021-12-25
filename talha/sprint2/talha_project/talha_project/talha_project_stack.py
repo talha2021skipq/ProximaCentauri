@@ -69,7 +69,7 @@ class TalhaProjectStack(cdk.Stack):
         ####  aws lambda function's Alarm on metrics(Duration).               ########### 
         codedeploy.LambdaDeploymentGroup(self, "id",alias=db_alias,
            alarms=[failure_alarm])
-#           deployment_config=codedeploy.LambdaDeploymentConfig. .LambdaDeploymentConfig.LINEAR_10PERCENT_EVERY_1MINUTE)
+ # Default: LambdaDeploymentConfig.CANARY_10PERCENT_5MINUTES
 
 
     def create_lambda_role(self):
