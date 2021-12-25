@@ -53,9 +53,11 @@ class TalhaProjectStack(cdk.Stack):
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
         self.create_alarm(topic,listofurls)
-        
+        ############Creating Alarm on aws metrics for lambda duration ###########
+        metricduration= cloudwatch_.Metric(namespace='AWS/Lambda', metric_name='Duration',
+            dimensions_map={'FunctionName': Talha_db_lambda.FunctionName} )
 
- 
+
     def create_lambda_role(self):
         lambdaRole=aws_iam.Role(self,"lambda-role",
         assumed_by=aws_iam.ServicePrincipal('lambda.amazonaws.com'),
