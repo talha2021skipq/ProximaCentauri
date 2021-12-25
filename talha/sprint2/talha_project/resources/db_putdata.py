@@ -8,7 +8,6 @@ class dynamoTablePutData:
         self.resource = boto3.resource('dynamodb') 
     def dynamo_data(self, tableName, message, createdDate):
         table = self.resource.Table(os.getenv('TABLE_NAME'))
-        print(os.getenv('TABLE_NAME'))
         values = {}
         values['id'] = message
         values['createdDate'] = createdDate
