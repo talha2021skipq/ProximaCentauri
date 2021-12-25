@@ -62,14 +62,16 @@ class TalhaProjectStack(cdk.Stack):
             evaluation_periods=1) 
                 
         ##Defining alias for my dblambda    
-        db_alias=_lambda.Alias(self, "LambdaAlias",
-            alias_name="dbalias",
+        try:
+            db_alias=_lambda.Alias(self, "DbLambdaAlias",
+            alias_name="TalhaDbalias",
             version=Talha_db_lambda.current_version)
         #### Defining code deployment group to auto roll back, on the basis of
         ####  aws lambda function's Alarm on metrics(Duration).               ########### 
-        codedeploy.LambdaDeploymentGroup(self, "id",alias=db_alias,
-           alarms=[failure_alarm])
+            codedeploy.LambdaDeploymentGroup(self, "id",alias=db_alias,
+             alarms=[failure_alarm])
  # Default: LambdaDeploymentConfig.CANARY_10PERCENT_5MINUTES
+        except: pass
 
 
     def create_lambda_role(self):
