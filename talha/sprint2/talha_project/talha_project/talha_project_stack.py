@@ -12,7 +12,7 @@ from aws_cdk import (
     aws_s3 as s3_, 
     aws_dynamodb as db_,
   #  aws_lambda_event_sources as lambda_events_,
-    
+    aws_codedeploy as codedeploy
 )
 #import boto3
 from resources import constants as constants
@@ -55,7 +55,21 @@ class TalhaProjectStack(cdk.Stack):
         self.create_alarm(topic,listofurls)
         ############Creating Alarm on aws metrics for lambda duration ###########
         metricduration= cloudwatch_.Metric(namespace='AWS/Lambda', metric_name='Duration',
-            dimensions_map={'FunctionName': Talha_db_lambda.function_name} )
+            dimensions_map={'FunctionName': Talha_db_lambda.function_name}  )
+        failure_alarm=cloudwatch_.Alarm(self, 'FailureAlarm', metric=metricduration,
+            threshold=350,
+            comparison_operator= cloudwatch_.ComparisonOperator.GREATER_THAN_THRESHOLD,
+            evaluation_periods=1) 
+                
+        ##Defining alias for my dblambda    
+        db_alias=_lambda.alias(self, "LambdaAlias",
+            alias_name="dbalias",
+            version=Talha_db_lambda.current_version)
+        #### Defining code deployment group to auto roll back, on the basis of
+        ####  aws lambda function's Alarm on metrics(Duration).               ########### 
+        codedeploy.LambdaDeploymentGroup(self, "id",alias=db_alias,
+           alarm=[failure_alarm],
+           deployment_config=codedeploy.LambdaDeploymentConfig.LINEAR_10PERCENT_EVERY_1MINUTE)
 
 
     def create_lambda_role(self):
