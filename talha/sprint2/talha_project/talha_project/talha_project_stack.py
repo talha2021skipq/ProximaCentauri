@@ -63,8 +63,8 @@ class TalhaProjectStack(cdk.Stack):
                 
         ##Defining alias for my dblambda    
         try:
-            db_alias=_lambda.Alias(self, "WLambdaAlias",
-            alias_name="TalhaWLalias",
+            db_alias=_lambda.Alias(self, "WLaambdaAlias",
+            alias_name="TalhaWLaliass",
             version=HWlambda.current_version)
         #### Defining code deployment group to auto roll back, on the basis of
         ####  aws lambda function's Alarm on metrics(Duration).               ########### 
