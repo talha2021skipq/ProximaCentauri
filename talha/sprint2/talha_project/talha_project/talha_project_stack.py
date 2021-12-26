@@ -57,11 +57,11 @@ class TalhaProjectStack(cdk.Stack):
         metricduration= cloudwatch_.Metric(namespace='AWS/Lambda', metric_name='Duration',
             dimensions_map={'FunctionName': Talha_db_lambda.function_name}  )
         failure_alarm=cloudwatch_.Alarm(self, 'FailureAlarm', metric=metricduration,
-            threshold=350,
+            threshold=4000,
             comparison_operator= cloudwatch_.ComparisonOperator.GREATER_THAN_THRESHOLD,
             evaluation_periods=1) 
                 
-        ##Defining alias for my dblambda    
+        ##Defining alias for my web health lambda    
         try:
             db_alias=_lambda.Alias(self, "WLaambdaAlias",
             alias_name="TalhaWLaliass",

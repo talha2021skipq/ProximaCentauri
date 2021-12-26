@@ -1,11 +1,9 @@
 
 
-# Sprint1: Creation of web health monitoring system
-## Project Summary 
+# Sprint2: Creating CI/CD Pipeline 
+# Project Summary 
 
-In the sprint1 at skipq, we designed a web health monitoring system, that will periodically monitor the web health metrics like latency and availability and
-then raise an alarm when the metrics breach the specified threshold. The rasied alarms will be stored in a dynamodb  table.
-After achieving this milestone, we extended the monitoring system's scope by reading a file having URLS from an S3 bucket and then run our project on the number of urls found in that file. So all the web health metrics will be published for all of the URLs and also it will raise the respective alarms for each URL whenever the metrics breach the minimum threshold.
+In the sprint2 at skipQ, I created a CI/CD pipeline with beta and production stage. In the pipeline, the first step is to set up the source and then build environment for it to get deployed. After that, I embedded the feature of automatic update in pipeline on the trigger or change in the source repository. After the setup, the code is build and deployed in beta stage, where I have added pre-unit tests. In the last, I have added a prod stage in the same region with manual approval. I had already designed a web health monitoring system, that will periodically monitor the web health metrics, so in sprint 2 I added another feature, that is to raise an alarm on the metric(Duration) of my lambda function and then raise an alarm after a specific threshold. An alias for my web health lambda function is created. And upon the alarm, I have shifted the traffic to the alias of that lambda function.
 ## Services Covered
 
 1. AWS Dynamodb
@@ -15,80 +13,28 @@ After achieving this milestone, we extended the monitoring system's scope by rea
 5. AWS SNS
 6. AWS events
 7. AWS events target
-
+8. AWS Pipelines
+9. AWS Codepipeline Actions
 ## Installation Guide
 
-Follow these easy steps to set up the environment ro run the project:
+Follow these easy steps to set up the environment and run the project:
 
-1. Install requirements.txt file using pip install
-2. Do `cdk init --language python` to setup python projet
-3. make sure that there are 7 python files in resources folder nd  python files in project subfolder
-3. In the project directory, perform cdk synth and then cdk deploy
-3. Make sure that there are 7 python files in resources folder nd  python files in project subfolder.
-
-##Project Status
-
-By this update, the project is fully completed now. 
+1. Run the followin command to clone the repo:
+   `git clone https://github.com/talha2021skipq/ProximaCentauri.git`
+2. Land in my project directory by:
+    `cd ProximaCentauri/talha/sprint2/talha_project`
+3. Bootstrap the environment by using following command:
+       `cdk bootstrap aws://315997497220/us-east-2 --qualifier talha --toolkit-stack talhastoolkit`
+ 	- Make sure to specify qualifier name as talha, if you change it then you will have to replace talha with your qualifier's name on line number 24 in `cdk.json` file as shown below:
+ 			`"@aws-cdk/core:bootstrapQualifier": "talha"`
+4. The environment is bootstrapped, now it's time to deploy the pipeline. Deploy the pipeline by using the below mentioned command but make sure you are in the same directory where the `app.py` is located.  
+                            `cdk deploy TalhaPipelineStack`
+5. Go to the console and open code pipelines to see the pipeline fully working. Search the pipeline by name 'TalhaPipelineStck'.  
 
 ## Author
+ Talha Naeem 
+DevOps Trainee @skipQ 
+talha.naeem.s@skipq.org
 
-Talha Naeem... talha.naeem.s@skipq.org
-
-
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.venv`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
-
-To manually create a virtualenv on MacOS and Linux:
-
-```
-$ python3 -m venv .venv
-```
-
-After the init process completes and the virtualenv is created, you can use the following
-step to activate your virtualenv.
-
-```
-$ source .venv/bin/activate
-```
-
-If you are a Windows platform, you would activate the virtualenv like this:
-
-```
-% .venv\Scripts\activate.bat
-```
-
-Once the virtualenv is activated, you can install the required dependencies.
-
-```
-$ pip install -r requirements.txt
-```
-
-At this point you can now synthesize the CloudFormation template for this code.
-
-```
-$ cdk synth
-```
-
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
-
-## Useful commands
-
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
-
-Enjoy!
-~
-
-
-
-
+Thanks! Enjoy:)
 
