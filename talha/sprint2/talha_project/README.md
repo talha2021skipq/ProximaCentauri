@@ -20,8 +20,8 @@ In the sprint2 at skipQ, I created a CI/CD pipeline with beta and production sta
 Follow these easy steps to set up the environment and run the project:
 
 1. Run the following command to clone the repo:
- 
-	  `git clone https://github.com/talha2021skipq/ProximaCentauri.git`
+	
+	    `git clone https://github.com/talha2021skipq/ProximaCentauri.git`
 
 2. Land in my project directory by running the command:
 
@@ -38,7 +38,12 @@ Follow these easy steps to set up the environment and run the project:
            `cdk deploy TalhaPipelineStack`
 5. Go to the console and open code pipelines to see the pipeline fully working. Search the pipeline by name 'TalhaPipelineStck'.  
 
+## Project Status
+
+Completed!
+
 ## Author
+
  Talha Naeem 
 DevOps Trainee @skipQ 
 talha.naeem.s@skipq.org
