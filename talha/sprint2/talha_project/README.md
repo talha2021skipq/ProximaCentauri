@@ -22,9 +22,11 @@ Follow these easy steps to set up the environment and run the project:
 1. Run the following command to clone the repo:
  
 	  `git clone https://github.com/talha2021skipq/ProximaCentauri.git`
-2. Land in my project directory by:
 
-  	  `cd ProximaCentauri/talha/sprint2/talha_project`
+2. Land in my project directory by running the command:
+
+	   `cd ProximaCentauri/talha/sprint2/talha_project`
+
 3. Bootstrap the environment by using following command:
 
            `cdk bootstrap aws://315997497220/us-east-2 --qualifier talha --toolkit-stack talhastoolkit`
