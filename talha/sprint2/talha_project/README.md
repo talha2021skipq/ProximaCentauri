@@ -19,20 +19,21 @@ In the sprint2 at skipQ, I created a CI/CD pipeline with beta and production sta
 
 Follow these easy steps to set up the environment and run the project:
 
-1. Run the followin command to clone the repo:
+1. Run the following command to clone the repo:
  
-  `git clone https://github.com/talha2021skipq/ProximaCentauri.git`
+	  `git clone https://github.com/talha2021skipq/ProximaCentauri.git`
 2. Land in my project directory by:
 
-    `cd ProximaCentauri/talha/sprint2/talha_project`
+  	  `cd ProximaCentauri/talha/sprint2/talha_project`
 3. Bootstrap the environment by using following command:
 
-       `cdk bootstrap aws://315997497220/us-east-2 --qualifier talha --toolkit-stack talhastoolkit`
+           `cdk bootstrap aws://315997497220/us-east-2 --qualifier talha --toolkit-stack talhastoolkit`
  	- Make sure to specify qualifier name as talha, if you change it then you will have to replace talha with your qualifier's name on line number 24 in `cdk.json` file as shown below:
 
  			`"@aws-cdk/core:bootstrapQualifier": "talha"`
 4. The environment is bootstrapped, now it's time to deploy the pipeline. Deploy the pipeline by using the below mentioned command but make sure you are in the same directory where the `app.py` is located.  
-                            `cdk deploy TalhaPipelineStack`
+          
+           `cdk deploy TalhaPipelineStack`
 5. Go to the console and open code pipelines to see the pipeline fully working. Search the pipeline by name 'TalhaPipelineStck'.  
 
 ## Author
