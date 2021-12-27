@@ -66,7 +66,7 @@ class TalhaProjectStack(cdk.Stack):
         ##Defining alias for my lambda    
         #try:
         db_alias=_lambda.Alias(self, "TalhasAlias"+construct_id,
-            alias_name="TalhasWLaliass",
+            alias_name="TalhasLaliass",
             version=Talha_db_lambda.current_version)
         #except: pass
         #### Defining code deployment group to auto roll back, on the basis of
