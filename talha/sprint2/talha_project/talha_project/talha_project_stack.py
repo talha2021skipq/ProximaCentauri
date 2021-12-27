@@ -45,7 +45,7 @@ class TalhaProjectStack(cdk.Stack):
         except: pass
         #give read write permissions to our lambda
         dynamo_table.grant_read_write_data(Talha_db_lambda)
-        constants.TABLE_NAME= Talha_db_lambda.table_name()
+        constants.TABLE_NAME= dynamo_table.table_name()
         ###defining SNS service    
         topic = sns.Topic(self, "TalhaSkipQWebHealthTopic")
         #sns subscription with email
