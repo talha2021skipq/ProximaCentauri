@@ -7,7 +7,7 @@ class dynamoTablePutData:
     def __init__(self):
         self.resource = boto3.resource('dynamodb') 
     def dynamo_data(self, tableName, message, createdDate):
-        db=boto3.client('dynamodb')
+        #db=boto3.client('dynamodb')
         table = self.resource.Table(tableName)
         values = {}
         values['id'] = message

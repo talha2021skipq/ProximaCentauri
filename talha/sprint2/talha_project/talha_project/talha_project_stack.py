@@ -59,7 +59,7 @@ class TalhaProjectStack(cdk.Stack):
         metricduration= cloudwatch_.Metric(namespace='AWS/Lambda', metric_name='Duration',
             dimensions_map={'FunctionName': Talha_db_lambda.function_name}  )
         failure_alarm=cloudwatch_.Alarm(self, 'FailureAlarm', metric=metricduration,
-            threshold=4000,
+            threshold=870,
             comparison_operator= cloudwatch_.ComparisonOperator.GREATER_THAN_THRESHOLD,
             evaluation_periods=1) 
                 
