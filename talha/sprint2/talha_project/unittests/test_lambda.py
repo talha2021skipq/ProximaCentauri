@@ -16,6 +16,7 @@ def test_alarms():
     template=app.synth().get_stack_by_name('infStack').template
     functions= [resource for resource in template['Resources'].values() if resource['Type']=='AWS::CloudWatch::Alarm']
     assert len(functions)==9
+    #8for metrics and  for failure alarm=9total
     
     
     

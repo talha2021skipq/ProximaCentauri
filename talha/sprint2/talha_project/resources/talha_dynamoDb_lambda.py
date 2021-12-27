@@ -9,9 +9,10 @@ def lambda_handler(events, context):
     parsed_message =  msggg['AlarmName']
     createdDate = message['Timestamp']#['StateChangeTime']
    # reason=message['ReasonforStateChange']
-    if parsed_message[0]=="B":
-       table_name="Beta-infraStack-TableCD117FA1-10BTARD7DGVYY"
-    else:
-        table_name="Prod-infraStack-TableCD117FA1-Y8JNEH8OHXPY"
+  #  if parsed_message[0]=="B":
+   #    table_name="Beta-infraStack-TableCD117FA1-10BTARD7DGVYY"
+    #else:
+     #   table_name="Prod-infraStack-TableCD117FA1-Y8JNEH8OHXPY"
+    table_name=constants.TABLE_NAME
     db.dynamo_data(table_name,parsed_message, createdDate)
 #constants.TABLE_NAME, 

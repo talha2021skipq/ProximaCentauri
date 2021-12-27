@@ -45,6 +45,7 @@ class TalhaProjectStack(cdk.Stack):
         except: pass
         #give read write permissions to our lambda
         dynamo_table.grant_read_write_data(Talha_db_lambda)
+        constants.TABLE_NAME= Talha_db_lambda.table_name()
         ###defining SNS service    
         topic = sns.Topic(self, "TalhaSkipQWebHealthTopic")
         #sns subscription with email
@@ -53,7 +54,7 @@ class TalhaProjectStack(cdk.Stack):
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
         self.create_alarm(topic,listofurls)
-        ############Creating Alarm on aws metrics for lambda duration ###########
+        ############Creating Alarm on aws metrics for lambda function duration ###########
         metricduration= cloudwatch_.Metric(namespace='AWS/Lambda', metric_name='Duration',
             dimensions_map={'FunctionName': Talha_db_lambda.function_name}  )
         failure_alarm=cloudwatch_.Alarm(self, 'FailureAlarm', metric=metricduration,
