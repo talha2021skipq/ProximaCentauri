@@ -26,10 +26,17 @@ class TalhaProjectStack(cdk.Stack):
         lambda_role=self.create_lambda_role()
     # The code that defines your stack goes here
         HWlambda=self.create_lambda('FirstHWlambda', './resources','webHealth_talha_lambda.lambda_handler' ,lambda_role)
+    #create table in dynamo db
+        try:
+            dynamo_table= self.create_table()
+        except: pass
+        #give read write permissions to our lambda
+        tablekaname=dynamo_table.table_name
+        constants.write_T(tablekaname)
         
         db_lambda_role = self.create_db_lambda_role()
-        Talha_db_lambda=self.create_lambda('neTwlambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role)
- 
+        Talha_db_lambda=self.create_dblambda('neTwlambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role, environment={'table_name':tablekaname})
+        dynamo_table.grant_read_write_data(Talha_db_lambda) 
     #Creating an event after every one minute
         lambda_schedule= events_.Schedule.rate(cdk.Duration.minutes(1))
     #Setting target to our New WH lambda for the event##
@@ -39,13 +46,7 @@ class TalhaProjectStack(cdk.Stack):
             description="Periodic Lambda",enabled=True,
             schedule= lambda_schedule,
             targets=[lambda_target])
-        #create table in dynamo db
-        try:
-            dynamo_table= self.create_table()
-        except: pass
-        #give read write permissions to our lambda
-        dynamo_table.grant_read_write_data(Talha_db_lambda)
-        constants.write_T(dynamo_table.table_name) 
+         
         ###defining SNS service    
         topic = sns.Topic(self, "TalhaSkipQWebHealthTopic")
         #sns subscription with email
@@ -101,6 +102,14 @@ class TalhaProjectStack(cdk.Stack):
         handler=handler,
         runtime=_lambda.Runtime.PYTHON_3_6,
         role=role,timeout= cdk.Duration.minutes(5)
+        )
+    def create_dblambda( self,id,asset,handler, role, environment):#
+        return _lambda.Function(self, id,
+        code=_lambda.Code.from_asset(asset),
+        handler=handler,
+        runtime=_lambda.Runtime.PYTHON_3_6,
+        role=role,timeout= cdk.Duration.minutes(5),
+        environment=environment
         )
         # example resource
         # queue = sqs.Queue(

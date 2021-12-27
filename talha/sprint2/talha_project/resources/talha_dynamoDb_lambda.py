@@ -1,4 +1,4 @@
-import json
+import json,os
 from db_putdata import dynamoTablePutData
 import constants as constants
 def lambda_handler(events, context):
@@ -13,6 +13,6 @@ def lambda_handler(events, context):
    #    table_name="Beta-infraStack-TableCD117FA1-10BTARD7DGVYY"
     #else:
      #   table_name="Prod-infraStack-TableCD117FA1-Y8JNEH8OHXPY"
-    table_name=constants.TABLE_NAME
+    table_name= os.environ['table_name'] #constants.TABLE_NAME
     db.dynamo_data(table_name,parsed_message, createdDate)
 #constants.TABLE_NAME, 
