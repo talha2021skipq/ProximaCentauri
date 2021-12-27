@@ -64,11 +64,11 @@ class TalhaProjectStack(cdk.Stack):
             evaluation_periods=1) 
                 
         ##Defining alias for my web health lambda    
-        try:
-            db_alias=_lambda.Alias(self, "WLFaambdaAlias",
+        #try:
+        db_alias=_lambda.Alias(self, "WLFaambdaAlias",
             #alias_name="TalhaWLaliass",
             version=HWlambda.current_version)
-        except: pass
+        #except: pass
         #### Defining code deployment group to auto roll back, on the basis of
         ####  aws lambda function's Alarm on metrics(Duration).               ########### 
         codedeploy.LambdaDeploymentGroup(self, "id",alias=db_alias,
