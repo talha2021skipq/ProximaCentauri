@@ -12,7 +12,8 @@ from aws_cdk import (
     aws_s3 as s3_, 
     aws_dynamodb as db_,
   #  aws_lambda_event_sources as lambda_events_,
-    aws_codedeploy as codedeploy
+    aws_codedeploy as codedeploy,
+    aws_apigateway as apigateway
 )
 #import boto3
 from resources import constants as constants
@@ -42,6 +43,11 @@ class TalhaProjectStack(cdk.Stack):
         db_lambda_role = self.create_db_lambda_role()
         Talha_db_lambda=self.create_dblambda('neTwlambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role, environment={'table_name':tablekaname})
         dynamo_table.grant_read_write_data(Talha_db_lambda) 
+        # Creating backend lambda for api gateway
+        apibackend=self.create_dblambda('ApiLambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role, 
+            environment={'table_name':urltablename})
+        #Create API gateway
+        apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackend)
     #Creating an event after every one minute
         lambda_schedule= events_.Schedule.rate(cdk.Duration.minutes(1))
     #Setting target to our New WH lambda for the event##
@@ -59,10 +65,7 @@ class TalhaProjectStack(cdk.Stack):
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
-        #S3 writing URLS to my URL Table
-        for el in listofurls:
-            URLtable.put_item(Item= {"URL":el})
-    
+        
         self.create_alarm(topic,listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
         #commenting or sprint3:
