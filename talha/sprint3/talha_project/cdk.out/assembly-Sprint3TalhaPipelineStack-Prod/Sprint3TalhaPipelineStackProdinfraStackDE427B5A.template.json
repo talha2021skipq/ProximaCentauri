@@ -50,7 +50,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "cdk-talha-assets-315997497220-us-east-2",
+          "S3Bucket": "cdk-talhas-assets-315997497220-us-east-2",
           "S3Key": "b6aea89dc95e9265547fbf811f50213252303277f7139393dc5088f78e5ff317.zip"
         },
         "Role": {
@@ -215,7 +215,7 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "cdk-talha-assets-315997497220-us-east-2",
+          "S3Bucket": "cdk-talhas-assets-315997497220-us-east-2",
           "S3Key": "b6aea89dc95e9265547fbf811f50213252303277f7139393dc5088f78e5ff317.zip"
         },
         "Role": {
@@ -663,7 +663,7 @@
   "Parameters": {
     "BootstrapVersion": {
       "Type": "AWS::SSM::Parameter::Value<String>",
-      "Default": "/cdk-bootstrap/talha/version",
+      "Default": "/cdk-bootstrap/talhas/version",
       "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
     }
   },

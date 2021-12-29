@@ -8,24 +8,24 @@
       },
       "destinations": {
         "315997497220-us-east-2": {
-          "bucketName": "cdk-talha-assets-315997497220-us-east-2",
+          "bucketName": "cdk-talhas-assets-315997497220-us-east-2",
           "objectKey": "b6aea89dc95e9265547fbf811f50213252303277f7139393dc5088f78e5ff317.zip",
           "region": "us-east-2",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-talha-file-publishing-role-315997497220-us-east-2"
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-talhas-file-publishing-role-315997497220-us-east-2"
         }
       }
     },
-    "3c2a42d46fd87796ef524445521512fffc48a45cadd6ed929227bed17fd89f4a": {
+    "ef193334ac887dbd2b3ad1e1e43d648edd00b91c38715fb5e1fe781793f94f86": {
       "source": {
         "path": "Sprint3TalhaPipelineStackBetainfraStackA696C5EB.template.json",
         "packaging": "file"
       },
       "destinations": {
         "315997497220-us-east-2": {
-          "bucketName": "cdk-talha-assets-315997497220-us-east-2",
-          "objectKey": "3c2a42d46fd87796ef524445521512fffc48a45cadd6ed929227bed17fd89f4a.json",
+          "bucketName": "cdk-talhas-assets-315997497220-us-east-2",
+          "objectKey": "ef193334ac887dbd2b3ad1e1e43d648edd00b91c38715fb5e1fe781793f94f86.json",
           "region": "us-east-2",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-talha-file-publishing-role-315997497220-us-east-2"
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-talhas-file-publishing-role-315997497220-us-east-2"
         }
       }
     }
