@@ -37,8 +37,9 @@ class TalhaProjectStack(cdk.Stack):
         try:
             URLtable=self.create_url_table()
         except: pass
+    
         urltablename=URLtable.table_name
-        s3bucket_url.write_urls_to_table(urltablename)
+        #s3bucket_url.write_urls_to_table(urltablename)
     
         db_lambda_role = self.create_db_lambda_role()
         Talha_db_lambda=self.create_dblambda('neTwlambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role, environment={'table_name':tablekaname})
@@ -68,7 +69,7 @@ class TalhaProjectStack(cdk.Stack):
         topic.add_subscription( subscriptions_.EmailSubscription('talha.naeem.s@skipq.org'))
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
-        listofurls=s3bucket_url.read_url_list_from_table(urltablename)
+        listofurls=s3bucket_url.read_url_list(urltablename)
         
         self.create_alarm(topic,listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
