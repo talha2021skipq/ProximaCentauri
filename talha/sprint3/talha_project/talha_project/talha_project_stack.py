@@ -69,7 +69,7 @@ class TalhaProjectStack(cdk.Stack):
         topic.add_subscription( subscriptions_.EmailSubscription('talha.naeem.s@skipq.org'))
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
-        listofurls=s3bucket_url.read_url_list(urltablename)
+        listofurls=s3bucket_url.read_url_list()
         
         self.create_alarm(topic,listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
