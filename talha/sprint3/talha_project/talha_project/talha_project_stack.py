@@ -51,8 +51,7 @@ class TalhaProjectStack(cdk.Stack):
         items = api.root.add_resource("items")
         items.add_method("GET") # GET /items
         items.add_method("PUT") #  Allowed methods: ANY,OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD POST /items
-        item = items.add_resource("{item}")
-        item.add_method("GET") # GET /items/{item}
+        items.add_method("DELETE")
     #Creating an event after every one minute
         lambda_schedule= events_.Schedule.rate(cdk.Duration.minutes(1))
     #Setting target to our New WH lambda for the event##
