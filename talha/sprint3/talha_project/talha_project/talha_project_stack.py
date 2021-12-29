@@ -44,7 +44,7 @@ class TalhaProjectStack(cdk.Stack):
         Talha_db_lambda=self.create_dblambda('neTwlambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role, environment={'table_name':tablekaname})
         dynamo_table.grant_read_write_data(Talha_db_lambda) 
         # Creating backend lambda for api gateway
-        apibackend=self.create_dblambda('ApiLambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role, 
+        apibackend=self.create_dblambda('ApiLambda', './resources','backend_lambda.lambda_handler' ,db_lambda_role, 
             environment={'table_name':urltablename})
         #Create API gateway
         apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackend)
