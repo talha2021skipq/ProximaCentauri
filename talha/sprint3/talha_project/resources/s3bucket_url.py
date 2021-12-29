@@ -13,7 +13,7 @@ def write_urls_to_table(tableName):
     list_url=[json_oject['w1'],json_oject['w2'],json_oject['w3'],json_oject['w4']]
     
     resource= boto3.resource('dynamodb')
-    table = resource.Table(tableName)
+    table = resource.Table("Beta-infraStack-URLTable1792207E-1E3WEGLZJ0NFU")
     for el in list_url:
         values = {}
         values['URL'] = el
