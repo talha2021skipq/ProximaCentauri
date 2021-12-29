@@ -4,7 +4,7 @@ import boto3
 
 
 def write_urls_to_table(tablename):
-  '''  s3= boto3.client('s3')
+    s3= boto3.client('s3')
     bucket_talha= "talhabucketnew"
     file_name ="URLS_new.json"
     response= s3.get_object(Bucket=bucket_talha ,Key=file_name)
@@ -19,7 +19,7 @@ def write_urls_to_table(tablename):
         values['URL'] = el
         table.put_item(Item = values)
     return 'ok'
-'''
+
     
 def read_url_list_from_table(tablenamee):
     resource= boto3.resource('dynamodb')
