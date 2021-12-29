@@ -49,13 +49,10 @@ class TalhaProjectStack(cdk.Stack):
         #Create API gateway
         api=apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackend)
         items = api.root.add_resource("items")
-        items.add_method("CREATE") # CREATE /items
-        items.add_method("READ") # READ /items
-        items.add_method("UPDATE") # Update /items
-        items.add_method("DELETE") # DELETE /items
-    
-#        item = items.add_resource("{item}")
- #       item.add_method("GET") # GET /items/{item}
+        items.add_method("GET") # GET /items
+        items.add_method("PUT") #  Allowed methods: ANY,OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD POST /items
+        item = items.add_resource("{item}")
+        item.add_method("GET") # GET /items/{item}
     #Creating an event after every one minute
         lambda_schedule= events_.Schedule.rate(cdk.Duration.minutes(1))
     #Setting target to our New WH lambda for the event##
