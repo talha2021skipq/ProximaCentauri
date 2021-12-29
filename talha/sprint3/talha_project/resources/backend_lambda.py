@@ -1,17 +1,25 @@
 import json,os
-from db_putdata import dynamoTablePutData
+from puturlDB import dynamoURLTablePutURLData
 import constants as constants
 def lambda_handler(events, context):
-    print(events)
-    #db = dynamoTablePutData();#creating an instance of my putdata class
-    #message = events['Records'][0]['Sns'] #['Message']
-    #msggg = json.loads(message['Message'])
-    #parsed_message =  msggg['AlarmName']
-    #createdDate = message['Timestamp']#['StateChangeTime']
-   # reason=message['ReasonforStateChange']
-  #  if parsed_message[0]=="B":
-   #    table_name="Beta-infraStack-TableCD117FA1-10BTARD7DGVYY"
-    #else:
-     #   table_name="Prod-infraStack-TableCD117FA1-Y8JNEH8OHXPY"
-    #table_name= os.environ['table_name'] #constants.TABLE_NAME
-    #db.dynamo_data(table_name,parsed_message, createdDate)
+ print(events)
+ db=dynamoURLTablePutURLData()
+ opt=events['httpMethod']
+ table_name= os.environ['table_name']
+ 
+# if opt=='GET':
+ # pass
+
+ #elif opt=='DELETE':
+ #pass
+ if opt=='PUT':
+  urls=events['body'].split()
+  for url in urls:
+   db.wdynamo_data(table_name,url)
+   msg="The item has been successfully written."
+   
+ else: 
+  print("select an appropriate option")
+ 
+ datares={"Response" : msg, "httpMethod": events['httpMethod'], "body": events['body'] }
+ return {'statusCode':200 , 'body':json.dumps(datares)}

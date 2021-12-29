@@ -39,16 +39,19 @@ class TalhaProjectStack(cdk.Stack):
         except: pass
     
         urltablename=URLtable.table_name
+        
         #s3bucket_url.write_urls_to_table(urltablename)
     
         db_lambda_role = self.create_db_lambda_role()
         Talha_db_lambda=self.create_dblambda('neTwlambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role, environment={'table_name':tablekaname})
         dynamo_table.grant_read_write_data(Talha_db_lambda) 
         # Creating backend lambda for api gateway
-        apibackend=self.create_dblambda('ApiLambda', './resources','backend_lambda.lambda_handler' ,db_lambda_role, 
+        apibackendlambda=self.create_dblambda('ApiLambda', './resources','backend_lambda.lambda_handler' ,db_lambda_role, 
             environment={'table_name':urltablename})
+        apibackendlambda.grant_invoke( aws_iam.ServicePrincipal("apigateway.amazonaws.com"))
+        URLtable.grant_read_write_data(apibackendlambda) 
         #Create API gateway
-        api=apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackend)
+        api=apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackendlambda)
         items = api.root.add_resource("items")
         items.add_method("GET") # GET /items
         items.add_method("PUT") #  Allowed methods: ANY,OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD POST /items
