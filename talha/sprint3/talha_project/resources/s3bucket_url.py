@@ -18,8 +18,8 @@ def write_urls_to_table(tablename):
         values = {}
         values['URL'] = el
         table.put_item(Item = values)
+
     
-    return 
 def read_url_list_from_table(tablenamee):
     resource= boto3.resource('dynamodb')
     table = resource.Table(tablenamee)
