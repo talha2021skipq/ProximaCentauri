@@ -32,8 +32,13 @@ class TalhaProjectStack(cdk.Stack):
         except: pass
         #give read write permissions to our lambda
         tablekaname=dynamo_table.table_name
-        constants.write_T(tablekaname)
+        #S3 create Table for URLs
+        try:
+            URLtable=self.create_url_table()
+        except: pass
+        urltablename=URLtable.table_name
         
+    
         db_lambda_role = self.create_db_lambda_role()
         Talha_db_lambda=self.create_dblambda('neTwlambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role, environment={'table_name':tablekaname})
         dynamo_table.grant_read_write_data(Talha_db_lambda) 
@@ -54,7 +59,10 @@ class TalhaProjectStack(cdk.Stack):
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
-        
+        #S3 writing URLS to my URL Table
+        for el in listofurls:
+            URLtable.put_item(Item= {"URL":el})
+    
         self.create_alarm(topic,listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
         #commenting or sprint3:
@@ -122,6 +130,10 @@ class TalhaProjectStack(cdk.Stack):
     def create_table( self):#, table_name=constants.TABLE_NAME put back
         return db_.Table(self,id="Table" ,partition_key=db_.Attribute(name="id", type=db_.AttributeType.STRING), 
             sort_key=db_.Attribute(name="createdDate", type=db_.AttributeType.STRING))
+    
+    def create_url_table(self):
+        return db_.Table(self,id="URLTable" ,partition_key=db_.Attribute(name="URL", type=db_.AttributeType.STRING))
+
 ####################################################################################################################
 ##      Generating Metrics and then raising alarms on them.                                                    ####
 ####################################################################################################################
