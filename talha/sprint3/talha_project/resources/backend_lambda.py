@@ -28,7 +28,7 @@ def lambda_handler(events, context):
   urltodel=events['body']
   print(urltodel,"Ab basssss")
   try: 
-   response=ddynamo_data(table_name,urltodel)
+   response=db.ddynamo_data(table_name,urltodel)
    print(response,"JWAB")
    msg="The Url has been deleted."
   except: 
