@@ -40,6 +40,8 @@ class TalhaProjectStack(cdk.Stack):
         except: pass
     
         urltablename=URLtable.table_name
+        print(urltablename)
+        fixURLtablename="Beta-infraStack-URLTable1792207E-1E3WEGLZJ0NFU"
         HWlambda=self.create_lambda('FirstHWlambda', './resources','webHealth_talha_lambda.lambda_handler' ,lambda_role, 
             environment={'tname':urltablename})
         
@@ -77,12 +79,17 @@ class TalhaProjectStack(cdk.Stack):
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
+        #writing urls from s3 to table
         db=putdb.dynamoTablePutURLData()
-        urldict=db.rdynamo_data("Beta-infraStack-URLTable1792207E-1E3WEGLZJ0NFU")#returns a dictionary
+        
+        for u in listofurls:
+            db.wdynamo_data(fixURLtablename,u)
+        
+        urldict=db.rdynamo_data(fixURLtablename)#returns a dictionary
     #    urltomonitor=el["URL"]
         self.create_alarm(topic,urldict)#listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
-        #commenting or sprint3:
+        #commenting for sprint3:
         #metricduration= cloudwatch_.Metric(namespace='AWS/Lambda', metric_name='Duration',
     #        dimensions_map={'FunctionName': Talha_db_lambda.function_name}  )
     #   failure_alarm=cloudwatch_.Alarm(self, 'FailureAlarm', metric=metricduration,
