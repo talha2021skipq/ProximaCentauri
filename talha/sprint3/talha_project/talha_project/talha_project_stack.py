@@ -79,7 +79,7 @@ class TalhaProjectStack(cdk.Stack):
         listofurls=s3bucket_url.read_url_list()
         db=putdb.dynamoTablePutURLData()
         urldict=db.rdynamo_data(urltablename)
-        urltomonitor=el["URL"]
+        #urltomonitor=el["URL"]
         self.create_alarm(topic,urldict)#listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
         #commenting or sprint3:
