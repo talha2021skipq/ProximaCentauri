@@ -47,7 +47,7 @@ class TalhaProjectStack(cdk.Stack):
         dynamo_table.grant_read_write_data(Talha_db_lambda) 
         # Creating backend lambda for api gateway
         apibackendlambda=self.create_dblambda('ApiLambda', './resources','backend_lambda.lambda_handler' ,db_lambda_role, 
-            environment={'table_name':urltablename})
+            environment={'tablesname':urltablename})
         apibackendlambda.grant_invoke( aws_iam.ServicePrincipal("apigateway.amazonaws.com"))
         URLtable.grant_read_write_data(apibackendlambda) 
         #Create API gateway
