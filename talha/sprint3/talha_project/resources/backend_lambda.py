@@ -1,10 +1,11 @@
 import json,os
-from puturlDB import dynamoURLTablePutURLData
+import puturlDB as putdb
 import constants as constants
 def lambda_handler(events, context):
  print(events)
- db=dynamoURLTablePutURLData()
+ db=putdb.dynamoTablePutURLData()
  opt=events['httpMethod']
+ path=events['path']
  table_name= os.environ['tablesname']
  
 # if opt=='GET':
