@@ -80,7 +80,7 @@ class TalhaProjectStack(cdk.Stack):
         db=putdb.dynamoTablePutURLData()
         urldict=db.rdynamo_data("Beta-infraStack-URLTable1792207E-1E3WEGLZJ0NFU")#returns a dictionary
     #    urltomonitor=el["URL"]
-     #   self.create_alarm(topic,urldict)#listofurls)
+        self.create_alarm(topic,urldict)#listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
         #commenting or sprint3:
         #metricduration= cloudwatch_.Metric(namespace='AWS/Lambda', metric_name='Duration',
