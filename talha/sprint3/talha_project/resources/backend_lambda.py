@@ -26,9 +26,10 @@ def lambda_handler(events, context):
  elif opt=='DELETE':     ######///////////////
   print("Helooooooooooooooo")
   urltodel=events['body']
-  print("Ab basssss")
+  print(urltodel,"Ab basssss")
   try: 
-   ddynamo_data(table_name,urltodel)
+   response=ddynamo_data(table_name,urltodel)
+   print(response,"JWAB")
    msg="The Url has been deleted."
   except: 
    msg="Sorry this Item does not exist."
