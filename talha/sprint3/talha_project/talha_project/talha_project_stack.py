@@ -77,8 +77,8 @@ class TalhaProjectStack(cdk.Stack):
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
-        #db=putdb.dynamoTablePutURLData()
-        #urldict=db.rdynamo_data(urltablename)#returns a dictionary
+        db=putdb.dynamoTablePutURLData()
+        urldict=db.rdynamo_data(urltablename)#returns a dictionary
     #    urltomonitor=el["URL"]
      #   self.create_alarm(topic,urldict)#listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
