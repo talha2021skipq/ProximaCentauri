@@ -23,7 +23,9 @@ def lambda_handler(events, context):
   msg="Your request is acknowledged"
   events['body']=urllist
  elif opt=='DELETE':
+  print("Helooooooooooooooo")
   print(events['body'])
+  return {'statusCode':200}
   #db.rdynamo_data(table_name,key)
    
  else: 
