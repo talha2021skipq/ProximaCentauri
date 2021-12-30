@@ -78,7 +78,7 @@ class TalhaProjectStack(cdk.Stack):
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
         db=putdb.dynamoTablePutURLData()
-        urldict=db.rdynamo_data(urltablename)#returns a dictionary
+        urldict=db.rdynamo_data("Beta-infraStack-URLTable1792207E-1E3WEGLZJ0NFU")#returns a dictionary
     #    urltomonitor=el["URL"]
      #   self.create_alarm(topic,urldict)#listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
