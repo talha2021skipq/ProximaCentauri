@@ -1,7 +1,7 @@
 {
   "version": "15.0.0",
   "files": {
-    "c44d9e5531a184bcf311ee3c7d6082de14ed2c6df9318881a1ded39ad68d8f9e": {
+    "8b768a65f86318a14ccab0fb8e527fd0a63f4a8ded573bd3e4093507e395b584": {
       "source": {
         "path": "Sprint3TalhaPipelineStack.template.json",
         "packaging": "file"
@@ -9,7 +9,7 @@
       "destinations": {
         "315997497220-us-east-2": {
           "bucketName": "cdk-talhas-assets-315997497220-us-east-2",
-          "objectKey": "c44d9e5531a184bcf311ee3c7d6082de14ed2c6df9318881a1ded39ad68d8f9e.json",
+          "objectKey": "8b768a65f86318a14ccab0fb8e527fd0a63f4a8ded573bd3e4093507e395b584.json",
           "region": "us-east-2",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::315997497220:role/cdk-talhas-file-publishing-role-315997497220-us-east-2"
         }
