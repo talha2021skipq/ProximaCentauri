@@ -14,3 +14,14 @@ class dynamoTablePutURLData:
         #values['Reason'] = reason
         table.put_item(Item = values)
     #    db.put_item(tableName,Item = values)
+    def rdynamo_data(self,tableName):
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table(tableName)
+        response = table.scan()
+        data = response['Items']
+        while 'LastEvaluatedKey' in response:
+            response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+            data.extend(response['Items'])
+        return data
+            
+

@@ -18,6 +18,11 @@ def lambda_handler(events, context):
   #for url in urls:
   db.wdynamo_data(table_name,urls)
   msg="The item has been successfully written."
+ elif opt=='GET':
+  urllist=db.rdynamo_data(table_name)
+  msg="Your request is acknowledged"
+  events['body']=urllist
+  
    
  else: 
   print("select an appropriate option")
