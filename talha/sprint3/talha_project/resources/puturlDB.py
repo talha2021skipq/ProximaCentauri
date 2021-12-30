@@ -28,8 +28,8 @@ class dynamoTablePutURLData:
     def ddynamo_data(self,tableName,message):
         dynamodb = boto3.resource('dynamodb')
         table = self.resource.Table(tableName)
-        response = table.table.delete_item(Key={
-            'URL': message})
+        #table = self.client.Table(tableName)
+        response = table.table.delete_item(Key={'URL': message})
         return response
         
 
