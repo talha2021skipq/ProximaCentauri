@@ -53,6 +53,7 @@ class TalhaProjectStack(cdk.Stack):
             environment={'tablesname':urltablename})
         apibackendlambda.grant_invoke( aws_iam.ServicePrincipal("apigateway.amazonaws.com"))
         URLtable.grant_read_write_data(apibackendlambda) 
+        URLtable.grant_read_write_data(HWlambda)
         #Create API gateway
         api=apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackendlambda)
         items = api.root.add_resource("items")
