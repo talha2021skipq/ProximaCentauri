@@ -13,19 +13,23 @@ def lambda_handler(events, context):
 
  #elif opt=='DELETE':
  #pass
- if opt=='PUT':
+ msg=""
+ if opt=='PUT':          ######///////////////
   urls=events['body']#.split()
   #for url in urls:
   db.wdynamo_data(table_name,urls)
   msg="The item has been successfully written."
- elif opt=='GET':
+ elif opt=='GET':        ######///////////////
   urllist=db.rdynamo_data(table_name)
   msg="Your request is acknowledged"
-  events['body']=urllist
- elif opt=='DELETE':
+  events['body']=urllist 
+ elif opt=='DELETE':     ######///////////////
   print("Helooooooooooooooo")
   print(events['body'])
+  print("Ab basssss")
+  msg="Let me check yar"
   return {'statusCode':200}
+  
   #db.rdynamo_data(table_name,key)
    
  else: 
