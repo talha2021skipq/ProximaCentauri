@@ -1,14 +1,19 @@
 import datetime
 import urllib3
+import os
 import constants as constants
 from CW_putMetric import CloudWacthPutMetric
 import s3bucket_url
+import puturlDB as putdb
 def lambda_handler(events, context):
     values=dict()
+    db=putdb.dynamoTablePutURLData()
 #    print("My URLs list:", s3bucket_url.read_url_list())
     #creating an instant our CWPM class
     cw=CloudWacthPutMetric();
-    for urltomonitor in s3bucket_url.read_url_list():
+    table_name= os.environ['tname']
+    for el in db.rdynamo_data(table_name):
+        urltomonitor=el["URL"]
  #       print(urltomonitor," ")
         avail=get_availability(urltomonitor)
         dimensions=[

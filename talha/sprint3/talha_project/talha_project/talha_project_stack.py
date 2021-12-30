@@ -18,6 +18,7 @@ from aws_cdk import (
 #import boto3
 from resources import constants as constants
 from resources import s3bucket_url 
+from resources import puturlDB as putdb
 #from resources import s3bucket_url.URLS as s3urls 
 
 class TalhaProjectStack(cdk.Stack):
@@ -26,7 +27,7 @@ class TalhaProjectStack(cdk.Stack):
         super().__init__(scope, construct_id, **kwargs)
         lambda_role=self.create_lambda_role()
     # The code that defines your stack goes here
-        HWlambda=self.create_lambda('FirstHWlambda', './resources','webHealth_talha_lambda.lambda_handler' ,lambda_role)
+
     #create table in dynamo db
         try:
             dynamo_table= self.create_table()
@@ -39,6 +40,8 @@ class TalhaProjectStack(cdk.Stack):
         except: pass
     
         urltablename=URLtable.table_name
+        HWlambda=self.create_lambda('FirstHWlambda', './resources','webHealth_talha_lambda.lambda_handler' ,lambda_role, 
+            environment={'tname':urltablename})
         
         #s3bucket_url.write_urls_to_table(urltablename)
     
@@ -73,8 +76,10 @@ class TalhaProjectStack(cdk.Stack):
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         listofurls=s3bucket_url.read_url_list()
-        
-        self.create_alarm(topic,listofurls)
+        db=putdb.dynamoTablePutURLData()
+        urldict=db.rdynamo_data(urltablename)
+    #    urltomonitor=el["URL"]
+        self.create_alarm(topic,urldict)#listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
         #commenting or sprint3:
         #metricduration= cloudwatch_.Metric(namespace='AWS/Lambda', metric_name='Duration',
@@ -119,12 +124,13 @@ class TalhaProjectStack(cdk.Stack):
             
         return lambdaRole
 
-    def create_lambda( self,id,asset,handler, role):#
+    def create_lambda( self,id,asset,handler, role,environment):#
         return _lambda.Function(self, id,
         code=_lambda.Code.from_asset(asset),
         handler=handler,
         runtime=_lambda.Runtime.PYTHON_3_6,
-        role=role,timeout= cdk.Duration.minutes(5)
+        role=role,timeout= cdk.Duration.minutes(5),
+        environment=environment
         )
     def create_dblambda( self,id,asset,handler, role, environment):#
         return _lambda.Function(self, id,
@@ -150,7 +156,8 @@ class TalhaProjectStack(cdk.Stack):
 ##      Generating Metrics and then raising alarms on them.                                                    ####
 ####################################################################################################################
     def create_alarm(self, topic, URLLS):
-        for web in URLLS:
+        for el in URLLS:
+            web=el["URL"]
             dimension= {'URL':  web}
     #create cloudwatch metric for availability 
             availability_metric=(cloudwatch_.Metric( namespace=constants.URL_MONITOR_NAMESPACE,metric_name=web+constants.URL_MONITOR_NAME1A,
