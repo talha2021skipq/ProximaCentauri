@@ -24,5 +24,12 @@ class dynamoTablePutURLData:
             response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
             data.extend(response['Items'])
         return data
-            
+    #Function for dynamodb table to delete an element
+    def ddynamo_data(self,tableName,message):
+        dynamodb = boto3.resource('dynamodb')
+        table = self.resource.Table(tableName)
+        response = table.table.delete_item(Key={
+            "URL": message})
+        
+
 
