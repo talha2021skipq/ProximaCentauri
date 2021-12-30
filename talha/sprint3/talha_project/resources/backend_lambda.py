@@ -27,12 +27,12 @@ def lambda_handler(events, context):
   print("Helooooooooooooooo")
   urltodel=events['body']
   print(urltodel,"Ab basssss")
-  try: 
-   response=db.ddynamo_data(table_name,urltodel)
-   print(response,"JWAB")
-   msg="The Url has been deleted."
-  except: 
-   msg="Sorry this Item does not exist."
+  #try: 
+  response=db.ddynamo_data(table_name,urltodel)
+  print(response,"JWAB")
+  msg="The Url has been deleted.?"
+  #except: 
+  #msg="Sorry this Item does not exist."
   #msg="Let me check yar"
   ##return {'statusCode':200}
   
