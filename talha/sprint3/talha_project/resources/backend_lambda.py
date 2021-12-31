@@ -6,12 +6,6 @@ def lambda_handler(events, context):
  opt=events['httpMethod']
  path=events['path']
  table_name= os.environ['tablesname']
- 
-# if opt=='GET':
- # pass
-
- #elif opt=='DELETE':
- #pass
  msg=""
  if opt=='PUT':          ######///////PUT////////
   urls=events['body']#.split()
@@ -25,19 +19,13 @@ def lambda_handler(events, context):
  elif opt=='DELETE':     ######///////DELETE///////
   urltodel=events['body']
   response=db.ddynamo_data(table_name,urltodel)
-  print(response,"JWAB")
   msg="The Url has been deleted. Use GET method to check!"
   
  else: 
-  print("Please select an appropriate option. Appropriate Options=[PUT, GET, DELETE]")
+  msg="Please select an appropriate option. Appropriate Options=[PUT, GET, DELETE]"
  #if opt=='PUT' or opt=='DELETE':
   #urldict=db.rdynamo_data(table_name)#returns a dictionary
   #db.Newcreate_alarm(urldict,os.environ['mytopic'])
-  
-  
-
-           
-  #pass
   
  datares={"Response" : msg, "httpMethod": events['httpMethod'], "body": events['body'] }
  return {'statusCode':200 , 'body':json.dumps(datares)}
