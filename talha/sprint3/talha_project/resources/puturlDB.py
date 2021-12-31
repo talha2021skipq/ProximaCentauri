@@ -1,5 +1,4 @@
 import boto3
-from resources import constants as constants
 from boto3.dynamodb.conditions import Key
 
 import os
@@ -32,7 +31,5 @@ class dynamoTablePutURLData:
         response = table.delete_item(Key={'URL': message})
         return response
     
-    def Newcreate_alarm(self, URLLS,topicarn):
-        pass
     
     

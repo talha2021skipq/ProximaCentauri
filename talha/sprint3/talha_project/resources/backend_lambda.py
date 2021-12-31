@@ -1,6 +1,5 @@
 import json,os
 import puturlDB as putdb
-import constants as constants
 def lambda_handler(events, context):
  print(events)
  db=putdb.dynamoTablePutURLData()
