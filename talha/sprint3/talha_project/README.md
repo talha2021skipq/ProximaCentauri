@@ -38,12 +38,10 @@ Follow these easy steps to set up the environment and run the project:
  			`"@aws-cdk/core:bootstrapQualifier": "mtalhas"`
 4. The environment is bootstrapped, now it's time to deploy the pipeline. Deploy the pipeline by using the below mentioned command but make sure you are in the same directory where the `app.py` is located.  
           
-           `cdk deploy TalhaPipelineStack`
+           `cdk deploy Sprint3TalhaPipelineStck`
 5. Go to the console and open code pipelines to see the pipeline fully working. Search the pipeline by name 'Sprint3TalhaPipelineStck'. 
-6. Go to the console and open API Gateway to test and run the API. Open TalhasAPI from APIs Dashboard. Click on ANY and then it should look like this:
-    ![The API UI!](/ProximaCentauri/talha/sprint3/talha_project/ANY_APIMethod.PNG)
+6. Go to the console and open API Gateway to test and run the API. Open TalhasAPI from APIs Dashboard. Click on 'ANY' Method to open the created API Gateway for web crawler.
 7. Now click on Test to run the API and then select any method from the drop down menue to perform CRUD operations.
-8. 
 ## Project Status
 
 Completed!
