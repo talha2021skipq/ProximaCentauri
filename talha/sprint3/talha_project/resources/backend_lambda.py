@@ -23,22 +23,13 @@ def lambda_handler(events, context):
   msg="Your request is acknowledged"
   events['body']=urllist 
  elif opt=='DELETE':     ######///////DELETE///////
-  print("Helooooooooooooooo")
   urltodel=events['body']
-  print(urltodel,"Ab basssss")
-  #try: 
   response=db.ddynamo_data(table_name,urltodel)
   print(response,"JWAB")
-  msg="The Url has been deleted.?"
-  #except: 
-  #msg="Sorry this Item does not exist."
-  #msg="Let me check yar"
-  ##return {'statusCode':200}
+  msg="The Url has been deleted. Use GET method to check!"
   
-  #db.rdynamo_data(table_name,key)
-   
  else: 
-  print("select an appropriate option")
+  print("Please select an appropriate option. Appropriate Options=[PUT, GET, DELETE]")
  #if opt=='PUT' or opt=='DELETE':
   #urldict=db.rdynamo_data(table_name)#returns a dictionary
   #db.Newcreate_alarm(urldict,os.environ['mytopic'])
