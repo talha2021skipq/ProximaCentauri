@@ -1,4 +1,3 @@
-
 import json,os
 import puturlDB as putdb
 import constants as constants
@@ -41,9 +40,9 @@ def lambda_handler(events, context):
    
  else: 
   print("select an appropriate option")
- if opt=='PUT' or opt=='DELETE':
-  urldict=db.rdynamo_data(table_name)#returns a dictionary
-  db.Newcreate_alarm(urldict,os.environ['mytopic'])
+ #if opt=='PUT' or opt=='DELETE':
+  #urldict=db.rdynamo_data(table_name)#returns a dictionary
+  #db.Newcreate_alarm(urldict,os.environ['mytopic'])
   
   
 

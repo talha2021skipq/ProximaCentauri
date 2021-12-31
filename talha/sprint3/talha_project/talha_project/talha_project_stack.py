@@ -69,7 +69,7 @@ class TalhaProjectStack(cdk.Stack):
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         # Creating backend lambda for api gateway
         apibackendlambda=self.create_dblambda('ApiLambda', './resources','backend_lambda.lambda_handler' ,db_lambda_role, 
-            environment={'tablesname':urltablename, "mytopic":topic.topic_arn})
+            environment={'tablesname':urltablename})##, "mytopic":topic.topic_arn})
         apibackendlambda.grant_invoke( aws_iam.ServicePrincipal("apigateway.amazonaws.com"))
         URLtable.grant_read_write_data(apibackendlambda) 
         URLtable.grant_read_write_data(HWlambda)
@@ -89,7 +89,7 @@ class TalhaProjectStack(cdk.Stack):
         
         urldict=db.rdynamo_data(fixURLtablename)#returns a dictionary
     #    urltomonitor=el["URL"]
-        #UNOM ME #self.create_alarm(topic,urldict)#listofurls)
+        self.create_alarm(topic,urldict)#listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
         #commenting for sprint3:
         #metricduration= cloudwatch_.Metric(namespace='AWS/Lambda', metric_name='Duration',
@@ -166,8 +166,7 @@ class TalhaProjectStack(cdk.Stack):
 ##      Generating Metrics and then raising alarms on them.                                                    ####
 ####################################################################################################################
     def create_alarm(self, topic, URLLS):
-        pass
-        '''for el in URLLS:
+        for el in URLLS:
             web=el["URL"]
             dimension= {'URL':  web}
     #create cloudwatch metric for availability 
@@ -196,4 +195,4 @@ class TalhaProjectStack(cdk.Stack):
             availability_alarm.add_alarm_action(actions_.SnsAction(topic))
             latency_alarm.add_alarm_action(actions_.SnsAction(topic))
             
-        '''
+        
