@@ -1,3 +1,4 @@
+
 import json,os
 import puturlDB as putdb
 import constants as constants
@@ -14,16 +15,16 @@ def lambda_handler(events, context):
  #elif opt=='DELETE':
  #pass
  msg=""
- if opt=='PUT':          ######///////////////
+ if opt=='PUT':          ######///////PUT////////
   urls=events['body']#.split()
   #for url in urls:
   db.wdynamo_data(table_name,urls)
   msg="The item has been successfully written."
- elif opt=='GET':        ######///////////////
+ elif opt=='GET':        ######////////GET///////
   urllist=db.rdynamo_data(table_name)
   msg="Your request is acknowledged"
   events['body']=urllist 
- elif opt=='DELETE':     ######///////////////
+ elif opt=='DELETE':     ######///////DELETE///////
   print("Helooooooooooooooo")
   urltodel=events['body']
   print(urltodel,"Ab basssss")
@@ -40,6 +41,14 @@ def lambda_handler(events, context):
    
  else: 
   print("select an appropriate option")
- 
+ if opt=='PUT' or opt=='DELETE':
+  urldict=db.rdynamo_data(table_name)#returns a dictionary
+  db.Newcreate_alarm(urldict,os.environ['mytopic'])
+  
+  
+
+           
+  #pass
+  
  datares={"Response" : msg, "httpMethod": events['httpMethod'], "body": events['body'] }
  return {'statusCode':200 , 'body':json.dumps(datares)}

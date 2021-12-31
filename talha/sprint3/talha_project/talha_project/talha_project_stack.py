@@ -50,18 +50,7 @@ class TalhaProjectStack(cdk.Stack):
         db_lambda_role = self.create_db_lambda_role()
         Talha_db_lambda=self.create_dblambda('neTwlambda', './resources','talha_dynamoDb_lambda.lambda_handler' ,db_lambda_role, environment={'table_name':tablekaname})
         dynamo_table.grant_read_write_data(Talha_db_lambda) 
-        # Creating backend lambda for api gateway
-        apibackendlambda=self.create_dblambda('ApiLambda', './resources','backend_lambda.lambda_handler' ,db_lambda_role, 
-            environment={'tablesname':urltablename})
-        apibackendlambda.grant_invoke( aws_iam.ServicePrincipal("apigateway.amazonaws.com"))
-        URLtable.grant_read_write_data(apibackendlambda) 
-        URLtable.grant_read_write_data(HWlambda)
-        #Create API gateway
-        api=apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackendlambda)
-        items = api.root.add_resource("items")
-        items.add_method("GET") # GET /items
-        items.add_method("PUT") #  Allowed methods: ANY,OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD POST /items
-        items.add_method("DELETE")
+        
     #Creating an event after every one minute
         lambda_schedule= events_.Schedule.rate(cdk.Duration.minutes(1))
     #Setting target to our New WH lambda for the event##
@@ -78,16 +67,29 @@ class TalhaProjectStack(cdk.Stack):
         topic.add_subscription( subscriptions_.EmailSubscription('talha.naeem.s@skipq.org'))
 ###Add lambda subscription to db_lambda, whenever an event occurs at the specified topic
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
+        # Creating backend lambda for api gateway
+        apibackendlambda=self.create_dblambda('ApiLambda', './resources','backend_lambda.lambda_handler' ,db_lambda_role, 
+            environment={'tablesname':urltablename, "mytopic":topic})
+        apibackendlambda.grant_invoke( aws_iam.ServicePrincipal("apigateway.amazonaws.com"))
+        URLtable.grant_read_write_data(apibackendlambda) 
+        URLtable.grant_read_write_data(HWlambda)
+        #Create API gateway
+        api=apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackendlambda)
+        items = api.root.add_resource("items")
+        items.add_method("GET") # GET /items
+        items.add_method("PUT") #  Allowed methods: ANY,OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD POST /items
+        items.add_method("DELETE")
+        ## Readin URls from S3 bucket
         listofurls=s3bucket_url.read_url_list()
         #writing urls from s3 to table
         db=putdb.dynamoTablePutURLData()
-        
+        ###################### Shift URLS to S3 dynamodb table #####################################
         for u in listofurls:
             db.wdynamo_data(fixURLtablename,u)
         
         urldict=db.rdynamo_data(fixURLtablename)#returns a dictionary
     #    urltomonitor=el["URL"]
-        self.create_alarm(topic,urldict)#listofurls)
+        #UNOM ME #self.create_alarm(topic,urldict)#listofurls)
         ############Creating Alarm on aws metrics for lambda function duration ###########
         #commenting for sprint3:
         #metricduration= cloudwatch_.Metric(namespace='AWS/Lambda', metric_name='Duration',
@@ -156,7 +158,7 @@ class TalhaProjectStack(cdk.Stack):
     def create_table( self):#, table_name=constants.TABLE_NAME put back
         return db_.Table(self,id="Table" ,partition_key=db_.Attribute(name="id", type=db_.AttributeType.STRING), 
             sort_key=db_.Attribute(name="createdDate", type=db_.AttributeType.STRING))
-    
+############################################ Creating URL Table #############################    
     def create_url_table(self):
         return db_.Table(self,id="URLTable" ,partition_key=db_.Attribute(name="URL", type=db_.AttributeType.STRING))
 
@@ -164,7 +166,8 @@ class TalhaProjectStack(cdk.Stack):
 ##      Generating Metrics and then raising alarms on them.                                                    ####
 ####################################################################################################################
     def create_alarm(self, topic, URLLS):
-        for el in URLLS:
+        pass
+        '''for el in URLLS:
             web=el["URL"]
             dimension= {'URL':  web}
     #create cloudwatch metric for availability 
@@ -193,4 +196,4 @@ class TalhaProjectStack(cdk.Stack):
             availability_alarm.add_alarm_action(actions_.SnsAction(topic))
             latency_alarm.add_alarm_action(actions_.SnsAction(topic))
             
-        
+        '''
