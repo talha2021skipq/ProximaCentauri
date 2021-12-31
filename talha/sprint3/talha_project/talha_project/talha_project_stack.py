@@ -69,7 +69,7 @@ class TalhaProjectStack(cdk.Stack):
         topic.add_subscription(subscriptions_.LambdaSubscription(fn=Talha_db_lambda))
         # Creating backend lambda for api gateway
         apibackendlambda=self.create_dblambda('ApiLambda', './resources','backend_lambda.lambda_handler' ,db_lambda_role, 
-            environment={'tablesname':urltablename, "mytopic":topic.arn})
+            environment={'tablesname':urltablename, "mytopic":topic.topic_arn})
         apibackendlambda.grant_invoke( aws_iam.ServicePrincipal("apigateway.amazonaws.com"))
         URLtable.grant_read_write_data(apibackendlambda) 
         URLtable.grant_read_write_data(HWlambda)
