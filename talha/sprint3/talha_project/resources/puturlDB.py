@@ -6,7 +6,7 @@ from aws_cdk import (
     aws_cloudwatch_actions as actions_,
 )
 import boto3
-import constants as constants
+from resources import constants as constants
 from boto3.dynamodb.conditions import Key
 
 import os
