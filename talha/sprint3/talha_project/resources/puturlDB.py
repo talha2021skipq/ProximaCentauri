@@ -39,7 +39,9 @@ class dynamoTablePutURLData:
         response = table.delete_item(Key={'URL': message})
         return response
     
-    def Newcreate_alarm(self, URLLS,topic):
+    def Newcreate_alarm(self, URLLS,topicarn):
+        sns = boto3.resource('sns')
+        topic = sns.Topic(topicarn)
         for el in URLLS:
             web=el["URL"]
             dimension= {'URL':  web}
