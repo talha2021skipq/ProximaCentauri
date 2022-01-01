@@ -48,7 +48,8 @@ class TalhaProjectStack(cdk.Stack):
         URLtable.grant_full_access(lambdaforurl)
     #################     Event : Whenever a file is uploaed to S3 bucekt      ###############
         bucket = s3_.Bucket(self, "TalhasS3Bucket")
-        lambdaforurl.add_event_source(sources.S3EventSource(bucket,events=[s3_.EventType.OBJECT_CREATED],filters=[s3_.NotificationKeyFilter(suffix=".json")]))
+        lambdaforurl.add_event_source(sources.S3EventSource(bucket,events=[s3_.EventType.OBJECT_CREATED],
+                                                            filters=[s3_.NotificationKeyFilter(suffix=".json")]))
         print(urltablename)
         ############################ Creating lambda functions #######################################
         fixURLtablename="Beta-infraStack-URLTable1792207E-1E3WEGLZJ0NFU"
