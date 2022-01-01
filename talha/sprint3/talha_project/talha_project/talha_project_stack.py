@@ -93,7 +93,7 @@ class TalhaProjectStack(cdk.Stack):
         ## Readin URls from S3 bucket
      #  # listofurls=s3bucket_url.read_url_list()
         #writing urls from s3 to table
-    #    #db=putdb.dynamoTablePutURLData()
+        db=putdb.dynamoTablePutURLData()
         ###################### Shift URLS to S3 dynamodb table #####################################
     #    for u in listofurls:
      #       db.wdynamo_data(fixURLtablename,u)
