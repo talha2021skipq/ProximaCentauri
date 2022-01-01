@@ -8,7 +8,7 @@ def test_lambda():
     #template = assertions.Template.from_stack(stack)
     template=app.synth().get_stack_by_name('infStack').template
     functions= [resource for resource in template['Resources'].values() if resource['Type']=='AWS::Lambda::Function']
-    assert len(functions)==4
+    assert len(functions)>=4
 def test_alarms():
     app=core.App()
     stack=TalhaProjectStack(app, 'infStack')
@@ -18,7 +18,7 @@ def test_alarms():
     assert len(functions)>3
     #8for metrics and  for failure alarm=9total
     
-#Make sure that we have a bucket
+#Make sure that we have a bucket(necessary condition)
 def test_bucket():
     app=core.App()
     stack=TalhaProjectStack(app, 'infStack')
