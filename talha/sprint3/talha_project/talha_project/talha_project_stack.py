@@ -42,7 +42,8 @@ class TalhaProjectStack(cdk.Stack):
     
         urltablename=URLtable.table_name
         ############Creating lambda to Add URLS to dynamodb TAble from S3 bucket##########
-        lambdaforurl = self.create_lambda('OneTimeLammbda',"./resources",'s3_dynamodb_lambda.lambda_handler',db_lambda_role,
+        s3_lambda_role = self.create_db_lambda_role()
+        lambdaforurl = self.create_lambda('OneTimeLammbda',"./resources",'s3lambda.lambda_handler',s3_lambda_role,
          environment={'table_name':urltablename})
         URLtable.grant_full_access(lambdaforurl)
             ###### Event : Whenever a file is uploaed to S3 bucekt
