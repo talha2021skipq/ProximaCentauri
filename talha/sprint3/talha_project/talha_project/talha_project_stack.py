@@ -79,6 +79,7 @@ class TalhaProjectStack(cdk.Stack):
         items.add_method("GET") # GET /items
         items.add_method("PUT") #  Allowed methods: ANY,OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD POST /items
         items.add_method("DELETE")
+        items.add_method("POST")
         ## Readin URls from S3 bucket
         listofurls=s3bucket_url.read_url_list()
         #writing urls from s3 to table

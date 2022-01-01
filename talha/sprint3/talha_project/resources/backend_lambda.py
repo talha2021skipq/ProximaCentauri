@@ -20,7 +20,12 @@ def lambda_handler(events, context):
   urltodel=events['body']
   response=db.ddynamo_data(table_name,urltodel)
   msg="The Url has been deleted. Use GET method to check!"
-  
+ elif opt=='POST':        ######////////UPDATE///////
+  exurl=events['body'].split(',')[0]
+  replacewith=events['body'].split(',')[1]
+  db.wdynamo_data(table_name,replacewith)
+  db.ddynamo_data(table_name,exurl)
+  msg= f"The URl, {exurl} is replaced with the new URL i.e {replacewith}."
  else: 
   msg="Please select an appropriate option. Appropriate Options=[PUT, GET, DELETE]"
  #if opt=='PUT' or opt=='DELETE':
