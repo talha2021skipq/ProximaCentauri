@@ -6,6 +6,7 @@ from aws_cdk import (
     aws_events_targets as targets_,# aws_sqs as sqs,
     aws_iam,
     aws_cloudwatch as cloudwatch_,
+    aws_lambda_event_sources as sources,
     aws_sns as sns,
     aws_sns_subscriptions as subscriptions_,
     aws_cloudwatch_actions as actions_,
@@ -40,7 +41,15 @@ class TalhaProjectStack(cdk.Stack):
         except: pass
     
         urltablename=URLtable.table_name
+        ############Creating lambda to Add URLS to dynamodb TAble from S3 bucket##########
+        lambdaforurl = self.create_lambda('OneTimeLammbda',"./resources",'s3_dynamodb_lambda.lambda_handler',db_lambda_role,
+         environment={'table_name':urltablename})
+        URLtable.grant_full_access(lambdaforurl)
+            ###### Event : Whenever a file is uploaed to S3 bucekt
+        bucket = s3_.Bucket(self, "TalhasS3Bucket")
+        lambdaforurl.add_event_source(sources.S3EventSource(bucket,events=[s3_.EventType.OBJECT_CREATED],filters=[s3_.NotificationKeyFilter(suffix=".json")]))
         print(urltablename)
+        ##############################################################################
         fixURLtablename="Beta-infraStack-URLTable1792207E-1E3WEGLZJ0NFU"
         HWlambda=self.create_lambda('FirstHWlambda', './resources','webHealth_talha_lambda.lambda_handler' ,lambda_role, 
             environment={'tname':urltablename})
@@ -81,12 +90,12 @@ class TalhaProjectStack(cdk.Stack):
         items.add_method("DELETE")
         items.add_method("POST")
         ## Readin URls from S3 bucket
-        listofurls=s3bucket_url.read_url_list()
+     #  # listofurls=s3bucket_url.read_url_list()
         #writing urls from s3 to table
-        db=putdb.dynamoTablePutURLData()
+    #    #db=putdb.dynamoTablePutURLData()
         ###################### Shift URLS to S3 dynamodb table #####################################
-        for u in listofurls:
-            db.wdynamo_data(fixURLtablename,u)
+    #    for u in listofurls:
+     #       db.wdynamo_data(fixURLtablename,u)
         
         urldict=db.rdynamo_data(fixURLtablename)#returns a dictionary
     #    urltomonitor=el["URL"]

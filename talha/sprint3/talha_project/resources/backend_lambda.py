@@ -25,7 +25,7 @@ def lambda_handler(events, context):
   replacewith=events['body'].split(',')[1]
   db.wdynamo_data(table_name,replacewith)
   db.ddynamo_data(table_name,exurl)
-  msg= f"The URl, {exurl} is replaced with the new URL i.e {replacewith}."
+  msg= f"UPDATED: The URl, {exurl} is replaced with the new URL i.e {replacewith}."
  else: 
   msg="Please select an appropriate option. Appropriate Options=[PUT, GET, DELETE]"
  #if opt=='PUT' or opt=='DELETE':
