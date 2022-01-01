@@ -93,7 +93,7 @@ class TalhaProjectStack(cdk.Stack):
         ## Readin URls from S3 bucket
         realtimeLambda = self.create_lambda('RealTimeLammbda',"./resources",'realtimelambda.lambda_handler',db_lambda_role,
          environment={'table_name':urltablename})
-        realtimeLambda.add_event_source(apibackendlambda)
+        realtimeLambda.add_event_source.bind(apibackendlambda)
      #  # listofurls=s3bucket_url.read_url_list()
         #writing urls from s3 to table
         db=putdb.dynamoTablePutURLData()
