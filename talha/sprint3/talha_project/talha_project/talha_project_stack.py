@@ -41,16 +41,16 @@ class TalhaProjectStack(cdk.Stack):
         except: pass
     
         urltablename=URLtable.table_name
-        ############Creating lambda to Add URLS to dynamodb TAble from S3 bucket##########
+    ############### Creating lambda to Add URLS to dynamodb TAble from S3 bucket #############
         db_lambda_role = self.create_db_lambda_role()
         lambdaforurl = self.create_lambda('OneTimeLammbda',"./resources",'s3lambda.lambda_handler',db_lambda_role,
          environment={'table_name':urltablename})
         URLtable.grant_full_access(lambdaforurl)
-            ###### Event : Whenever a file is uploaed to S3 bucekt
+    #################     Event : Whenever a file is uploaed to S3 bucekt      ###############
         bucket = s3_.Bucket(self, "TalhasS3Bucket")
         lambdaforurl.add_event_source(sources.S3EventSource(bucket,events=[s3_.EventType.OBJECT_CREATED],filters=[s3_.NotificationKeyFilter(suffix=".json")]))
         print(urltablename)
-        ##############################################################################
+        ############################ Creating lambda functions #######################################
         fixURLtablename="Beta-infraStack-URLTable1792207E-1E3WEGLZJ0NFU"
         HWlambda=self.create_lambda('FirstHWlambda', './resources','webHealth_talha_lambda.lambda_handler' ,lambda_role, 
             environment={'tname':urltablename})
@@ -83,27 +83,18 @@ class TalhaProjectStack(cdk.Stack):
         apibackendlambda.grant_invoke( aws_iam.ServicePrincipal("apigateway.amazonaws.com"))
         URLtable.grant_read_write_data(apibackendlambda) 
         URLtable.grant_read_write_data(HWlambda)
-        #Create API gateway
+    ###########  Creating API gateway and addinf CRUD operations within #########################
         api=apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackendlambda)
         items = api.root.add_resource("items")
         items.add_method("GET") # GET /items
         items.add_method("PUT") #  Allowed methods: ANY,OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD POST /items
         items.add_method("DELETE")
         items.add_method("POST")
-        ## Readin URls from S3 bucket
-        realtimeLambda = self.create_lambda('RealTimeLammbda',"./resources",'realtimelambda.lambda_handler',db_lambda_role,
-         environment={'table_name':urltablename})
-        realtimeLambda.add_event_source.bind(apibackendlambda)
-     #  # listofurls=s3bucket_url.read_url_list()
-        #writing urls from s3 to table
-        db=putdb.dynamoTablePutURLData()
-        ###################### Shift URLS to S3 dynamodb table #####################################
-    #    for u in listofurls:
-     #       db.wdynamo_data(fixURLtablename,u)
         
+        db=putdb.dynamoTablePutURLData()
         urldict=db.rdynamo_data(fixURLtablename)#returns a dictionary
-    #    urltomonitor=el["URL"]
         self.create_alarm(topic,urldict)#listofurls)
+                        ####################### COMENTED FOR TIME BEING ###############
         ############Creating Alarm on aws metrics for lambda function duration ###########
         #commenting for sprint3:
         #metricduration= cloudwatch_.Metric(namespace='AWS/Lambda', metric_name='Duration',
