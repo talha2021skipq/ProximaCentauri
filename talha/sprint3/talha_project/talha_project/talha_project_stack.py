@@ -84,7 +84,7 @@ class TalhaProjectStack(cdk.Stack):
         apibackendlambda.grant_invoke( aws_iam.ServicePrincipal("apigateway.amazonaws.com"))
         URLtable.grant_read_write_data(apibackendlambda) 
         URLtable.grant_read_write_data(HWlambda)
-    ###########  Creating API gateway and addinf CRUD operations within #########################
+    ###########  Creating API gateway and adding CRUD operations within #########################
         api=apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackendlambda)
         items = api.root.add_resource("items")
         items.add_method("GET") # GET /items

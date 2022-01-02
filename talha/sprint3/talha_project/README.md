@@ -1,10 +1,22 @@
 
 
 # Sprint3: Build CRUD API Gateway for Web Crawler 
+## Table of Contents
+
+1. [Project Summary](#Project-Summary)
+
+2. [Services Covered](#Services-Covered)
+
+3. [Installation Guide](#Installation-Guide)
+
+4. [Project Status](#Project-Status)
+
+5. [Author](#Author)
+
 ## Project Summary 
 
-In the sprint3 at skipQ, I created a public CRUD API gateway so that we can Read, Write, or Delete URLs in dynamodb table through the API Gateway.
-Moreover, I have created some tests in beta stage of the code pipeline. 
+In the sprint3 at skipQ, I created a public CRUD API gateway so that user can Read, Write, Update or Delete URLs in dynamodb table through the API Gateway. I have made an update in the existing web monitoring system, that is to read web URLs from Dynamodb table instead of reading from S3 bucket.
+Moreover, I have created some unit tests in beta stage of the code pipeline while integration tests were added as post-beta step. 
 ## Services Covered
 
 1. AWS Api Gateway
@@ -42,6 +54,7 @@ Follow these easy steps to set up the environment and run the project:
 5. Go to the console and open code pipelines to see the pipeline fully working. Search the pipeline by name 'Sprint3TalhaPipelineStck'. 
 6. Go to the console and open API Gateway to test and run the API. Open TalhasAPI from APIs Dashboard. Click on 'ANY' Method to open the created API Gateway for web crawler.
 7. Now click on Test to run the API and then select any method from the drop down menue to perform CRUD operations.
+
 ## Project Status
 
 Completed!
