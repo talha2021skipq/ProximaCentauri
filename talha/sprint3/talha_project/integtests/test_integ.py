@@ -19,8 +19,9 @@ def realtime_test():
     start =datetime.datetime.now()
     api_put_res=requests.put('https://4jd8g9kea3.execute-api.us-east-2.amazonaws.com/prod/', data={"URL","dummy.com"})
     end=datetime.datetime.now()
-    latency=end-start
-    assert latency==2
+    dif=end-start
+    latency=round(dif.microseconds * 0.000001,6)
+    assert latency<5
      
      
 #assert 2==2
