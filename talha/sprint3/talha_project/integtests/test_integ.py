@@ -9,7 +9,10 @@ def test_integ():
     ##Getting the URLS in real time using API invoke link
     api_res=requests.get('https://4jd8g9kea3.execute-api.us-east-2.amazonaws.com/prod/')
     reply=json.loads(api_res.text)
-    assert len(urllist) == len(api_res['body'])
+    print("res from api", api_res)
+    print("The reply=", reply)
+    
+    assert len(urllist) == len(reply['body'])
     
      
      
