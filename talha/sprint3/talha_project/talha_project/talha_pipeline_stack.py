@@ -43,7 +43,7 @@ class TalhaPipelineStack(cdk.Stack):
                     role=pipeline_role,
                     role_policy_statements=[iam_,sts_])
         ############ Adding beta stage to pipeline with pre test #####################
-        pipeline.add_stage(beta,pre=[unit_test])
+        pipeline.add_stage(beta,post=[unit_test])
         
     ############# Defining and adding production stage in my pipeline with pre  manual approval############## 
         prod= TalhaInfraStage(self, "Prod", 
