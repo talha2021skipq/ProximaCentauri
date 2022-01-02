@@ -23,7 +23,5 @@ def realtime_test():
     assert latency==2
      
      
-    
-    
-    assert 2==2
+#assert 2==2
 # API invoke link: https://4jd8g9kea3.execute-api.us-east-2.amazonaws.com/prod/
