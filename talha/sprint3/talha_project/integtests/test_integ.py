@@ -8,7 +8,7 @@ db=putdb.dynamoTablePutURLData()
 
 def test_realtime():
     start =datetime.datetime.now()
-    api_put_res=requests.put('https://4jd8g9kea3.execute-api.us-east-2.amazonaws.com/prod/', data={"URL","dummy.com"})
+    api_put_res=requests.put('https://4jd8g9kea3.execute-api.us-east-2.amazonaws.com/prod/', data="dummy.com")
     end=datetime.datetime.now()
     dif=end-start
     latency=round(dif.microseconds * 0.000001,6)
