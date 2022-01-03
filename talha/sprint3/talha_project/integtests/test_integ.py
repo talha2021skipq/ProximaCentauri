@@ -12,7 +12,7 @@ def test_realtime():
     end=datetime.datetime.now()
     dif=end-start
     latency=round(dif.microseconds * 0.000001,6)
-    assert latency<5
+    assert latency==5 #should be less than 500ms
      
      
 def test_integ():
