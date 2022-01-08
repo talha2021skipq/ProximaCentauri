@@ -31,7 +31,7 @@ class Sprint4Stack(cdk.Stack):
         super().__init__(scope, construct_id, **kwargs)
         lambda_role=self.create_lambda_role()
     # The code that defines your stack goes here
-        fixURLtablename="Beta-infraStack-URLTable1792207E-1E3WEGLZJ0NFU"
+        fixURLtablename="Beta-talhaStack-URLTable1792207E-1M8MKFSJFCIUA"
         
     #########################################################################################################
     ############################### Creating Dynamodb Tables ################################################
