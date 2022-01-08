@@ -100,7 +100,7 @@ class Sprint4Stack(cdk.Stack):
     ##########################  Creating API gateway and adding CRUD operations within  ##########################
     ##############################################################################################################
     
-        api=apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackendlambda)
+        api=apigateway.LambdaRestApi(self, "TalhasAPI",handler=apibackendlambda, proxy= False)
         items = api.root.add_resource("items")
         items.add_method("GET") # GET /items
         items.add_method("PUT") #  Allowed methods: ANY,OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD POST /items
