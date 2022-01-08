@@ -21,8 +21,8 @@ class TalhaPipelineStack(cdk.Stack):
             input=source,
             commands=["cd talha/sprint4",
                     "pip install -r requirements.txt", 
-                    "npm install -g aws-cdk", "cdk synth"
-                    #,"npm ci", "npm run build", "npx cdk synth"
+                    "npm install -g aws-cdk", "cdk synth",
+                    "npm ci", "npm run build", "npx cdk synth"
                    ],
             primary_output_directory="talha/sprint4/cdk.out",
             role=pipeline_role,
