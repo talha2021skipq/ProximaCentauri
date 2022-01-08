@@ -109,7 +109,7 @@ class Sprint4Stack(cdk.Stack):
         ## Reading URLs from Dynamodb Table  
         db=putdb.dynamoTablePutURLData()
         urldict=db.rdynamo_data(fixURLtablename)#returns a dictionary
-    #    self.create_alarm(topic,urldict)#listofurls)
+        self.create_alarm(topic,urldict)#listofurls)
         
                         ####################### COMENTED FOR TIME BEING ###############
         ############ AUTO ROLLBACK: Creating Alarm on aws metrics for lambda function duration ###########
