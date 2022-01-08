@@ -8,7 +8,7 @@ from talha_project.talha_pipeline_stack import TalhaPipelineStack
 
 
 app = core.App()
-TalhaPipelineStack(app, 'Sprint3TalhaPipelineStack', env=core.Environment(account='315997497220',
+TalhaPipelineStack(app, 'Sprint4TalhaPipelineStack', env=core.Environment(account='315997497220',
 region='us-east-2'))
 app.synth()
 #TalhaProjectStack(app, "TalhaProjectStack",
