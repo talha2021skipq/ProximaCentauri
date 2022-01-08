@@ -52,15 +52,15 @@ class Sprint4Stack(cdk.Stack):
     #################### Creating lambda to Shift URLS data to dynamodb TAble from S3 bucket ###################
     ############################################################################################################
 #    
- #       db_lambda_role = self.create_db_lambda_role()
-  #      lambdaforurl = self.create_lambda('OneTimeLammbda',"./resources",'s3lambda.lambda_handler',db_lambda_role,
-   #      environment={'table_name':urltablename})
-    #    URLtable.grant_full_access(lambdaforurl)
+        db_lambda_role = self.create_db_lambda_role()
+        lambdaforurl = self.create_lambda('OneTimeLammbda',"./resources",'s3lambda.lambda_handler',db_lambda_role,
+         environment={'table_name':urltablename})
+        URLtable.grant_full_access(lambdaforurl)
         ###################     Event : Whenever a file is uploaed to S3 bucekt      ################
-     #   bucket = s3_.Bucket(self, "TalhasS3Bucket")
-    #    lambdaforurl.add_event_source(sources.S3EventSource(bucket,events=[s3_.EventType.OBJECT_CREATED],
-      #                                                      filters=[s3_.NotificationKeyFilter(suffix=".json")]))
-     #   print(urltablename)
+        bucket = s3_.Bucket(self, "TalhasS3Bucket")
+        lambdaforurl.add_event_source(sources.S3EventSource(bucket,events=[s3_.EventType.OBJECT_CREATED],
+                                                            filters=[s3_.NotificationKeyFilter(suffix=".json")]))
+        print(urltablename)
     
     #############################################################################################################
     ################################### Creating lambda functions ###############################################
@@ -107,8 +107,8 @@ class Sprint4Stack(cdk.Stack):
         items.add_method("DELETE")
         items.add_method("POST")
         ## Reading URLs from Dynamodb Table  
-    #    db=putdb.dynamoTablePutURLData()
-    #    urldict=db.rdynamo_data(fixURLtablename)#returns a dictionary
+        db=putdb.dynamoTablePutURLData()
+        urldict=db.rdynamo_data(fixURLtablename)#returns a dictionary
     #    self.create_alarm(topic,urldict)#listofurls)
         
                         ####################### COMENTED FOR TIME BEING ###############
