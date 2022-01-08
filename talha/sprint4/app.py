@@ -8,7 +8,7 @@ from sprint4.talha_pipeline_stack import TalhaPipelineStack
 
 
 app = core.App()
-TalhaPipelineStack(app, 'TalhaPipelineStack', env=core.Environment(account='315997497220',
+TalhaPipelineStack(app, 'TalhaPipelineStacknew', env=core.Environment(account='315997497220',
 region='us-east-2'))
 app.synth()
 #TalhaProjectStack(app, "TalhaProjectStack",
