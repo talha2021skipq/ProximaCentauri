@@ -16,7 +16,8 @@ from aws_cdk import (
     aws_dynamodb as db_,
   #  aws_lambda_event_sources as lambda_events_,
     aws_codedeploy as codedeploy,
-    aws_apigateway as apigateway
+    aws_apigateway as apigateway,
+    aws_amplify as amplify
 )
 from resources import constants as constants
 from resources import s3bucket_url 
@@ -110,7 +111,14 @@ class Sprint4Stack(cdk.Stack):
         db=putdb.dynamoTablePutURLData()
         urldict=db.rdynamo_data(fixURLtablename)#returns a dictionary
         self.create_alarm(topic,urldict)#listofurls)
+        ########################## 
+        #api_asset = s3_assets.Asset(self, "AppBuiltAsset",
+        #path='build.zip')
+        #api_asset.grant_read(lambda_role)
         
+        amplify_app = amplify.App(self, 'TalhasNewAmpApp',role=db_lambda_role)
+        branch = amplify_app.add_branch('dev')
+                
                         ####################### COMENTED FOR TIME BEING ###############
         ############ AUTO ROLLBACK: Creating Alarm on aws metrics for lambda function duration ###########
         #commenting for sprint3:
@@ -155,6 +163,7 @@ class Sprint4Stack(cdk.Stack):
                             aws_iam.ManagedPolicy.from_aws_managed_policy_name('AmazonDynamoDBFullAccess'),
                             aws_iam.ManagedPolicy.from_aws_managed_policy_name('AmazonSNSFullAccess'),
                             aws_iam.ManagedPolicy.from_aws_managed_policy_name('CloudWatchFullAccess')
+                            
                         ])
         return lambdaRole
         
