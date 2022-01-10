@@ -32,6 +32,17 @@ def lambda_handler(events, context):
   #urldict=db.rdynamo_data(table_name)#returns a dictionary
   #db.Newcreate_alarm(urldict,os.environ['mytopic'])
   
- datares={"Response" : msg, "httpMethod": events['httpMethod'], "body": events['body'] }
- return {'statusCode':200 , 'body':json.dumps(datares)}
+# datares={"Response" : msg, "httpMethod": events['httpMethod'], "body": events['body'] }
+ #return {'statusCode':200 , 'body':json.dumps(datares)}
+ return {
+        
+        'statusCode' : 200,
+        'headers': {
+          'Access-Control-Allow-Headers': '*',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET'
+          },
+        'body'  :  json.dumps(events['body'])
+        
+    }
 ############ The end
