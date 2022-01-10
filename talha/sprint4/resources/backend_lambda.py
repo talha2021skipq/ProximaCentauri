@@ -15,7 +15,7 @@ def lambda_handler(events, context):
  elif opt=='GET':        ######////////GET///////
   urllist=db.rdynamo_data(table_name)
   msg="Your request is acknowledged"
-  events['body']=urllist 
+  events['body']=urllist.values() 
  elif opt=='DELETE':     ######///////DELETE///////
   urltodel=events['body']
   response=db.ddynamo_data(table_name,urltodel)

@@ -22,7 +22,7 @@ class dynamoTablePutURLData:
         while 'LastEvaluatedKey' in response:
             response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
             data.extend(response['Items'])
-        return data.values
+        return data
     #Function for dynamodb table to delete an element
     def ddynamo_data(self,tableName,message):
         dynamodb = boto3.resource('dynamodb')
