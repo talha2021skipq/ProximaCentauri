@@ -117,7 +117,7 @@ class Sprint4Stack(cdk.Stack):
         #api_asset.grant_read(lambda_role)
         
         amplify_app = amplify.App(self, 'TalhasNewAmpApp',role=db_lambda_role)
-        branch = amplify_app.add_branch('dev')
+#        branch = amplify_app.add_branch('dev')
                 
                         ####################### COMENTED FOR TIME BEING ###############
         ############ AUTO ROLLBACK: Creating Alarm on aws metrics for lambda function duration ###########

@@ -44,7 +44,7 @@ def lambda_handler(events, context):
         'headers': {
           'Access-Control-Allow-Headers': '*',
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET'
+          'Access-Control-Allow-Methods': '*'
           },
         'body'  :  json.dumps(events['body'])
         
