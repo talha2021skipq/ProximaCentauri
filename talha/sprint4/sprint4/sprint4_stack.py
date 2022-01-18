@@ -17,7 +17,11 @@ from aws_cdk import (
   #  aws_lambda_event_sources as lambda_events_,
     aws_codedeploy as codedeploy,
     aws_apigateway as apigateway,
-    aws_amplify as amplify
+    aws_amplify as amplify,
+    aws_ec2 as ec2,
+    aws_ecr as ecr,
+    aws_ecs as ecs
+    
 )
 from resources import constants as constants
 from resources import s3bucket_url 
@@ -110,7 +114,14 @@ class Sprint4Stack(cdk.Stack):
         ## Reading URLs from Dynamodb Table  
         db=putdb.dynamoTablePutURLData()
         urldict=db.rdynamo_data(fixURLtablename)#returns a dictionary
-        self.create_alarm(topic,urldict)#listofurls)
+        
+        
+        repo = ecr.Repository.from_repository_name(self, "TalhaECR", "talhanew")
+        image=ecs.EcrImage(repo, "latest")
+        #self.create_alarm(topic,urldict)#listofurls)
+        
+        
+        
         ########################## 
         #api_asset = s3_assets.Asset(self, "AppBuiltAsset",
         #path='build.zip')
