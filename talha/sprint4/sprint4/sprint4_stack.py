@@ -118,7 +118,30 @@ class Sprint4Stack(cdk.Stack):
         
         repo = ecr.Repository.from_repository_name(self, "TalhaECR", "talhanew")
         image=ecs.EcrImage(repo, "latest")
-        #self.create_alarm(topic,urldict)#listofurls)
+        
+        # Create an ECS cluster
+        vpc = ec2.Vpc(self, "VPC")
+        cluster = ecs.Cluster(self, "IrfanCluster",vpc=vpc)
+        
+        # Add capacity to it
+        cluster.add_capacity("TalhasClustercapacity",
+            instance_type=ec2.InstanceType("t2.xlarge"))
+        
+        task_definition = ecs.Ec2TaskDefinition(self, "TaskDef")
+        task_definition.add_container("DefaultContainer",
+            image=image,
+            memory_limit_mib=512        )
+        
+        # Instantiate an Amazon ECS Service
+   #     ecs_service = ecs.Ec2Service(self, "Service",
+  #          cluster=cluster,
+ #           task_definition=task_definition
+#        )
+
+
+     
+        
+    #    #self.create_alarm(topic,urldict)#listofurls)
         
         
         
