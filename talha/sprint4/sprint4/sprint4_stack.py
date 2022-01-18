@@ -121,7 +121,7 @@ class Sprint4Stack(cdk.Stack):
         
         # Create an ECS cluster
         vpc = ec2.Vpc(self, "VPC")
-        cluster = ecs.Cluster(self, "IrfanCluster",vpc=vpc)
+        cluster = ecs.Cluster(self, "TalhaCluster",vpc=vpc)
         
         # Add capacity to it
         cluster.add_capacity("TalhasClustercapacity",
@@ -133,10 +133,9 @@ class Sprint4Stack(cdk.Stack):
             memory_limit_mib=512        )
         
         # Instantiate an Amazon ECS Service
-   #     ecs_service = ecs.Ec2Service(self, "Service",
-  #          cluster=cluster,
- #           task_definition=task_definition
-#        )
+        ecs_service = ecs.Ec2Service(self, "TalhaService",
+            cluster=cluster,
+            task_definition=task_definition  )
 
 
      
