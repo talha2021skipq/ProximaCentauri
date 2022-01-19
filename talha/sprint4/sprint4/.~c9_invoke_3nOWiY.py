@@ -130,7 +130,6 @@ class Sprint4Stack(cdk.Stack):
         task_definition = ecs.Ec2TaskDefinition(self, "TaskDef")
         task_definition.add_container("DefaultContainer",
             image=image,
-            command=["docker run --rm talhanew https://n0q8c9iur5.execute-api.us-east-2.amazonaws.com/prod/ talhagettest.yaml"],
             memory_limit_mib=512        )
         
         # Instantiate an Amazon ECS Service
