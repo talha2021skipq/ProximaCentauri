@@ -135,7 +135,7 @@ class Sprint4Stack(cdk.Stack):
         
         # Instantiate an Amazon ECS Service
         ecs_service = ecs.Ec2Service(self, "TalhaService",
-            cluster=cluster,
+            cluster=cluster,desired_count=2,enable_execute_command=True,
             task_definition=task_definition  )
 
 
