@@ -132,7 +132,7 @@ class Sprint4Stack(cdk.Stack):
         
         task_definition.add_container("DefaultContainerr",
             image=image,#working_directory='./pyresttest/',
-            assign_public_ip =True,
+          #  assign_public_ip =True,
             command=["docker run --rm 315997497220.dkr.ecr.us-east-2.amazonaws.com/talhanew https://n0q8c9iur5.execute-api.us-east-2.amazonaws.com/prod/ talhagettest.yaml"],
             memory_limit_mib=512        )
         
