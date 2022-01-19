@@ -115,28 +115,31 @@ class Sprint4Stack(cdk.Stack):
         db=putdb.dynamoTablePutURLData()
         urldict=db.rdynamo_data(fixURLtablename)#returns a dictionary
         
-        
+        #####################################################################################################################
+        ## Pull image
         repo = ecr.Repository.from_repository_name(self, "TalhaECR", "talhanew")
         image=ecs.EcrImage(repo, "latest")
         
         # Create an ECS cluster
-        vpc = ec2.Vpc(self, "VPC")
-        cluster = ecs.Cluster(self, "TalhaCluster",vpc=vpc)
+#        vpc = ec2.Vpc(self, "VPC")
+ #       cluster = ecs.Cluster(self, "TalhaCluster",vpc=vpc)
         
         # Add capacity to it
-        cluster.add_capacity("TalhasClustercapacity",
-            instance_type=ec2.InstanceType("t2.xlarge"))
+  #      cluster.add_capacity("TalhasClustercapacity",
+   #         instance_type=ec2.InstanceType("t2.xlarge"))
         
-        task_definition = ecs.Ec2TaskDefinition(self, "TaskDef")
-        task_definition.add_container("DefaultContainer",
-            image=image,working_directory='./pyresttest/',
-            command=["docker run --rm 315997497220.dkr.ecr.us-east-2.amazonaws.com/talhanew https://n0q8c9iur5.execute-api.us-east-2.amazonaws.com/prod/ talhagettest.yaml"],
-            memory_limit_mib=512        )
+    #    task_definition = ecs.Ec2TaskDefinition(self, "TaskDef")
+        
+     #   task_definition.add_container("DefaultContainer",
+      #      image=image,working_directory='./pyresttest/',
+       #     assign_public_ip =True,
+        #    command=["docker run --rm 315997497220.dkr.ecr.us-east-2.amazonaws.com/talhanew https://n0q8c9iur5.execute-api.us-east-2.amazonaws.com/prod/ talhagettest.yaml"],
+         #   memory_limit_mib=512        )
         
         # Instantiate an Amazon ECS Service
-        ecs_service = ecs.Ec2Service(self, "TalhaService",
-            cluster=cluster,desired_count=2,enable_execute_command=True,
-            task_definition=task_definition  )
+#        ecs_service = ecs.Ec2Service(self, "TalhaService",
+ #           cluster=cluster,desired_count=2,enable_execute_command=True,
+  #          task_definition=task_definition  )
 
 
      
