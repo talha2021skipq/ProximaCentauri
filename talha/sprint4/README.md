@@ -1,12 +1,12 @@
 
 
-# Sprint4: Create and Deploy a Frontend for the API Gateway Using ReactJS Chakra UI 
+# Sprint5: Docker Image for API Testing with AWS ECS Deployment from Image Repository at AWS ECR 
 ## Table of Contents
 
 1. [Project Summary](#Project-Summary)
 2. [Services Covered](#Services-Covered)
 3. [Installation Guide](#Installation-Guide)
-4. [ReactJS App Creation](#ReactJS-App-Creation)
+4. [Docker Commands](#Docker-Commands)
 5. [Project Status](#Project-Status)
 6. [Author](#Author)
 
