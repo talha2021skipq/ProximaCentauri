@@ -12,16 +12,18 @@
 
 ## Project Summary 
 
-In the previous work, I created a public CRUD API gateway so that user can Read, Write, Update or Delete URLs in dynamodb table through the API Gateway. To deliver this service to the user, I designed a frontend for this API gateway and I have implemented Oauth as authorization or my frontend. I have created a ReactJs app in VS code,the app folder will also be uploaded to github, but you need to setup this APP seperately in VS Code or just git clone. 
+In the sprint, I will use docker-compose to build API test clients using pyresttest and Syntribos. These tests will exercise the web crawler's CRUD endpoint built in the previous sprint. I will publish the built images to AWS ECR and deploy API test clients an EC2 instance using ECS. In the end, I will have to push API test results into CloudWatch and setup alarming and notification on API test metrics. 
 ## Services Covered
 
 1. AWS API Gateway
 2. Dynamodb
 3. S3 buckets
 5. AWS lambda
-6. AWS Amplify
-7. AWS Pipelines
-9. AWS Codepipeline Actions
+6. AWS Pipelines
+7. AWS Codepipeline Actions
+8. AWS ECR
+9. AWS ECS
+10. AWS EC2
 
 ## Installation Guide 
 
@@ -44,46 +46,30 @@ Follow these easy steps to set up the environment and run the project:
 4. The environment is bootstrapped, now it's time to deploy the pipeline. Deploy the pipeline by using the below mentioned command but make sure you are in the same directory where the `app.py` is located.  
           
            `cdk deploy Sprint4TalhaPipelineStck`
-5. Go to the console and open code pipelines to see the pipeline fully working. Search the pipeline by name 'Sprint3TalhaPipelineStck'. 
-6. Go to the console and open API Gateway to test and run the API. Open TalhasAPI from APIs Dashboard. Click on 'ANY' Method to open the created API Gateway for web crawler.
-7. Now click on Test to run the API and then select any method from the drop down menue to perform CRUD operations.
+5. Go to the console and open code pipelines to see the pipeline fully working. Search the pipeline by name 'TalhaPipelineStack'. 
+6. Go to the console and open AWS ECS to see Task Definition and Cluster which are created to deploy the docker image in them. 
 
-## ReactJS App Creation
+## Docker Commands
 
-To start with ReactJS app, you have to follow these easy steps:
+To start with Docker image, you have to go to the directory in which the Docker file is located and then follow these easy steps:
 
-1. Go to terminal and run this command to create a reactJS app,
+1. Go to terminal and run this command to build the Docker image,
 
-        `npm install –g create-react-app`
+        `docker build -t talhanew .`
 
-2. Then run,
+2. Then run this command to check the newly built image,
 
-        `npm create-react-app talhas_rjs_ap`
+        `docker images`
 
-3. Go to that app folder,
+3. Configure the aws for ECR authentication (You will have to give access token and the ID),
 
-        `cd talhas_rjs_app`
+        `aws configure`
 
-4. Install the dependencies:
+4. Push the image to AWS ECR,
 
-CHAKRA
 
-        `npm i @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^5`
-React-Paginate        
+        `docker push image-name:tag`
 
-        `npm install react-paginate`
-AXIOS
-    
-        `npm i axios`
-    
-
-5. Arrange the file in the same format as shown above and the run the app using,
-    
-        `npm start`
-6. Now you need build of this app to deploy it in AWS_AMPLIFY, So for that run the following command:
-        `npm run build`
-7. Now a folder with name 'build' will be created in the same directory, now you have to zip this folder by keeping all the files directly in the zip file and then upload the zip file either directly in you amplify app, or in S3 bucket if the amplify app is sourced from the bucket.  
-That's ALL
 ## Project Status
 
 Completed!
