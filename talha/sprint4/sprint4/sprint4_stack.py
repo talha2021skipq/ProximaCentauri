@@ -135,12 +135,12 @@ class Sprint4Stack(cdk.Stack):
           #  assign_public_ip =True,
             command=["docker run --rm 315997497220.dkr.ecr.us-east-2.amazonaws.com/talhanew https://n0q8c9iur5.execute-api.us-east-2.amazonaws.com/prod/ talhagettest.yaml"],
             memory_limit_mib=512        )
-        
+''''        
         # Instantiate an Amazon ECS Service
         ecs_service = ecs.Ec2Service(self, "TalhaServicee",
             cluster=cluster,desired_count=5,enable_execute_command=True,
             task_definition=task_definition  )
-
+'''
 
      
         
