@@ -120,8 +120,8 @@ class Sprint4Stack(cdk.Stack):
         repo = ecr.Repository.from_repository_name(self, "TalhasECR", "talhanew")
         image=ecs.EcrImage(repo, "latest")
         
-        # Create an ECS cluster
-        vpc = ec2.Vpc(self, "VPC")
+         # Create an ECS cluster
+        vpc = ec2.Vpc.from_lookup(self, "Talhasvpc",is_default=True)
         cluster = ecs.Cluster(self, "TalhasCluster",vpc=vpc)
         
         # Add capacity to it
